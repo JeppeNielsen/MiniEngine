@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7214CA2621DEA8AC00D1FEFA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CA2521DEA8AC00D1FEFA /* main.cpp */; };
 		7214CA2F21DEA95B00D1FEFA /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CA2D21DEA95B00D1FEFA /* Engine.cpp */; };
-		7214CA3721DEAF4100D1FEFA /* InputManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CA3621DEAF4100D1FEFA /* InputManager.cpp */; };
 		7214CA3A21DEB0B200D1FEFA /* Device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CA3821DEB0B200D1FEFA /* Device.cpp */; };
 		7214CA4121DEB29100D1FEFA /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CA3F21DEB29100D1FEFA /* Timer.cpp */; };
 		7214CA4721DFF1BE00D1FEFA /* Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7214CA4521DFF1BD00D1FEFA /* Window.mm */; };
@@ -53,8 +52,6 @@
 		7214CA2521DEA8AC00D1FEFA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7214CA2D21DEA95B00D1FEFA /* Engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
 		7214CA2E21DEA95B00D1FEFA /* Engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Engine.hpp; sourceTree = "<group>"; };
-		7214CA3221DEAF0E00D1FEFA /* InputManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InputManager.hpp; sourceTree = "<group>"; };
-		7214CA3621DEAF4100D1FEFA /* InputManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InputManager.cpp; sourceTree = "<group>"; };
 		7214CA3821DEB0B200D1FEFA /* Device.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Device.cpp; sourceTree = "<group>"; };
 		7214CA3921DEB0B200D1FEFA /* Device.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Device.hpp; sourceTree = "<group>"; };
 		7214CA3D21DEB12200D1FEFA /* Event.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Event.hpp; sourceTree = "<group>"; };
@@ -176,7 +173,6 @@
 		7214CA3421DEAF2B00D1FEFA /* Platform */ = {
 			isa = PBXGroup;
 			children = (
-				7214CA3221DEAF0E00D1FEFA /* InputManager.hpp */,
 				7214CA4621DFF1BD00D1FEFA /* Window.hpp */,
 				7214CA3521DEAF3000D1FEFA /* OSX */,
 			);
@@ -187,7 +183,6 @@
 			isa = PBXGroup;
 			children = (
 				7214CA4521DFF1BD00D1FEFA /* Window.mm */,
-				7214CA3621DEAF4100D1FEFA /* InputManager.cpp */,
 			);
 			path = OSX;
 			sourceTree = "<group>";
@@ -309,7 +304,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7214CA3721DEAF4100D1FEFA /* InputManager.cpp in Sources */,
 				7214CA4721DFF1BE00D1FEFA /* Window.mm in Sources */,
 				7214CA7621E019CF00D1FEFA /* Plane.cpp in Sources */,
 				7214CA7A21E019CF00D1FEFA /* Ray.cpp in Sources */,
