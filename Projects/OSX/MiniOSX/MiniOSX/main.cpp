@@ -10,22 +10,32 @@
 
 #include "Engine.hpp"
 
+using namespace Mini;
 
-struct Game : Mini::IState {
+struct Game : IState {
     void Initialize() override {
         std::cout << "Started" <<std::endl;
-        
+        device.Input.ButtonDown.Bind(this, &Game::ButtonDown);
+        device.Input.TouchDown.Bind(this, &Game::TouchDown);
+        device.Input.TouchUp.Bind(this, &Game::TouchUp);
     }
     
-    float time = 0;
-
+    void TouchDown(TouchEvent e) {
+        std::cout << "Touch down : " << e.Position << std::endl;
+    }
+    
+    void TouchUp(TouchEvent e) {
+        std::cout << "Touch Up : " << e.Position << std::endl;
+    }
+    
+    void ButtonDown(ButtonEvent e) {
+        std::cout << "Button  : " << e.Id << std::endl;
+    }
+    
     void Update(float dt) override {
-        std::cout << time << std::endl;
-        time += dt;
     }
 
     void Render() override {
-        std::cout << "Render" << std::endl;
     }
 };
 

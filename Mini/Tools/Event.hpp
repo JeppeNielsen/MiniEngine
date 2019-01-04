@@ -16,7 +16,7 @@ private:
     using Delegate = IDelegate<T...>;
     using Delegates = std::vector<Delegate*>;
     Delegates delegates;
-    int defaultDelegatesCount;
+    int defaultDelegatesCount = 0;
     
     template<typename Obj>
     struct DelegateMember : public IDelegate<T...> {
@@ -56,7 +56,7 @@ private:
     
 public:
     
-    Event() : defaultDelegatesCount(0) {}
+    Event() {}
     Event(const Event<T...>& other) {
         ClearNonDefaults();
     }

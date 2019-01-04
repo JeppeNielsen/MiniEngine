@@ -8,6 +8,7 @@
 
 #pragma once
 #include <functional>
+#include "InputDevice.hpp"
 
 namespace Mini {
     class Window {
@@ -24,5 +25,6 @@ namespace Mini {
         
         OnInitialize onInitialize;
         OnUpdate onUpdate;
+        InputDevice inputDevice;
     };
 }

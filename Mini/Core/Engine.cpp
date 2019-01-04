@@ -17,7 +17,10 @@ void Engine::MainLoop() {
     },
     [&, this]() {
         timer.Start();
+        window.inputDevice.StartFrame();
+        window.inputDevice.UpdateInputManager(state->device.Input);
         state->Update(elapsed);
+        window.inputDevice.EndFrame();
         window.PreRender();
         state->Render();
         window.PostRender();

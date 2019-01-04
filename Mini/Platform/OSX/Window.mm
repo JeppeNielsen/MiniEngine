@@ -55,7 +55,7 @@ static Mini::Window* engineWindow;
     GLint defaultFBO;
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
     
-    //Pocket::Window::Framebuffer = (uint)defaultFBO;
+    //Window::Framebuffer = (uint)defaultFBO;
     
     NSApplication* app = [NSApplication sharedApplication];
     NSMenu* menu = [[NSMenu alloc] initWithTitle: @""];
@@ -74,29 +74,30 @@ static Mini::Window* engineWindow;
 
 - (void) mouseDown:(NSEvent*)theEvent {
     NSPoint location = [self convertLocation:theEvent.locationInWindow];
-    //Pocket::OSXWindowCreator::Instance()->Down(0, location.x, location.y);
+    engineWindow->inputDevice.SetTouch(0, true, Vector2(location.x, location.y));
 }
 
 -(void) mouseUp:(NSEvent *)theEvent {
     NSPoint location = [self convertLocation:theEvent.locationInWindow];
-    //Pocket::OSXWindowCreator::Instance()->Up(0, location.x, location.y);
+    engineWindow->inputDevice.SetTouch(0, false, Vector2(location.x, location.y));
 }
 
 -(void) mouseDragged:(NSEvent *)theEvent {
     NSPoint location = [self convertLocation:theEvent.locationInWindow];
-    //Pocket::OSXWindowCreator::Instance()->Move(0, location.x, location.y);
+    //OSXWindowCreator::Instance()->Move(0, location.x, location.y);
+    engineWindow->inputDevice.SetTouchPosition(0, Vector2(location.x, location.y));
 }
 
 -(void)mouseMoved:(NSEvent *)theEvent {
     NSPoint location = [self convertLocation:theEvent.locationInWindow];
-    /*Pocket::OSXWindowCreator::Instance()->Set(0, location.x, location.y);
-    Pocket::OSXWindowCreator::Instance()->Set(1, location.x, location.y);
-    Pocket::OSXWindowCreator::Instance()->Set(2, location.x, location.y);
-    */
+    
+    engineWindow->inputDevice.SetTouch(0, false, Vector2(location.x, location.y));
+    engineWindow->inputDevice.SetTouch(1, false, Vector2(location.x, location.y));
+    engineWindow->inputDevice.SetTouch(2, false, Vector2(location.x, location.y));
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent {
-    //Pocket::OSXWindowCreator::Instance()->SetScroll(theEvent.scrollingDeltaY);
+    engineWindow->inputDevice.SetScroll(theEvent.scrollingDeltaY);
 }
 
 -(NSPoint) convertLocation: (NSPoint) point {
@@ -105,84 +106,78 @@ static Mini::Window* engineWindow;
 
 -(void)rightMouseDown:(NSEvent *)theEvent {
     NSPoint location = [self convertLocation:theEvent.locationInWindow];
-    //Pocket::OSXWindowCreator::Instance()->Down(1, location.x, location.y);
+    engineWindow->inputDevice.SetTouch(1, true, Vector2(location.x, location.y));
 }
 
 -(void)rightMouseUp:(NSEvent *)theEvent {
     NSPoint location = [self convertLocation:theEvent.locationInWindow];
-    //Pocket::OSXWindowCreator::Instance()->Up(1, location.x, location.y);
+    engineWindow->inputDevice.SetTouch(1, false, Vector2(location.x, location.y));
 }
 
 -(void)rightMouseDragged:(NSEvent *)theEvent {
     NSPoint location = [self convertLocation:theEvent.locationInWindow];
-    //Pocket::OSXWindowCreator::Instance()->Move(1, location.x, location.y);
+    engineWindow->inputDevice.SetTouchPosition(1, Vector2(location.x, location.y));
 }
 
 -(void)otherMouseDown:(NSEvent *)theEvent {
     if (theEvent.type == NSOtherMouseDown) {
         NSPoint location = [self convertLocation:theEvent.locationInWindow];
-        //Pocket::OSXWindowCreator::Instance()->Down(2, location.x, location.y);
+        engineWindow->inputDevice.SetTouch(2, true, Vector2(location.x, location.y));
     }
 }
 
 -(void)otherMouseUp:(NSEvent *)theEvent {
     if (theEvent.type == NSOtherMouseUp) {
         NSPoint location = [self convertLocation:theEvent.locationInWindow];
-        //Pocket::OSXWindowCreator::Instance()->Up(2, location.x, location.y);
+        engineWindow->inputDevice.SetTouch(2, false, Vector2(location.x, location.y));
     }
 }
 
 -(void)otherMouseDragged:(NSEvent *)theEvent {
     if (theEvent.type == NSOtherMouseDragged) {
         NSPoint location = [self convertLocation:theEvent.locationInWindow];
-        //Pocket::OSXWindowCreator::Instance()->Move(2, location.x, location.y);
+        engineWindow->inputDevice.SetTouchPosition(2, Vector2(location.x, location.y));
     }
 }
 
 -(void)keyDown:(NSEvent *)theEvent {
-
-/*
-    Pocket::ModifierKey modifierKey = Pocket::ModifierKey::None;
+    ModifierKey modifierKey = ModifierKey::None;
 
     NSUInteger flags = [[NSApp currentEvent] modifierFlags];
     if ((flags & NSShiftKeyMask)) {
-        modifierKey = Pocket::ModifierKey::Shift;
+        modifierKey = ModifierKey::Shift;
     } else if ((flags & NSCommandKeyMask)) {
-        modifierKey = Pocket::ModifierKey::Command;
+        modifierKey = ModifierKey::Command;
     } else if ((flags & NSAlternateKeyMask)) {
-        modifierKey = Pocket::ModifierKey::Alt;
+        modifierKey = ModifierKey::Alt;
     } else if ((flags & NSControlKeyMask)) {
-        modifierKey = Pocket::ModifierKey::Ctrl;
+        modifierKey = ModifierKey::Ctrl;
     }
- 
 
     unichar cd = [[theEvent characters] characterAtIndex:0];
     NSString* str = [NSString stringWithCharacters:&cd length:1];
-    //Pocket::OSXWindowCreator::Instance()->ButtonDown([str UTF8String], modifierKey);
- 
- */
+    engineWindow->inputDevice.SetButton([str UTF8String], true, modifierKey);
 }
 
 -(void)keyUp:(NSEvent *)theEvent {
     unichar cd = [[theEvent characters] characterAtIndex:0];
     NSString* str = [NSString stringWithCharacters:&cd length:1];
-    
-    //Pocket::OSXWindowCreator::Instance()->ButtonUp([str UTF8String]);
+    engineWindow->inputDevice.SetButton([str UTF8String], false, ModifierKey::None);
 }
 
-//std::map<NSMenuItem*, Pocket::AppMenu*> menuItemToAppMenu;
+//std::map<NSMenuItem*, AppMenu*> menuItemToAppMenu;
 
 -(NSMenuItem*)createMenuItem:(NSMenu *)menu withText:(NSString*)text withObject:(void*)object withShortCut:(NSString*)shortCut
 {
     //NSMenuItem* menuItem = [[menu addItemWithTitle:text action:@selector(menuItemClicked:) keyEquivalent:shortCut] retain];
-    //menuItemToAppMenu[menuItem] = (Pocket::AppMenu*)object;
+    //menuItemToAppMenu[menuItem] = (AppMenu*)object;
     //return menuItem;
     return NULL;
 }
 
 -(void)removeMenuItem:(NSMenu *)menu withItem:(void*)item {
     /*for(auto it : menuItemToAppMenu) {
-        if (it.second == (Pocket::AppMenu*)item){
+        if (it.second == (AppMenu*)item){
             [menu removeItem:it.first];
             menuItemToAppMenu.erase(menuItemToAppMenu.find(it.first));
             break;
@@ -200,7 +195,7 @@ static Mini::Window* engineWindow;
 - (void)viewDidChangeBackingProperties {
     NSScreen* scr = [[self window] screen];
     float scalingFactor = [scr backingScaleFactor];
-    //Pocket::Engine::Context().ScreenScalingFactor = scalingFactor;
+    //Engine::Context().ScreenScalingFactor = scalingFactor;
 }
 
 @end
@@ -217,16 +212,11 @@ static Mini::Window* engineWindow;
 
 @implementation AppDelegate
 
-//- (void)dealloc
-//{
-//    //[super dealloc];
-//}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    int windowWidth = 1280;//Pocket::OSXWindowCreator::Instance()->Width;
-    int windowHeight = 920;// Pocket::OSXWindowCreator::Instance()->Height;
-    bool isFullScreen = false;//Pocket::OSXWindowCreator::Instance()->FullScreen;
+    int windowWidth = 1280;//OSXWindowCreator::Instance()->Width;
+    int windowHeight = 920;// OSXWindowCreator::Instance()->Height;
+    bool isFullScreen = false;//OSXWindowCreator::Instance()->FullScreen;
     
     NSRect mainScreenSize = [[NSScreen mainScreen] frame];
     
@@ -238,8 +228,8 @@ static Mini::Window* engineWindow;
         //windowHeight = mainScreenSize.size.height;
         xPos = 0;
         yPos = 0;
-        //Pocket::OSXWindowCreator::Instance()->Width = windowWidth;
-        //Pocket::OSXWindowCreator::Instance()->Height = windowHeight;
+        //OSXWindowCreator::Instance()->Width = windowWidth;
+        //OSXWindowCreator::Instance()->Height = windowHeight;
     }
     
     NSRect frame = NSMakeRect(xPos, yPos, windowWidth, windowHeight);
@@ -277,7 +267,7 @@ static Mini::Window* engineWindow;
     [view setWantsBestResolutionOpenGLSurface:YES];
     
     float scalingFactor = [[NSScreen mainScreen] backingScaleFactor];
-    //Pocket::Engine::Context().ScreenScalingFactor = scalingFactor;
+    //Engine::Context().ScreenScalingFactor = scalingFactor;
     
     [window setContentView:view ];
     
@@ -306,23 +296,14 @@ static Mini::Window* engineWindow;
 }
 
 - (void)windowDidResize:(NSNotification *)notification {
-    //Pocket::OSXWindowCreator::Instance()->ScreenSizeChanged(view.bounds.size.width, view.bounds.size.height);
+    //OSXWindowCreator::Instance()->ScreenSizeChanged(view.bounds.size.width, view.bounds.size.height);
 }
 
 @end
 
-
-
-
-
-
-
-
-
-
-
 void Window::StartLoop(OnInitialize onInitialize, OnUpdate onUpdate) {
 
+    inputDevice.Initialize(3);
     engineWindow = this;
 
     this->onInitialize = onInitialize;
