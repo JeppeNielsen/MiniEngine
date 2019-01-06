@@ -15,6 +15,7 @@ namespace Mini {
     public:
         void Exit();
         InputManager Input;
+        Property<Vector2> ScreenSize;
     private:
         bool exited = false;
         friend class Engine;

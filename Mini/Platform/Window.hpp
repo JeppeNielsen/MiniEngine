@@ -15,16 +15,18 @@ namespace Mini {
     public:
        using OnInitialize = std::function<void()>;
        using OnUpdate = std::function<bool()>;
-       
+       using OnScreenSizeChanged = std::function<void(int, int)>;
     
        void StartLoop(OnInitialize onInitialize,
-                      OnUpdate onUpdate);
+                      OnUpdate onUpdate,
+                      OnScreenSizeChanged onScreenSizeChanged);
         
        void PreRender();
        void PostRender();
         
         OnInitialize onInitialize;
         OnUpdate onUpdate;
+        OnScreenSizeChanged onScreenSizeChanged;
         InputDevice inputDevice;
     };
 }

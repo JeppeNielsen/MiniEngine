@@ -8,15 +8,22 @@
 
 #include "Engine.hpp"
 
-struct Game : Mini::IState {
+using namespace Mini;
+
+struct Game : IState {
 
     void Initialize() override {
         device.Input.ButtonDown.Bind(this, &Game::ButtonDown);
+        device.ScreenSize.Changed.Bind(this, &Game::ScreenSizeChanged);
     }
     
-    void ButtonDown(Mini::ButtonEvent e) {
+    void ButtonDown(ButtonEvent e) {
         std::cout << e.Id << std::endl;
         if (e.Id == "j") device.Exit();
+    }
+    
+    void ScreenSizeChanged() {
+        std::cout << "Screen size changed: " << device.ScreenSize << std::endl;
     }
 
     void Update(float dt) override {
@@ -29,7 +36,7 @@ struct Game : Mini::IState {
 };
 
 int main() {
-    Mini::Engine e;
+    Engine e;
     e.Start<Game>();
     return 0;
 }

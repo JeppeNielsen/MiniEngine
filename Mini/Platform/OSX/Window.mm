@@ -14,6 +14,8 @@
 using namespace Mini;
 
 static Mini::Window* engineWindow;
+static int globalWindowWidth;
+static int globalWindowHeight;
 
 @interface OSXView : NSOpenGLView <NSWindowDelegate>
 {
@@ -287,6 +289,7 @@ static Mini::Window* engineWindow;
     [window makeKeyAndOrderFront: window];
     
     [window orderFront:window];
+    
     engineWindow->onInitialize();
 }
 
@@ -296,18 +299,21 @@ static Mini::Window* engineWindow;
 }
 
 - (void)windowDidResize:(NSNotification *)notification {
-    //OSXWindowCreator::Instance()->ScreenSizeChanged(view.bounds.size.width, view.bounds.size.height);
+    globalWindowWidth = view.bounds.size.width;
+    globalWindowHeight = view.bounds.size.height;
+    engineWindow->onScreenSizeChanged(globalWindowWidth, globalWindowHeight);
 }
 
 @end
 
-void Window::StartLoop(OnInitialize onInitialize, OnUpdate onUpdate) {
+void Window::StartLoop(OnInitialize onInitialize, OnUpdate onUpdate, OnScreenSizeChanged onScreenSizeChanged) {
 
     inputDevice.Initialize(3);
     engineWindow = this;
 
     this->onInitialize = onInitialize;
     this->onUpdate = onUpdate;
+    this->onScreenSizeChanged = onScreenSizeChanged;
     
     [NSApplication sharedApplication];
     AppDelegate *appDelegate = [[AppDelegate alloc] init];
@@ -316,8 +322,8 @@ void Window::StartLoop(OnInitialize onInitialize, OnUpdate onUpdate) {
 }
 
 void Window::PostRender() {
-    glViewport(0, 0, 1280, 920);
-    glClearColor(1, 0, 0, 0);
+    glViewport(0, 0, globalWindowWidth, globalWindowHeight);
+    glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_CULL_FACE);
 }

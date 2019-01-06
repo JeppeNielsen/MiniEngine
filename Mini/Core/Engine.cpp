@@ -26,5 +26,7 @@ void Engine::MainLoop() {
         window.PostRender();
         elapsed = timer.Stop();
         return state->device.exited;
+    }, [this] (int width, int height) {
+        state->device.ScreenSize = Vector2(width, height);
     });
 }
