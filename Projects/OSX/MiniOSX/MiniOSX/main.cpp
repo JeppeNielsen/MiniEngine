@@ -13,6 +13,19 @@
 using namespace Mini;
 using namespace Mini::ECS;
 
+
+struct RotationSpeed {
+    Vector3 speed;
+};
+
+struct RotationSpeedSystem : System<Transform, RotationSpeed> {
+    void Update(float dt) {
+        for(auto go : Objects()) {
+            go.GetComponent<Transform>()->EulerRotation += go.GetComponent<RotationSpeed>()->speed * dt;
+        }
+    }
+};
+
 struct Game : IState {
 
     Database database;
@@ -24,6 +37,7 @@ struct Game : IState {
     void Initialize() override {
     
         renderSystem = &scene.CreateSystem<RenderSystem>();
+        scene.CreateSystem<RotationSpeedSystem>();
         
         auto camera = scene.CreateObject();
         camera.AddComponent<Camera>();
@@ -32,13 +46,11 @@ struct Game : IState {
         auto cube = scene.CreateObject();
         cube.AddComponent<Transform>()->Position = {0,0,-10};
         cube.AddComponent<Mesh>()->GetMesh<Vertex>().AddCube(0, 1);
-        cube.GetComponent<Mesh>()->GetMesh<Vertex>().AddCube({2,0,0}, 1);
-        
+        cube.AddComponent<RotationSpeed>(Vector3(1,1,0));
         cube.AddComponent<Renderable>();
-        
 
         device.Input.ButtonDown.Bind(this, &Game::ButtonDown);
-        device.ScreenSize.Changed.Bind(this, &Game::ScreenSizeChanged);
+        device.Screen.Size.Changed.Bind(this, &Game::ScreenSizeChanged);
     }
     
     void ButtonDown(ButtonEvent e) {
@@ -47,7 +59,7 @@ struct Game : IState {
     }
     
     void ScreenSizeChanged() {
-        std::cout << "Screen size changed: " << device.ScreenSize << std::endl;
+        std::cout << "Screen size changed: " << device.Screen.Size << std::endl;
     }
 
     void Update(float dt) override {
