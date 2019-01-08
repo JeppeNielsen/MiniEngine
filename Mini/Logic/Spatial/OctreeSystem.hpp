@@ -19,9 +19,6 @@ namespace Mini {
     template<typename...ExtraComponents>
     class OctreeSystem : public System<Transform, Mesh, ExtraComponents...> {
     public:
-    
-        
-        
         OctreeSystem() {
             SetWorldBounds(BoundingBox(0, 1000));
         }

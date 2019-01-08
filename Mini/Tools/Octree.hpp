@@ -5,7 +5,6 @@
 #include <vector>
 
 namespace Mini {
-
     template<typename T>
 	class Octree {
 	public:
@@ -123,7 +122,6 @@ namespace Mini {
         }
 
         void Remove(Node& node) {
-            
             Nodes& nodes = *node.node->nodes;
             
             if (nodes.size()<=1) {
@@ -138,7 +136,6 @@ namespace Mini {
             node.node = 0;
         }
 
-
         void Move(Node& node) {
             
             if (node.node->box.Contains(node.box)) {
@@ -148,7 +145,6 @@ namespace Mini {
                 Insert(node);
             }
         }
-
 
         void Split() {
             if (children) return;
