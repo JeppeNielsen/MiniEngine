@@ -13,7 +13,6 @@
 using namespace Mini;
 using namespace Mini::ECS;
 
-
 struct RotationSpeed {
     Vector3 speed;
 };
@@ -48,7 +47,8 @@ struct Game : IState {
         cube.AddComponent<Mesh>()->GetMesh<Vertex>().AddCube(0, 1);
         cube.AddComponent<RotationSpeed>(Vector3(1,1,0));
         cube.AddComponent<Renderable>();
-
+        renderSystem->DefaultShader = &renderSystem->Shaders.LitColored;
+        
         device.Input.ButtonDown.Bind(this, &Game::ButtonDown);
         device.Screen.Size.Changed.Bind(this, &Game::ScreenSizeChanged);
     }
