@@ -9,7 +9,7 @@
 #pragma once
 #include "Property.hpp"
 #include "OctreeSystem.hpp"
-#include "GameSystem.hpp"
+#include "Scene.hpp"
 #include "Transform.hpp"
 #include "Mesh.hpp"
 #include "Camera.hpp"
@@ -17,38 +17,32 @@
 #include "Orderable.hpp"
 #include <set>
 #include "Picker.hpp"
+#include "InputManager.hpp"
 
-namespace Pocket {
-
-    class TouchSystem : public GameSystem<Transform, Mesh, Touchable> {
+namespace Mini {
+    using namespace ECS;
+    class TouchSystem : public System<Transform, Mesh, Touchable> {
     private:
-    
         using OctreeSystem = OctreeSystem<Touchable>;
-        
-        struct CameraSystem : GameSystem<Transform, Camera> {};
-        
+        struct CameraSystem : System<Transform, Camera> {};
         Picker picker;
-        
     public:
 
-        TouchSystem();
-        ~TouchSystem();
-        
         void Initialize() override;
-        void Destroy() override;
+        ~TouchSystem();
         OctreeSystem& Octree();
-        void ObjectAdded(GameObject* object) override;
-        void ObjectRemoved(GameObject* object) override;
+        void ObjectAdded(GameObject object) override;
+        void ObjectRemoved(GameObject object) override;
         void Update(float dt) override;
-        static void CreateSubSystems(GameStorage& storage);
-        void EnqueueDown(GameObject* touchObject, TouchData touchData);
+        void EnqueueDown(GameObject touchObject, TouchData touchData);
         
-        int TouchDepth;
+        int TouchDepth = 0;
         
+        Property<InputManager*> Input;
     private:
                 
-        void TouchDown(Pocket::TouchEvent e);
-        void TouchUp(Pocket::TouchEvent e);
+        void TouchDown(TouchEvent e);
+        void TouchUp(TouchEvent e);
         
         CameraSystem* cameras;
         OctreeSystem* octree;
@@ -74,8 +68,8 @@ namespace Pocket {
         CancelledTouchables cancelledTouchables;
         
         void AddToTouchList(Touched &from, Touched &to);
-        bool IsTouchInList(const Pocket::TouchData &touchData, const Touched &list);
-        void TouchableCancelled(Pocket::Touchable *touchable);
+        bool IsTouchInList(const TouchData &touchData, const Touched &list);
+        void TouchableCancelled(Touchable *touchable);
         bool IsTouchValid(const TouchData& touchData);
     };
 }

@@ -8,40 +8,33 @@
 
 #pragma once
 #include "OctreeSystem.hpp"
-#include "GameSystem.hpp"
+#include "Scene.hpp"
 #include "Transform.hpp"
 #include "Mesh.hpp"
 #include "Camera.hpp"
 #include "Hoverable.hpp"
 #include "Picker.hpp"
+#include "InputManager.hpp"
 
-namespace Pocket {
-    class HoverSystem : public GameSystem<Transform, Mesh, Hoverable> {
+namespace Mini {
+    using namespace ECS;
+    class HoverSystem : public System<Transform, Mesh, Hoverable> {
     private:
-    
         using OctreeSystem = OctreeSystem<Hoverable>;
-        
-        struct CameraSystem : GameSystem<Transform, Camera> {};
-        
+        struct CameraSystem : System<Transform, Camera> {};
+        Property<InputManager*> Input;
         Picker picker;
-        
     public:
-        
         void Initialize() override;
         OctreeSystem& Octree();
-        void ObjectAdded(GameObject* object) override;
-        void ObjectRemoved(GameObject* object) override;
+        void ObjectAdded(GameObject object) override;
+        void ObjectRemoved(GameObject object) override;
         void Update(float dt) override;
-        static void CreateSubSystems(GameStorage& storage);
     private:
-        
         CameraSystem* cameras;
         OctreeSystem* octree;
-        
         using TouchList = std::vector<TouchData>;
-        
         TouchList previousHovers;
-        
     public:
         void SetCameras(CameraSystem* cameraSystem);
         CameraSystem* GetCameras();

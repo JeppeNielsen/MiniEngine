@@ -13,20 +13,19 @@
 #include <functional>
 #include "Vector3.hpp"
 #include "Touchable.hpp"
+#include "InputManager.hpp"
 
-namespace Pocket {
+namespace Mini {
+    using namespace ECS;
     class Picker {
         public:
-            void TryAddClipper(GameObject* object);
-            void TryRemoveClipper(GameObject* object);
-            void Pick(GameObject* cameraObject, std::vector<TouchData>& list, const TouchEvent& e, bool forceClickThrough, const std::function<void(const Ray&, ObjectCollection& pickedObjects)>& octreeFunction, InputManager* input);
-        
+            void TryAddClipper(GameObject object);
+            void TryRemoveClipper(GameObject object);
+            void Pick(GameObject cameraObject, std::vector<TouchData>& list, const TouchEvent& e, bool forceClickThrough, const std::function<void(const Ray&, ObjectCollection& pickedObjects)>& octreeFunction, InputManager* input);
         private:
-        
-            std::vector<GameObject*> clippers;
-        
+            std::vector<GameObject> clippers;
             struct Intersection {
-                GameObject* object;
+                GameObject object;
                 float distanceToPick;
                 float u, v;
                 size_t triIndex;
@@ -34,9 +33,9 @@ namespace Pocket {
                 Ray localRay;
             };
         
-            bool SortClippers(GameObject *a, GameObject *b);
+            bool SortClippers(GameObject a, GameObject b);
     
-            GameObject* FindClipper(GameObject *fromThis);
+            GameObject FindClipper(GameObject fromThis);
             static bool SortIntersections(const Intersection &a, const Intersection &b);
     };
 }

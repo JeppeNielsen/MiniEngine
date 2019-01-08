@@ -9,16 +9,17 @@
 #include "TouchCancelSystem.hpp"
 #include "InputManager.hpp"
 
-using namespace Pocket;
+using namespace Mini;
+using namespace Mini::ECS;
 
-void TouchCancelSystem::ObjectAdded(GameObject *object) {
-    object->GetComponent<Touchable>()->Down.Bind(this, &TouchCancelSystem::TouchableDown, object);
-    object->GetComponent<Touchable>()->Up.Bind(this, &TouchCancelSystem::TouchableUp, object);
+void TouchCancelSystem::ObjectAdded(GameObject object) {
+    object.GetComponent<Touchable>()->Down.Bind(this, &TouchCancelSystem::TouchableDown, object);
+    object.GetComponent<Touchable>()->Up.Bind(this, &TouchCancelSystem::TouchableUp, object);
 }
 
-void TouchCancelSystem::ObjectRemoved(GameObject *object) {
-    object->GetComponent<Touchable>()->Down.Unbind(this, &TouchCancelSystem::TouchableDown, object);
-    object->GetComponent<Touchable>()->Up.Unbind(this, &TouchCancelSystem::TouchableUp, object);
+void TouchCancelSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<Touchable>()->Down.Unbind(this, &TouchCancelSystem::TouchableDown, object);
+    object.GetComponent<Touchable>()->Up.Unbind(this, &TouchCancelSystem::TouchableUp, object);
 }
 
 void TouchCancelSystem::Update(float dt) {
@@ -41,20 +42,20 @@ void TouchCancelSystem::Update(float dt) {
     }
 }
 
-void TouchCancelSystem::TouchableDown(TouchData touch, GameObject *object) {
-    Transform* transform = object->GetComponent<Transform>();
-    Vector3 startPosition = !object->GetComponent<TouchableCanceller>()->trackTouchPosition ?
+void TouchCancelSystem::TouchableDown(TouchData touch, GameObject object) {
+    Transform* transform = object.GetComponent<Transform>();
+    Vector3 startPosition = !object.GetComponent<TouchableCanceller>()->trackTouchPosition ?
     transform->World().TransformPosition(transform->Anchor)
     :
     Vector3(touch.Position,0);
     activeTouchables[touch.Touchable] = {
-        object->GetComponent<Touchable>(),
+        object.GetComponent<Touchable>(),
         transform,
-        object->GetComponent<TouchableCanceller>(), 0, startPosition, touch
+        object.GetComponent<TouchableCanceller>(), 0, startPosition, touch
     };
 }
 
-void TouchCancelSystem::TouchableUp(TouchData touch, GameObject *object) {
+void TouchCancelSystem::TouchableUp(TouchData touch, GameObject object) {
     typename ActiveTouchables::iterator it = activeTouchables.find(touch.Touchable);
     if (it!=activeTouchables.end()) {
         activeTouchables.erase(it);

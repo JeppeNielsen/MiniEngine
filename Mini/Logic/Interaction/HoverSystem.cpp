@@ -8,40 +8,34 @@
 
 #include "HoverSystem.hpp"
 
-using namespace Pocket;
-
-void HoverSystem::CreateSubSystems(Pocket::GameStorage &storage) {
-    storage.AddSystemType<OctreeSystem>();
-    storage.AddSystemType<HoverSystem::CameraSystem>();
-}
+using namespace Mini;
 
 void HoverSystem::Initialize() {
-    octree = root->CreateSystem<OctreeSystem>();
-    cameras = root->CreateSystem<HoverSystem::CameraSystem>();
+    octree = &scene->CreateSystem<OctreeSystem>();
+    cameras = &scene->CreateSystem<CameraSystem>();
 }
 
 HoverSystem::OctreeSystem& HoverSystem::Octree() { return *octree; }
 
-void HoverSystem::ObjectAdded(GameObject* object) {
+void HoverSystem::ObjectAdded(GameObject object) {
     picker.TryAddClipper(object);
 }
 
-void HoverSystem::ObjectRemoved(GameObject* object) {
+void HoverSystem::ObjectRemoved(GameObject object) {
     picker.TryRemoveClipper(object);
 }
 
 void HoverSystem::Update(float dt) {
     TouchList current;
-    root->Input().GetDevice();
     
-    Vector2 pos = root->Input().GetTouchPosition(0);
+    Vector2 pos = Input()->GetTouchPosition(0);
     
     TouchEvent e(0, pos);
     
     for(auto c : cameras->Objects()) {
         picker.Pick(c, current, e, false, [this] (const Ray& ray, ObjectCollection& list) {
             octree->GetObjectsAtRay(ray, list);
-        }, &root->Input());
+        }, Input());
     }
     
     
@@ -55,7 +49,7 @@ void HoverSystem::Update(float dt) {
         }
         
         if (!isInPrev) {
-            c.object->GetComponent<Hoverable>()->Enter(c);
+            c.object.GetComponent<Hoverable>()->Enter(c);
         }
     }
     
@@ -69,21 +63,21 @@ void HoverSystem::Update(float dt) {
         }
         
         if (!isInCurrent) {
-            p.object->GetComponent<Hoverable>()->Exit(p);
+            p.object.GetComponent<Hoverable>()->Exit(p);
         }
     }
     
     previousHovers = current;
 }
 
-void HoverSystem::SetCameras(Pocket::HoverSystem::CameraSystem *cameraSystem) {
+void HoverSystem::SetCameras(HoverSystem::CameraSystem *cameraSystem) {
     cameras = cameraSystem;
 }
 
-Pocket::HoverSystem::CameraSystem * HoverSystem::GetCameras() {
+HoverSystem::CameraSystem * HoverSystem::GetCameras() {
     return cameras;
 }
 
-Pocket::HoverSystem::CameraSystem* HoverSystem::GetOriginalCameras() {
-    return root->CreateSystem<CameraSystem>();
+HoverSystem::CameraSystem* HoverSystem::GetOriginalCameras() {
+    return &scene->CreateSystem<CameraSystem>();
 }

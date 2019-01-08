@@ -9,7 +9,7 @@
 #pragma once
 #include "Touchable.hpp"
 
-namespace Pocket {
+namespace Mini {
     class Hoverable {
     public:
         Event<TouchData> Enter;

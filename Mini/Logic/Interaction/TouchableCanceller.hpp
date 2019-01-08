@@ -7,7 +7,7 @@
 //
 
 #pragma once
-namespace Pocket {
+namespace Mini {
     struct TouchableCanceller {
         TouchableCanceller() : MovementToCancel(10.0f), trackTouchPosition(false)  {}
         float MovementToCancel;

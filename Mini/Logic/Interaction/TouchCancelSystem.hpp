@@ -8,22 +8,20 @@
 
 #pragma once
 
-#include "GameSystem.hpp"
+#include "Scene.hpp"
 #include <map>
 #include "Touchable.hpp"
 #include "TouchableCanceller.hpp"
 #include "Transform.hpp"
 
-namespace Pocket {
-
-    class TouchCancelSystem : public GameSystem<Touchable, TouchableCanceller, Transform> {
+namespace Mini {
+    using namespace ECS;
+    class TouchCancelSystem : public System<Touchable, TouchableCanceller, Transform> {
     public:
-    
-        void ObjectAdded(GameObject* object);
-        void ObjectRemoved(GameObject* object);
-        void Update(float dt);
+        void ObjectAdded(GameObject object) override;
+        void ObjectRemoved(GameObject object) override;
+        void Update(float dt) override;
     private:
-        
         struct ActiveTouchable {
             Touchable* touchable;
             Transform* transform;
@@ -36,7 +34,7 @@ namespace Pocket {
         typedef std::map<Touchable*, ActiveTouchable> ActiveTouchables;
         ActiveTouchables activeTouchables;
         
-        void TouchableDown(TouchData touch, GameObject* object);
-        void TouchableUp(TouchData touch, GameObject* object);
+        void TouchableDown(TouchData touch, GameObject object);
+        void TouchableUp(TouchData touch, GameObject object);
     };
 }

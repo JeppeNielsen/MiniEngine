@@ -11,15 +11,17 @@
 #include "Transform.hpp"
 #include "Vector3.hpp"
 #include "Mesh.hpp"
+#include "GameObject.hpp"
 
-namespace Pocket {
+namespace Mini {
+    using namespace ECS;
     
     class Camera;
     class Touchable;
     class InputManager;
-    class GameObject;
+    
     struct TouchData {
-        Pocket::GameObject* object;
+        GameObject object;
         Touchable* Touchable;
         InputManager* Input;
         int Index;
@@ -34,18 +36,13 @@ namespace Pocket {
     
 	class Touchable {
 	public:
-        
-        Touchable() : ClickThrough(false) { }
-
-        void Cancel() {
-            Cancelled(this);
-        }
+        void Cancel();
 		
         Event<TouchData> Down;
         Event<TouchData> Up;
         Event<TouchData> Click;
     
-        bool ClickThrough;
+        bool ClickThrough = false;
     
         Event<Touchable*> Cancelled;
     

@@ -8,5 +8,8 @@
 
 #include "Touchable.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
+void Touchable::Cancel() {
+    Cancelled(this);
+}
