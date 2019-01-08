@@ -91,7 +91,7 @@
 		7214CE6321E29C9300D1FEFA /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CDD521E29C9200D1FEFA /* Transform.cpp */; };
 		7214CE6421E29C9300D1FEFA /* TransformHierarchy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CDD721E29C9200D1FEFA /* TransformHierarchy.cpp */; };
 		7214CE7421E2A34200D1FEFA /* HierarchyOrder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE7121E2A34200D1FEFA /* HierarchyOrder.cpp */; };
-		7214CE7821E2AF0900D1FEFA /* Octree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE7721E2AF0900D1FEFA /* Octree.cpp */; };
+		7214CE7D21E5314500D1FEFA /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE7B21E5314500D1FEFA /* Screen.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -356,7 +356,8 @@
 		7214CE7321E2A34200D1FEFA /* Orderable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Orderable.hpp; sourceTree = "<group>"; };
 		7214CE7521E2AD8500D1FEFA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7214CE7621E2AF0900D1FEFA /* Octree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Octree.hpp; sourceTree = "<group>"; };
-		7214CE7721E2AF0900D1FEFA /* Octree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Octree.cpp; sourceTree = "<group>"; };
+		7214CE7B21E5314500D1FEFA /* Screen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Screen.cpp; sourceTree = "<group>"; };
+		7214CE7C21E5314500D1FEFA /* Screen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Screen.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,6 +432,8 @@
 				7214CAB121E1FEC100D1FEFA /* InputManager.cpp */,
 				7214CAB221E1FEC100D1FEFA /* InputManager.hpp */,
 				7214CAB321E1FEC100D1FEFA /* IState.hpp */,
+				7214CE7B21E5314500D1FEFA /* Screen.cpp */,
+				7214CE7C21E5314500D1FEFA /* Screen.hpp */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -498,7 +501,6 @@
 		7214CAD721E1FEC100D1FEFA /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				7214CE7721E2AF0900D1FEFA /* Octree.cpp */,
 				7214CE7621E2AF0900D1FEFA /* Octree.hpp */,
 				7214CB1321E28D1100D1FEFA /* MetaHelper.hpp */,
 				7214CE6F21E29D0000D1FEFA /* DirtyProperty.hpp */,
@@ -1064,7 +1066,6 @@
 				7214CE4A21E29C9300D1FEFA /* Colorable.cpp in Sources */,
 				7214CCAB21E2929100D1FEFA /* sfnt.c in Sources */,
 				7214CB4F21E28FB500D1FEFA /* RenderTexture.cpp in Sources */,
-				7214CE7821E2AF0900D1FEFA /* Octree.cpp in Sources */,
 				7214CAEB21E1FEC100D1FEFA /* Quaternion.cpp in Sources */,
 				7214CE7421E2A34200D1FEFA /* HierarchyOrder.cpp in Sources */,
 				7214CAE821E1FEC100D1FEFA /* Plane.cpp in Sources */,
@@ -1098,6 +1099,7 @@
 				7214CE5321E29C9300D1FEFA /* RenderSystem.cpp in Sources */,
 				7214CB2221E28D1100D1FEFA /* GameObject.cpp in Sources */,
 				7214CAE021E1FEC100D1FEFA /* InputDevice.cpp in Sources */,
+				7214CE7D21E5314500D1FEFA /* Screen.cpp in Sources */,
 				7214CAEA21E1FEC100D1FEFA /* Point3.cpp in Sources */,
 				7214CCA821E2929100D1FEFA /* raster.c in Sources */,
 				7214CC8921E2929100D1FEFA /* ftinit.c in Sources */,

@@ -13,20 +13,19 @@
 namespace Mini {
     class Window {
     public:
-       using OnInitialize = std::function<void()>;
-       using OnUpdate = std::function<bool()>;
-       using OnScreenSizeChanged = std::function<void(int, int)>;
+       struct MainLoopData {
+           std::function<void()> Initialize;
+           std::function<bool()> Update;
+           std::function<void(int,int)> ScreenSize;
+           std::function<void(float)> ScreenScalingFactor;
+       };
     
-       void StartLoop(OnInitialize onInitialize,
-                      OnUpdate onUpdate,
-                      OnScreenSizeChanged onScreenSizeChanged);
+       void StartLoop(MainLoopData mainLoopData);
         
        void PreRender();
        void PostRender();
         
-        OnInitialize onInitialize;
-        OnUpdate onUpdate;
-        OnScreenSizeChanged onScreenSizeChanged;
-        InputDevice inputDevice;
+       MainLoopData mainLoopData;
+       InputDevice inputDevice;
     };
 }

@@ -16,7 +16,6 @@ RenderSystem::ObjectRenderers RenderSystem::objectRenderers;
 int RenderSystem::objectRenderersRefCounter = 0;
 
 void RenderSystem::Initialize() {
-    
     cameras = &scene->CreateSystem<CameraSystem>();
     meshOctreeSystem = &scene->CreateSystem<OctreeSystem>();
     scene->CreateSystem<TextureSystem>();
@@ -33,7 +32,7 @@ void RenderSystem::Initialize() {
     objectRenderersRefCounter++;
 }
 
-void RenderSystem::Destroy() {
+RenderSystem::~RenderSystem() {
     objectRenderersRefCounter--;
     if (objectRenderersRefCounter == 0) {
         for (auto renderer : objectRenderers) {
@@ -43,22 +42,22 @@ void RenderSystem::Destroy() {
     }
 }
 
-void RenderSystem::ObjectAdded(GameObject object) {
-
-}
-
 RenderSystem::OctreeSystem& RenderSystem::Octree() {
     return *meshOctreeSystem;
 }
 
 void RenderSystem::RenderCamera(GameObject cameraObject) {
+
+    const Vector2 screenSize = Screen::MainScreen->Size;;
+    const float scalingFactor = Screen::MainScreen->ScalingFactor;
+    const Vector2& scaledScreenSize = screenSize * scalingFactor;
+
     Transform* cameraTransform = cameraObject.GetComponent<Transform>();
     Camera* camera = cameraObject.GetComponent<Camera>();
     RenderMask cameraMask = camera->Mask;
     //if (!camera->Orthographic()) {
         const Rect& viewport = camera->Viewport;
-        const Vector2& screenSize = Vector2(1280,960); //TODO: fix // Engine::Context().ScreenSize * Engine::Context().ScreenScalingFactor;
-        Rect screenRect = viewport * screenSize;
+        const Rect screenRect = viewport * scaledScreenSize;
         ASSERT_GL(glViewport(screenRect.x, screenRect.y, screenRect.width, screenRect.height));
     //}
     

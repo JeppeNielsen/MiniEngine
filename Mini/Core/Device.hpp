@@ -7,6 +7,7 @@
 //
 
 #pragma once
+#include "Screen.hpp"
 #include "InputManager.hpp"
 
 namespace Mini {
@@ -14,8 +15,8 @@ namespace Mini {
     class Device {
     public:
         void Exit();
+        Screen Screen;
         InputManager Input;
-        Property<Vector2> ScreenSize;
     private:
         bool exited = false;
         friend class Engine;

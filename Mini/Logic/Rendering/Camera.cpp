@@ -1,12 +1,10 @@
 
 #include "Camera.hpp"
 #include "Transform.hpp"
-#include "Engine.hpp"
+#include "Screen.hpp"
 #include "MathHelper.hpp"
 
 using namespace Mini;
-
-static const Vector2 screenSize = Vector2(1280,960);//TODO: get rid of this
 
 Camera::Camera() {
 	FieldOfView = 70;
@@ -23,7 +21,7 @@ Camera::Camera() {
             float aspect;
             if (MathHelper::FloatEqual(Aspect, 0, 0.001f)) {
                 const Rect& viewport = Viewport;
-                //const Vector2& screenSize = Engine::Context().ScreenSize;
+                const Vector2& screenSize = Screen::MainScreen->Size;
                 Rect screenRect = viewport * screenSize;
                 aspect = screenRect.Aspect();
             } else {
@@ -33,12 +31,12 @@ Camera::Camera() {
         } else {
             if (fieldOfView<=0.0001f) {
                 const Rect& viewport = Viewport;
-                //const Vector2& screenSize = Engine::Context().ScreenSize;
+                const Vector2& screenSize = Screen::MainScreen->Size;
                 Rect screenRect = viewport * screenSize;
                 mat.InitOrthographic(0, screenRect.height, screenRect.width, 0, Near, Far);
             } else {
                 const Rect& viewport = Viewport;
-                //const Vector2& screenSize = Engine::Context().ScreenSize;
+                const Vector2& screenSize = Screen::MainScreen->Size;
                 Rect screenRect = viewport * screenSize;
                 float aspect = screenRect.Aspect();
                 
@@ -65,9 +63,9 @@ Camera::Camera() {
     Viewport.Changed.Bind(changed);
     Aspect.Changed.Bind([this] () {
         if (MathHelper::FloatEqual(Aspect, 0, 0.001f)) {
-            //Engine::Context().ScreenSize.Changed.Bind(this, &Camera::ScreenSizeChanged);
+            Screen::MainScreen->Size.Changed.Bind(this, &Camera::ScreenSizeChanged);
         } else {
-            //Engine::Context().ScreenSize.Changed.Unbind(this, &Camera::ScreenSizeChanged);
+            Screen::MainScreen->Size.Changed.Unbind(this, &Camera::ScreenSizeChanged);
         }
     });
     
@@ -77,11 +75,11 @@ Camera::Camera() {
     Viewport.Changed.MarkDefaults();
     Aspect.Changed.MarkDefaults();
     
-    //Engine::Context().ScreenSize.Changed.Bind(this, &Camera::ScreenSizeChanged);
+    Screen::MainScreen->Size.Changed.Bind(this, &Camera::ScreenSizeChanged);
 }
 
 Camera::~Camera() {
-    //Engine::Context().ScreenSize.Changed.Unbind(this, &Camera::ScreenSizeChanged);
+    Screen::MainScreen->Size.Changed.Unbind(this, &Camera::ScreenSizeChanged);
 }
 
 void Camera::ScreenSizeChanged() {
@@ -94,7 +92,7 @@ Matrix4x4 Camera::GetViewProjection(Transform* viewTransform) {
 }
 
 Ray Camera::GetRay(Transform* viewTransform, const Vector2& screenPosition) {
-    const Rect& viewPort = Viewport() * screenSize;//Engine::Context().ScreenSize();
+    const Rect& viewPort = Viewport() * Screen::MainScreen->Size();
     
     Vector2 fromCenter = screenPosition - viewPort.Center();
     fromCenter /= (viewPort.Size() * 0.5f);
@@ -113,7 +111,7 @@ Vector3 Camera::TransformPointToViewSpace(Transform* viewTransform, const Vector
 
 Vector3 Camera::TransformPointToScreenSpace(Transform* viewTransform, const Vector3& worldPoint) {
     Vector2 screenPoint = TransformPointToViewSpace(viewTransform, worldPoint);
-    const Rect& viewPort = Viewport() * screenSize;//Engine::Context().ScreenSize();
+    const Rect& viewPort = Viewport() * Screen::MainScreen->Size();
     screenPoint *= (viewPort.Size() * 0.5f);
     screenPoint += viewPort.Center();
     return Vector3(screenPoint.x, screenPoint.y, worldPoint.z);
@@ -132,7 +130,7 @@ Vector3 Camera::TransformWorldToViewport(Transform* viewTransform, const Vector3
 Vector3 Camera::TransformViewPositionToScreenSpace(Transform* viewTransform, const Vector3& viewPoint) {
     const Matrix4x4& viewProjection = Projection();
     Vector2 screenPoint = viewProjection.TransformPosition(viewPoint);
-    const Rect& viewPort = Viewport() * screenSize;//Engine::Context().ScreenSize();
+    const Rect& viewPort = Viewport() * Screen::MainScreen->Size();
     screenPoint *= (viewPort.Size() * 0.5f);
     screenPoint += viewPort.Center();
     return Vector3(screenPoint.x, screenPoint.y, viewPoint.z);

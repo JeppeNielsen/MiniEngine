@@ -8,6 +8,7 @@
 
 #pragma once
 #include "Scene.hpp"
+#include "Screen.hpp"
 #include "Camera.hpp"
 #include "OctreeSystem.hpp"
 #include "ObjectRenderer.hpp"
@@ -20,22 +21,17 @@ namespace Mini {
         using OctreeSystem = OctreeSystem<Renderable>;
         
         struct CameraSystem : System<Transform, Camera> { };
-        
         struct TextureSystem : System<TextureComponent, Orderable> {};
         
         using ObjectRenderers = std::vector<IObjectRenderer*>;
         using VisibleObjects = std::vector<VisibleObject>;
 
-        void Initialize();
-        void Destroy();
-        void ObjectAdded(GameObject object) override;
+        void Initialize() override;
+        ~RenderSystem();
+        
         OctreeSystem& Octree();
-        void RenderCamera(GameObject cameraObject);
-        void RenderVisibleObjects(const VisibleObjects& visibleObjects);
-        void RenderTransparentVisibleObjects(const VisibleObjects& visibleObjects);
+        
         void Render();
-        static bool SortOpaqueObjects(const VisibleObject& a, const VisibleObject& b);
-        static bool SortTransparentObjects(const VisibleObject& a, const VisibleObject& b);
         
         ShaderCollection Shaders;
         IShader* DefaultShader;
@@ -58,5 +54,12 @@ namespace Mini {
 
         CameraSystem* cameras;
         OctreeSystem* meshOctreeSystem;
+        
+        void RenderCamera(GameObject cameraObject);
+        void RenderVisibleObjects(const VisibleObjects& visibleObjects);
+        void RenderTransparentVisibleObjects(const VisibleObjects& visibleObjects);
+        
+        static bool SortOpaqueObjects(const VisibleObject& a, const VisibleObject& b);
+        static bool SortTransparentObjects(const VisibleObject& a, const VisibleObject& b);
     };
 }

@@ -33,9 +33,8 @@ static int globalWindowHeight;
 
 @implementation OSXView
 
--(void) drawRect: (NSRect) bounds
-{
-    if (engineWindow->onUpdate()) {
+-(void) drawRect: (NSRect) bounds {
+    if (engineWindow->mainLoopData.Update()) {
         exit(0);
     }
 }
@@ -68,7 +67,7 @@ static int globalWindowHeight;
 
     [app setMainMenu:menu];
     
-    engineWindow->onInitialize();
+    engineWindow->mainLoopData.Initialize();
 }
 
 - (void) updateGLView:(NSTimer *)timer
@@ -199,7 +198,7 @@ static int globalWindowHeight;
 - (void)viewDidChangeBackingProperties {
     NSScreen* scr = [[self window] screen];
     float scalingFactor = [scr backingScaleFactor];
-    //Engine::Context().ScreenScalingFactor = scalingFactor;
+    engineWindow->mainLoopData.ScreenScalingFactor(scalingFactor);
 }
 
 @end
@@ -271,7 +270,7 @@ static int globalWindowHeight;
     [view setWantsBestResolutionOpenGLSurface:YES];
     
     float scalingFactor = [[NSScreen mainScreen] backingScaleFactor];
-    //Engine::Context().ScreenScalingFactor = scalingFactor;
+    engineWindow->mainLoopData.ScreenScalingFactor(scalingFactor);
     
     [window setContentView:view ];
     
@@ -301,19 +300,17 @@ static int globalWindowHeight;
 - (void)windowDidResize:(NSNotification *)notification {
     globalWindowWidth = view.bounds.size.width;
     globalWindowHeight = view.bounds.size.height;
-    engineWindow->onScreenSizeChanged(globalWindowWidth, globalWindowHeight);
+    engineWindow->mainLoopData.ScreenSize(globalWindowWidth, globalWindowHeight);
 }
 
 @end
 
-void Window::StartLoop(OnInitialize onInitialize, OnUpdate onUpdate, OnScreenSizeChanged onScreenSizeChanged) {
+void Window::StartLoop(MainLoopData mainLoopData) {
 
     inputDevice.Initialize(3);
     engineWindow = this;
 
-    this->onInitialize = onInitialize;
-    this->onUpdate = onUpdate;
-    this->onScreenSizeChanged = onScreenSizeChanged;
+    this->mainLoopData = mainLoopData;
     
     [NSApplication sharedApplication];
     AppDelegate *appDelegate = [[AppDelegate alloc] init];
@@ -323,7 +320,7 @@ void Window::StartLoop(OnInitialize onInitialize, OnUpdate onUpdate, OnScreenSiz
 
 void Window::PreRender() {
     glViewport(0, 0, globalWindowWidth, globalWindowHeight);
-    glClearColor(1, 0, 0, 0);
+    glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_CULL_FACE);
 }

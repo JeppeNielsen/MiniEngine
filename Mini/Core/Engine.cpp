@@ -6,15 +6,20 @@ using namespace Mini;
 
 void Engine::MainLoop() {
 
+    Screen::MainScreen = &state->device.Screen;
+    
     Window window;
     Timer timer;
     
     float elapsed = 1.0f / 60.0f;
     
-    window.StartLoop(
+    Window::MainLoopData data;
+    data.Initialize =
     [&, this]() {
         state->Initialize();
-    },
+    };
+    
+    data.Update =
     [&, this]() {
         timer.Start();
         window.inputDevice.StartFrame();
@@ -26,7 +31,17 @@ void Engine::MainLoop() {
         window.PostRender();
         elapsed = timer.Stop();
         return state->device.exited;
-    }, [this] (int width, int height) {
-        state->device.ScreenSize = Vector2(width, height);
-    });
+    };
+    
+    data.ScreenSize =
+    [&, this] (int width, int height) {
+        state->device.Screen.Size = Vector2(width, height);
+    };
+    
+    data.ScreenScalingFactor =
+    [&, this] (float scalingFactor) {
+        state->device.Screen.ScalingFactor = scalingFactor;
+    };
+    
+    window.StartLoop(data);
 }
