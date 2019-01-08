@@ -92,6 +92,12 @@
 		7214CE6421E29C9300D1FEFA /* TransformHierarchy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CDD721E29C9200D1FEFA /* TransformHierarchy.cpp */; };
 		7214CE7421E2A34200D1FEFA /* HierarchyOrder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE7121E2A34200D1FEFA /* HierarchyOrder.cpp */; };
 		7214CE7D21E5314500D1FEFA /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE7B21E5314500D1FEFA /* Screen.cpp */; };
+		7214CE8C21E549B300D1FEFA /* Hoverable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE7F21E549B200D1FEFA /* Hoverable.cpp */; };
+		7214CE8D21E549B300D1FEFA /* HoverSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8121E549B200D1FEFA /* HoverSystem.cpp */; };
+		7214CE8E21E549B300D1FEFA /* Picker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8321E549B200D1FEFA /* Picker.cpp */; };
+		7214CE8F21E549B300D1FEFA /* Touchable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8521E549B200D1FEFA /* Touchable.cpp */; };
+		7214CE9021E549B300D1FEFA /* TouchCancelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8821E549B200D1FEFA /* TouchCancelSystem.cpp */; };
+		7214CE9121E549B300D1FEFA /* TouchSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8A21E549B200D1FEFA /* TouchSystem.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -358,6 +364,19 @@
 		7214CE7621E2AF0900D1FEFA /* Octree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Octree.hpp; sourceTree = "<group>"; };
 		7214CE7B21E5314500D1FEFA /* Screen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Screen.cpp; sourceTree = "<group>"; };
 		7214CE7C21E5314500D1FEFA /* Screen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Screen.hpp; sourceTree = "<group>"; };
+		7214CE7F21E549B200D1FEFA /* Hoverable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Hoverable.cpp; sourceTree = "<group>"; };
+		7214CE8021E549B200D1FEFA /* Hoverable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Hoverable.hpp; sourceTree = "<group>"; };
+		7214CE8121E549B200D1FEFA /* HoverSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HoverSystem.cpp; sourceTree = "<group>"; };
+		7214CE8221E549B200D1FEFA /* HoverSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HoverSystem.hpp; sourceTree = "<group>"; };
+		7214CE8321E549B200D1FEFA /* Picker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Picker.cpp; sourceTree = "<group>"; };
+		7214CE8421E549B200D1FEFA /* Picker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Picker.hpp; sourceTree = "<group>"; };
+		7214CE8521E549B200D1FEFA /* Touchable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Touchable.cpp; sourceTree = "<group>"; };
+		7214CE8621E549B200D1FEFA /* Touchable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Touchable.hpp; sourceTree = "<group>"; };
+		7214CE8721E549B200D1FEFA /* TouchableCanceller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TouchableCanceller.hpp; sourceTree = "<group>"; };
+		7214CE8821E549B200D1FEFA /* TouchCancelSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchCancelSystem.cpp; sourceTree = "<group>"; };
+		7214CE8921E549B200D1FEFA /* TouchCancelSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TouchCancelSystem.hpp; sourceTree = "<group>"; };
+		7214CE8A21E549B200D1FEFA /* TouchSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchSystem.cpp; sourceTree = "<group>"; };
+		7214CE8B21E549B200D1FEFA /* TouchSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TouchSystem.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -897,6 +916,7 @@
 		7214CCC921E29C9200D1FEFA /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				7214CE7E21E549B200D1FEFA /* Interaction */,
 				7214CE7021E2A34200D1FEFA /* Common */,
 				7214CD9821E29C9200D1FEFA /* Rendering */,
 				7214CDD321E29C9200D1FEFA /* Spatial */,
@@ -962,6 +982,26 @@
 				7214CE7321E2A34200D1FEFA /* Orderable.hpp */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		7214CE7E21E549B200D1FEFA /* Interaction */ = {
+			isa = PBXGroup;
+			children = (
+				7214CE7F21E549B200D1FEFA /* Hoverable.cpp */,
+				7214CE8021E549B200D1FEFA /* Hoverable.hpp */,
+				7214CE8121E549B200D1FEFA /* HoverSystem.cpp */,
+				7214CE8221E549B200D1FEFA /* HoverSystem.hpp */,
+				7214CE8321E549B200D1FEFA /* Picker.cpp */,
+				7214CE8421E549B200D1FEFA /* Picker.hpp */,
+				7214CE8521E549B200D1FEFA /* Touchable.cpp */,
+				7214CE8621E549B200D1FEFA /* Touchable.hpp */,
+				7214CE8721E549B200D1FEFA /* TouchableCanceller.hpp */,
+				7214CE8821E549B200D1FEFA /* TouchCancelSystem.cpp */,
+				7214CE8921E549B200D1FEFA /* TouchCancelSystem.hpp */,
+				7214CE8A21E549B200D1FEFA /* TouchSystem.cpp */,
+				7214CE8B21E549B200D1FEFA /* TouchSystem.hpp */,
+			);
+			path = Interaction;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1040,11 +1080,13 @@
 				7214CE4921E29C9300D1FEFA /* Camera.cpp in Sources */,
 				7214CAE121E1FEC100D1FEFA /* InputManager.cpp in Sources */,
 				7214CB5421E28FB600D1FEFA /* Vertex.cpp in Sources */,
+				7214CE9121E549B300D1FEFA /* TouchSystem.cpp in Sources */,
 				7214CB4A21E28FB500D1FEFA /* Clipper.cpp in Sources */,
 				7214CAE521E1FEC100D1FEFA /* MathHelper.cpp in Sources */,
 				7214CAE621E1FEC100D1FEFA /* Matrix3x3.cpp in Sources */,
 				7214CB2421E28D1100D1FEFA /* Hierarchy.cpp in Sources */,
 				7214CE4821E29C9300D1FEFA /* Atlas.cpp in Sources */,
+				7214CE9021E549B300D1FEFA /* TouchCancelSystem.cpp in Sources */,
 				7214CB2F21E28D3000D1FEFA /* CommandRunner.cpp in Sources */,
 				7214CADE21E1FEC100D1FEFA /* Device.cpp in Sources */,
 				7214CCC321E2929100D1FEFA /* hid.c in Sources */,
@@ -1055,7 +1097,10 @@
 				7214CB4E21E28FB500D1FEFA /* ImageLoader.cpp in Sources */,
 				7214CB5D21E2911F00D1FEFA /* FileReader.mm in Sources */,
 				7214CAF021E1FEC100D1FEFA /* Vector3.cpp in Sources */,
+				7214CE8F21E549B300D1FEFA /* Touchable.cpp in Sources */,
 				7214CE5521E29C9300D1FEFA /* SlicedTexture.cpp in Sources */,
+				7214CE8C21E549B300D1FEFA /* Hoverable.cpp in Sources */,
+				7214CE8D21E549B300D1FEFA /* HoverSystem.cpp in Sources */,
 				7214CE4B21E29C9300D1FEFA /* ColorSystem.cpp in Sources */,
 				7214CB6121E291A800D1FEFA /* FileArchive.cpp in Sources */,
 				7214CC7A21E2929100D1FEFA /* autofit.c in Sources */,
@@ -1078,6 +1123,7 @@
 				7214CCB921E2929100D1FEFA /* smooth.c in Sources */,
 				7214CB5E21E2911F00D1FEFA /* FileSystemWatcher.cpp in Sources */,
 				7214CB2721E28D1100D1FEFA /* FieldInfo.cpp in Sources */,
+				7214CE8E21E549B300D1FEFA /* Picker.cpp in Sources */,
 				7214CB5321E28FB600D1FEFA /* TextureAtlas.cpp in Sources */,
 				7214CCC521E2929100D1FEFA /* tinyxml.cpp in Sources */,
 				7214CB2821E28D1100D1FEFA /* TypeInfo.cpp in Sources */,

@@ -9,6 +9,7 @@
 #include "Engine.hpp"
 #include "Scene.hpp"
 #include "RenderSystem.hpp"
+#include "TouchSystem.hpp"
 
 using namespace Mini;
 using namespace Mini::ECS;
@@ -25,6 +26,21 @@ struct RotationSpeedSystem : System<Transform, RotationSpeed> {
     }
 };
 
+struct ClickRotationChanger : System<RotationSpeed, Touchable> {
+    void ObjectAdded(GameObject go) {
+        go.GetComponent<Touchable>()->Down.Bind(this, &ClickRotationChanger::TouchDown, go);
+    }
+    
+    void ObjectRemoved(GameObject go) {
+        go.GetComponent<Touchable>()->Down.Unbind(this, &ClickRotationChanger::TouchDown, go);
+    }
+    
+    void TouchDown(TouchData d, GameObject go) {
+        go.GetComponent<RotationSpeed>()->speed = -go.GetComponent<RotationSpeed>()->speed;
+    }
+
+};
+
 struct Game : IState {
 
     Database database;
@@ -36,21 +52,31 @@ struct Game : IState {
     void Initialize() override {
     
         renderSystem = &scene.CreateSystem<RenderSystem>();
+        renderSystem->DefaultShader = &renderSystem->Shaders.LitColored;
+        
         scene.CreateSystem<RotationSpeedSystem>();
+        scene.CreateSystem<TouchSystem>().Input = &device.Input;
+        scene.CreateSystem<ClickRotationChanger>();
         
         auto camera = scene.CreateObject();
         camera.AddComponent<Camera>();
         camera.AddComponent<Transform>();
 
-        auto cube = scene.CreateObject();
-        cube.AddComponent<Transform>()->Position = {0,0,-10};
-        cube.AddComponent<Mesh>()->GetMesh<Vertex>().AddCube(0, 1);
-        cube.AddComponent<RotationSpeed>(Vector3(1,1,0));
-        cube.AddComponent<Renderable>();
-        renderSystem->DefaultShader = &renderSystem->Shaders.LitColored;
+        for(int i =0; i<5; i++) {
+            CreateCube({-10 + i * 4.0f, 0.0f, -10.0f});
+        }
         
         device.Input.ButtonDown.Bind(this, &Game::ButtonDown);
         device.Screen.Size.Changed.Bind(this, &Game::ScreenSizeChanged);
+    }
+    
+    void CreateCube(Vector3 pos) {
+        auto cube = scene.CreateObject();
+        cube.AddComponent<Transform>()->Position = pos;
+        cube.AddComponent<Mesh>()->GetMesh<Vertex>().AddCube(0, 1);
+        cube.AddComponent<RotationSpeed>(Vector3(1,1,0));
+        cube.AddComponent<Renderable>();
+        cube.AddComponent<Touchable>();
     }
     
     void ButtonDown(ButtonEvent e) {
