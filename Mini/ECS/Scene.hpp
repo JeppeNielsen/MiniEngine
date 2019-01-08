@@ -11,8 +11,6 @@
 #include "System.hpp"
 #include <set>
 #include <assert.h>
-#include "GameObject.hpp"
-#include "Hierarchy.hpp"
 
 namespace Mini {
 namespace ECS {
