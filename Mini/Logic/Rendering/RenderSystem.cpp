@@ -105,7 +105,7 @@ void RenderSystem::RenderCamera(GameObject cameraObject) {
             shader = shaderComponent->GetBaseShader();
         }
         if (!shader) {
-            shader = textureComponent ? &Shaders.Textured : &Shaders.Colored;
+            shader = textureComponent ? DefaultTexturedShader : DefaultShader;
         }
         
         visibleObjects.push_back({
