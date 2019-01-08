@@ -67,6 +67,8 @@ static int globalWindowHeight;
     }
 
     [app setMainMenu:menu];
+    
+    engineWindow->onInitialize();
 }
 
 - (void) updateGLView:(NSTimer *)timer
@@ -289,8 +291,6 @@ static int globalWindowHeight;
     [window makeKeyAndOrderFront: window];
     
     [window orderFront:window];
-    
-    engineWindow->onInitialize();
 }
 
 - (void)windowWillClose:(NSNotification *)notification
@@ -321,13 +321,13 @@ void Window::StartLoop(OnInitialize onInitialize, OnUpdate onUpdate, OnScreenSiz
     [NSApp run];
 }
 
-void Window::PostRender() {
+void Window::PreRender() {
     glViewport(0, 0, globalWindowWidth, globalWindowHeight);
-    glClearColor(0, 0, 0, 0);
+    glClearColor(1, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_CULL_FACE);
 }
 
-void Window::PreRender() {
+void Window::PostRender() {
     glFlush();
 }
