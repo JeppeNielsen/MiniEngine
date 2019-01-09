@@ -98,11 +98,12 @@
 		7214CE8F21E549B300D1FEFA /* Touchable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8521E549B200D1FEFA /* Touchable.cpp */; };
 		7214CE9021E549B300D1FEFA /* TouchCancelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8821E549B200D1FEFA /* TouchCancelSystem.cpp */; };
 		7214CE9121E549B300D1FEFA /* TouchSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8A21E549B200D1FEFA /* TouchSystem.cpp */; };
+		7214CE9421E678DC00D1FEFA /* AppMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE9321E678DC00D1FEFA /* AppMenu.mm */; };
+		7214CE9721E690E600D1FEFA /* NSOpenGLView-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7214CE9621E690E600D1FEFA /* NSOpenGLView-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7214CA9521E1FDF600D1FEFA /* MiniOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7214CAA021E1FDF600D1FEFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7214CAAB21E1FEC100D1FEFA /* Device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Device.cpp; sourceTree = "<group>"; };
 		7214CAAC21E1FEC100D1FEFA /* Device.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Device.hpp; sourceTree = "<group>"; };
 		7214CAAD21E1FEC100D1FEFA /* Engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
@@ -377,6 +378,10 @@
 		7214CE8921E549B200D1FEFA /* TouchCancelSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TouchCancelSystem.hpp; sourceTree = "<group>"; };
 		7214CE8A21E549B200D1FEFA /* TouchSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchSystem.cpp; sourceTree = "<group>"; };
 		7214CE8B21E549B200D1FEFA /* TouchSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TouchSystem.hpp; sourceTree = "<group>"; };
+		7214CE9221E678D700D1FEFA /* AppMenu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AppMenu.hpp; sourceTree = "<group>"; };
+		7214CE9321E678DC00D1FEFA /* AppMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppMenu.mm; sourceTree = "<group>"; };
+		7214CE9521E6800800D1FEFA /* OSXView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSXView.h; sourceTree = "<group>"; };
+		7214CE9621E690E600D1FEFA /* NSOpenGLView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NSOpenGLView-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,7 +419,7 @@
 		7214CA9721E1FDF600D1FEFA /* MiniOSX */ = {
 			isa = PBXGroup;
 			children = (
-				7214CAA021E1FDF600D1FEFA /* Info.plist */,
+				7214CE9621E690E600D1FEFA /* NSOpenGLView-Info.plist */,
 				7214CAFB21E1FF8400D1FEFA /* main.cpp */,
 			);
 			path = MiniOSX;
@@ -497,6 +502,7 @@
 		7214CAD321E1FEC100D1FEFA /* Platform */ = {
 			isa = PBXGroup;
 			children = (
+				7214CE9221E678D700D1FEFA /* AppMenu.hpp */,
 				7214CB5721E2911700D1FEFA /* File.hpp */,
 				7214CB5821E2911700D1FEFA /* FileReader.hpp */,
 				7214CB5621E2911700D1FEFA /* FileSystemWatcher.hpp */,
@@ -509,10 +515,12 @@
 		7214CAD421E1FEC100D1FEFA /* OSX */ = {
 			isa = PBXGroup;
 			children = (
+				7214CE9321E678DC00D1FEFA /* AppMenu.mm */,
 				7214CB5921E2911F00D1FEFA /* File.mm */,
 				7214CB5A21E2911F00D1FEFA /* FileReader.mm */,
 				7214CB5B21E2911F00D1FEFA /* FileSystemWatcher.cpp */,
 				7214CAD521E1FEC100D1FEFA /* Window.mm */,
+				7214CE9521E6800800D1FEFA /* OSXView.h */,
 			);
 			path = OSX;
 			sourceTree = "<group>";
@@ -1062,6 +1070,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7214CE9721E690E600D1FEFA /* NSOpenGLView-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1100,6 +1109,7 @@
 				7214CE8F21E549B300D1FEFA /* Touchable.cpp in Sources */,
 				7214CE5521E29C9300D1FEFA /* SlicedTexture.cpp in Sources */,
 				7214CE8C21E549B300D1FEFA /* Hoverable.cpp in Sources */,
+				7214CE9421E678DC00D1FEFA /* AppMenu.mm in Sources */,
 				7214CE8D21E549B300D1FEFA /* HoverSystem.cpp in Sources */,
 				7214CE4B21E29C9300D1FEFA /* ColorSystem.cpp in Sources */,
 				7214CB6121E291A800D1FEFA /* FileArchive.cpp in Sources */,
@@ -1287,7 +1297,7 @@
 					"\"$(SRCROOT)/../../../Mini/Libs/Zip\"",
 					"\"$(SRCROOT)/../../../Mini/Libs/FreeType/include\"",
 				);
-				INFOPLIST_FILE = MiniOSX/Info.plist;
+				INFOPLIST_FILE = "MiniOSX/NSOpenGLView-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dk.jeppenielsen.MiniOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1300,11 +1310,19 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					OSX,
+					"FT2_BUILD_LIBRARY=1",
+					DARWIN_NO_CARBON,
+					FT_CONFIG_OPTION_OLD_INTERNALS,
+					"$(inherited)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../Mini/Libs/Zip\"",
 					"\"$(SRCROOT)/../../../Mini/Libs/FreeType/include\"",
 				);
-				INFOPLIST_FILE = MiniOSX/Info.plist;
+				INFOPLIST_FILE = "MiniOSX/NSOpenGLView-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = dk.jeppenielsen.MiniOSX;
 				PRODUCT_NAME = "$(TARGET_NAME)";

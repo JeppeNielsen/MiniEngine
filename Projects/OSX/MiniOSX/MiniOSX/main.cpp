@@ -10,12 +10,16 @@
 #include "Scene.hpp"
 #include "RenderSystem.hpp"
 #include "TouchSystem.hpp"
+#include "JsonSerializer.hpp"
 
 using namespace Mini;
 using namespace Mini::ECS;
 
 struct RotationSpeed {
     Vector3 speed;
+    TYPE_FIELDS_BEGIN
+    TYPE_FIELD(speed)
+    TYPE_FIELDS_END
 };
 
 struct RotationSpeedSystem : System<Transform, RotationSpeed> {
@@ -37,6 +41,10 @@ struct ClickRotationChanger : System<RotationSpeed, Touchable> {
     
     void TouchDown(TouchData d, GameObject go) {
         go.GetComponent<RotationSpeed>()->speed = -go.GetComponent<RotationSpeed>()->speed;
+        
+        JsonSerializer ser;
+        ser.SerializeObject(go, std::cout);
+        
     }
 
 };
@@ -51,6 +59,13 @@ struct Game : IState {
 
     void Initialize() override {
     
+        device.Menu.AddChild("First").AddChild("Sub").Clicked.Bind([this] () {
+            device.Exit();
+        });
+        device.Menu.AddChild("Second").AddChild("Sub");
+        
+        
+    
         renderSystem = &scene.CreateSystem<RenderSystem>();
         renderSystem->DefaultShader = &renderSystem->Shaders.LitColored;
         
@@ -62,7 +77,7 @@ struct Game : IState {
         camera.AddComponent<Camera>();
         camera.AddComponent<Transform>();
 
-        for(int i =0; i<5; i++) {
+        for(int i =0; i<6; i++) {
             CreateCube({-10 + i * 4.0f, 0.0f, -10.0f});
         }
         
