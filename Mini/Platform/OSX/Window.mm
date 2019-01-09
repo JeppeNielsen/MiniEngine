@@ -9,34 +9,31 @@
 #include "Window.hpp"
 #import <Cocoa/Cocoa.h>
 #include <OpenGL/gl.h>
+#include "OSXView.h"
 #include <iostream>
+#include "AppMenu.hpp"
 
 using namespace Mini;
 
 static Mini::Window* engineWindow;
 static int globalWindowWidth;
 static int globalWindowHeight;
-
-@interface OSXView : NSOpenGLView <NSWindowDelegate>
-{
-    NSTimer *renderTimer;
-}
-
-- (void) drawRect: (NSRect) bounds;
-- (void) prepareOpenGL;
--(NSMenuItem*) createMenuItem: (NSMenu*)menu withText:(NSString*)text withObject:(void*)object withShortCut:(NSString*)shortCut;
--(void) removeMenuItem: (NSMenu*)menu withItem:(void*)item;
--(void) menuItemClicked:(id)sender;
--(void)viewDidChangeBackingProperties;
-@end
-
+static OSXView* staticView;
 
 @implementation OSXView
+
++(OSXView*) getInstance {
+    return staticView;
+}
 
 -(void) drawRect: (NSRect) bounds {
     if (engineWindow->mainLoopData.Update()) {
         exit(0);
     }
+}
+
+-(void) setWindow:(NSWindow *)_window {
+    window = _window;
 }
 
 - (void)prepareOpenGL {
@@ -66,8 +63,19 @@ static int globalWindowHeight;
     }
 
     [app setMainMenu:menu];
-    
+
+    staticView = self;
     engineWindow->mainLoopData.Initialize();
+}
+
+-(NSPoint) convertViewLocationToWorldPoint: (NSPoint) point {
+    NSPoint p = [self convertPoint:point toView:nil];
+    NSRect rect;
+    rect.origin.x = p.x;
+    rect.origin.y = p.y;
+    
+    rect = [window convertRectToScreen:rect];
+    return rect.origin;
 }
 
 - (void) updateGLView:(NSTimer *)timer
@@ -168,31 +176,28 @@ static int globalWindowHeight;
     engineWindow->inputDevice.SetButton([str UTF8String], false, ModifierKey::None);
 }
 
-//std::map<NSMenuItem*, AppMenu*> menuItemToAppMenu;
+std::map<NSMenuItem*, AppMenu*> menuItemToAppMenu;
 
--(NSMenuItem*)createMenuItem:(NSMenu *)menu withText:(NSString*)text withObject:(void*)object withShortCut:(NSString*)shortCut
-{
-    //NSMenuItem* menuItem = [[menu addItemWithTitle:text action:@selector(menuItemClicked:) keyEquivalent:shortCut] retain];
-    //menuItemToAppMenu[menuItem] = (AppMenu*)object;
-    //return menuItem;
-    return NULL;
+-(NSMenuItem*)createMenuItem:(NSMenu *)menu withText:(NSString*)text withObject:(void*)object withShortCut:(NSString*)shortCut {
+    NSMenuItem* menuItem = [menu addItemWithTitle:text action:@selector(menuItemClicked:) keyEquivalent:shortCut];
+    menuItemToAppMenu[menuItem] = (AppMenu*)object;
+    return menuItem;
 }
 
 -(void)removeMenuItem:(NSMenu *)menu withItem:(void*)item {
-    /*for(auto it : menuItemToAppMenu) {
+    for(auto it : menuItemToAppMenu) {
         if (it.second == (AppMenu*)item){
             [menu removeItem:it.first];
             menuItemToAppMenu.erase(menuItemToAppMenu.find(it.first));
             break;
         }
     }
-    */
 }
 
 -(void)menuItemClicked:(id)sender
 {
     NSMenuItem* menuItem = (NSMenuItem*)sender;
-    //menuItemToAppMenu[menuItem]->Clicked();
+    menuItemToAppMenu[menuItem]->Clicked();
 }
 
 - (void)viewDidChangeBackingProperties {
@@ -267,6 +272,7 @@ static int globalWindowHeight;
     
 
     view = [[OSXView alloc]init];
+    [view setWindow: window];
     [view setWantsBestResolutionOpenGLSurface:YES];
     
     float scalingFactor = [[NSScreen mainScreen] backingScaleFactor];

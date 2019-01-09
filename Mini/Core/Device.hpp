@@ -9,6 +9,7 @@
 #pragma once
 #include "Screen.hpp"
 #include "InputManager.hpp"
+#include "AppMenu.hpp"
 
 namespace Mini {
     class Engine;
@@ -17,6 +18,7 @@ namespace Mini {
         void Exit();
         Screen Screen;
         InputManager Input;
+        AppMenu Menu;
     private:
         bool exited = false;
         friend class Engine;

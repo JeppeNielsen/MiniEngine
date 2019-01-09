@@ -16,6 +16,7 @@ void Engine::MainLoop() {
     Window::MainLoopData data;
     data.Initialize =
     [&, this]() {
+        state->device.Menu.InitializeMainMenu();
         state->Initialize();
     };
     

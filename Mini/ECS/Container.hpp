@@ -119,12 +119,13 @@ struct Container : public IContainer {
     
     template<typename Type>
     static void TrySerializeFields(minijson::object_writer& writer, Type& instance) {
-        Mini::Meta::static_if<HasGetTypeMethod<Type>, Type&>(instance, [&writer](auto& getType) {
+        
+        auto name = writer.nested_object(ClassNameHelper::GetName<Type>().c_str());
+        Mini::Meta::static_if<HasGetTypeMethod<Type>, Type&>(instance, [&writer, &name](auto& getType) {
             auto typeInfo = getType.GetType();
-            auto name = writer.nested_object(typeInfo.Name().c_str());
             typeInfo.Serialize(name);
-            name.close();
         });
+        name.close();
     }
     
     template<typename Type>
