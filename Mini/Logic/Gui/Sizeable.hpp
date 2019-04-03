@@ -11,7 +11,7 @@
 #include "TypeInfo.hpp"
 #include "Property.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct Sizeable {
     public:
         Sizeable() {

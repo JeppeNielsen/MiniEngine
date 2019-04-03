@@ -17,7 +17,7 @@
 #include FT_FREETYPE_H
 
 using namespace std;
-using namespace Pocket;
+using namespace Mini;
 
 Font::Font() :
 CharacterSetEverySize(4),
@@ -270,7 +270,7 @@ void Font::CreateText(std::vector<Letter>& sentence, const std::string& text, Ve
 
 bool Font::IsDirty() { return isDirty; }
 
-void Font::UpdateBuffer(Pocket::Texture& texture) {
+void Font::UpdateBuffer(Texture& texture) {
     if (!face) return;
     isDirty = false;
     

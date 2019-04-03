@@ -8,7 +8,7 @@
 
 #include "HierarchyEditor.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 HierarchyEditor::HierarchyEditor() { Object = 0; }
 

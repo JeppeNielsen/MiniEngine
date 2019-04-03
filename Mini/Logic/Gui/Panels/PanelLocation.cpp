@@ -8,7 +8,7 @@
 
 #include "PanelLocation.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 bool PanelLocation::operator !=(const PanelLocation &other) const{
     if (other.directions.size()!=directions.size()) return true;

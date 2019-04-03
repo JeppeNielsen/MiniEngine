@@ -8,6 +8,6 @@
 
 #include "GameObjectEditor.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 GameObjectEditor::GameObjectEditor() { Object = 0; }

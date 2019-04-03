@@ -7,8 +7,10 @@
 //
 
 #pragma once
+#include "Vector2.hpp"
+#include "DirtyProperty.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct Layouter {
         enum class LayoutMode {
             Horizontal,

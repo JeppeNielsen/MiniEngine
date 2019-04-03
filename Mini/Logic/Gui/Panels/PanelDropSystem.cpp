@@ -10,49 +10,45 @@
 #include "PanelSystem.hpp"
 #include "PanelArea.hpp"
 
-using namespace Pocket;
-
-void PanelDropSystem::CreateSubSystems(Pocket::GameStorage& storage) {
-    storage.AddSystemType<PanelSystem>();
-}
+using namespace Mini;
 
 void PanelDropSystem::Initialize() {
-    panels = root->CreateSystem<PanelSystem>();
+    panels = scene->CreateSystem<PanelSystem>();
 }
 
-void PanelDropSystem::ObjectAdded(GameObject* object) {
-    object->GetComponent<Droppable>()->Dropped.Bind(this, &PanelDropSystem::Dropped);
+void PanelDropSystem::ObjectAdded(GameObject object) {
+    object.GetComponent<Droppable>()->Dropped.Bind(this, &PanelDropSystem::Dropped);
 }
 
-void PanelDropSystem::ObjectRemoved(GameObject* object) {
-    object->GetComponent<Droppable>()->Dropped.Unbind(this, &PanelDropSystem::Dropped);
+void PanelDropSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<Droppable>()->Dropped.Unbind(this, &PanelDropSystem::Dropped);
 }
 
 void PanelDropSystem::Dropped(DroppedData d) {
-    GameObject* panelObject = d.object->GetComponent<PanelDropper>()->panel;
-    Panel* panel = panelObject->GetComponent<Panel>();
+    GameObject panelObject = d.object.GetComponent<PanelDropper>()->panel;
+    Panel* panel = panelObject.GetComponent<Panel>();
     for(auto o : d.droppedTouches) {
         if (o.object == panelObject) continue;
         
-        PanelArea* droppedPanelArea = o.object->GetComponent<PanelArea>();
+        PanelArea* droppedPanelArea = o.object.GetComponent<PanelArea>();
         if (droppedPanelArea) {
             panel->Area = o.object;
             return;
         }
         
-        Panel* droppedPanel = o.object->GetComponent<Panel>();
+        Panel* droppedPanel = o.object.GetComponent<Panel>();
         if (!droppedPanel) continue;
         
-        GameObject* droppedArea = droppedPanel->Area;
+        GameObject droppedArea = droppedPanel->Area;
         if (!droppedArea) continue;
         
-        Sizeable* areaSizable = droppedArea->GetComponent<Sizeable>();
+        Sizeable* areaSizable = droppedArea.GetComponent<Sizeable>();
         if (!areaSizable) continue;
         
-        Transform* areaTransform = droppedArea->GetComponent<Transform>();
+        Transform* areaTransform = droppedArea.GetComponent<Transform>();
         if (!areaTransform) continue;
         
-        PanelArea* panelArea = droppedArea->GetComponent<PanelArea>();
+        PanelArea* panelArea = droppedArea.GetComponent<PanelArea>();
         
         Vector2 localPosition = areaTransform->WorldInverse().TransformPosition(o.WorldPosition);
         Rect rect = droppedPanel->location.GetRect(areaSizable->Size, [panelArea] (const std::string& id) {
@@ -82,7 +78,7 @@ void PanelDropSystem::Dropped(DroppedData d) {
         //if (!panel->Directions.empty()) {
             for(auto o : panels->Objects()) {
                 if (o == panelObject) continue;
-                auto op = o->GetComponent<Panel>();
+                auto op = o.GetComponent<Panel>();
                 if (!op) continue;
                 if (op->Area != panel->Area) continue;
                 

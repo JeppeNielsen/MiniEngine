@@ -8,13 +8,12 @@
 
 #include "VelocitySystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 void VelocitySystem::Update(float dt) {
-    for (ObjectCollection::const_iterator it = Objects().begin(); it!=Objects().end(); ++it) {
-        GameObject* object = *it;
-        Velocity* velocity = object->GetComponent<Velocity>();
-        Transform* transform = object->GetComponent<Transform>();
+    for (auto object : Objects()) {
+        Velocity* velocity = object.GetComponent<Velocity>();
+        Transform* transform = object.GetComponent<Transform>();
         
         if (velocity->Friction>0) {
             velocity->velocity = Vector3::Lerp(velocity->velocity, Vector3(0,0,0), velocity->Friction * dt);

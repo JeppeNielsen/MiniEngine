@@ -9,7 +9,7 @@
 #pragma once
 #include "Vector3.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct Velocity {
         
         Velocity() : velocity(0), Friction(0), MinimumSpeedBeforeStop(0) {}

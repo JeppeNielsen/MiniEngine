@@ -10,9 +10,9 @@
 #include <functional>
 #include "GameObject.hpp"
 
-namespace Pocket {
+namespace Mini {
     class GameObjectFieldEditor {
         public:
-            std::function<void(GameObject*)> SetObject;
+            std::function<void(GameObject)> SetObject;
     };
 }

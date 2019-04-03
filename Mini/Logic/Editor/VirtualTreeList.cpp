@@ -9,11 +9,11 @@
 #include "VirtualTreeList.hpp"
 #include <sstream>
 
-using namespace Pocket;
+using namespace Mini;
 
 VirtualTreeList::VirtualTreeList() {
     Root = 0;
-    ExpandedHashFunction = [this] (GameObject* go) {
+    ExpandedHashFunction = [this] (GameObject go) {
         return DefaultExpandedHashFunction(go);
     };
     PredicateFunction = 0;
@@ -32,7 +32,7 @@ void VirtualTreeList::operator=(const Pocket::VirtualTreeList &other) {
     NodeRemoved.Clear();
 }
 
-void VirtualTreeList::SetNodeExpanded(Pocket::GameObject *node, bool expand) {
+void VirtualTreeList::SetNodeExpanded(Pocket::GameObject node, bool expand) {
     std::string hash = ExpandedHashFunction(node);
     auto it = expandedNodes.find(hash);
     if (expand && it==expandedNodes.end()) {
@@ -62,13 +62,13 @@ void VirtualTreeList::SetNodeExpanded(Pocket::GameObject *node, bool expand) {
     }
 }
 
-bool VirtualTreeList::IsNodeExpanded(Pocket::GameObject *node) {
+bool VirtualTreeList::IsNodeExpanded(Pocket::GameObject node) {
     if (!ShowRoot && node == Root()) return true;
     std::string hash = ExpandedHashFunction(node);
     return expandedNodes.find(hash) != expandedNodes.end();
 }
 
-int VirtualTreeList::GetNodeHeight(Pocket::GameObject *node) {
+int VirtualTreeList::GetNodeHeight(Pocket::GameObject node) {
     if (!ShowRoot && node == Root) {
         int v = 1;
         for(auto o : node->Hierarchy().Children()) {
@@ -87,7 +87,7 @@ void VirtualTreeList::GetNodes(int lower, int upper, Nodes &nodesFound) {
     GetNodesRecursive(Root, lower, upper, index, ShowRoot ? 0 : -1, nodesFound);
 }
 
-void VirtualTreeList::GetNodesRecursive(Pocket::GameObject *object, int lower, int upper, int &index, int depth, Nodes &nodesFound) {
+void VirtualTreeList::GetNodesRecursive(Pocket::GameObject object, int lower, int upper, int &index, int depth, Nodes &nodesFound) {
     if (index>upper) return;
     if ((ShowRoot || (object!=Root)) && PredicateFunction && !PredicateFunction(object)) return;
     if (index>=lower && index<=upper) {
@@ -111,7 +111,7 @@ void VirtualTreeList::GetNodesRecursive(Pocket::GameObject *object, int lower, i
     }
 }
 
-std::string VirtualTreeList::DefaultExpandedHashFunction(Pocket::GameObject *go) {
+std::string VirtualTreeList::DefaultExpandedHashFunction(Pocket::GameObject go) {
     std::stringstream s;
     s<<go;
     return s.str();

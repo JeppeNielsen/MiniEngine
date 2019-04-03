@@ -11,7 +11,7 @@
 #include <string>
 #include "TypeInfo.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct TextBox {
         TextBox() {
             Text = "";

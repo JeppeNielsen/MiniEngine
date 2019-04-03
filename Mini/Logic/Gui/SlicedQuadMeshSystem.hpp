@@ -6,17 +6,18 @@
 //  Copyright (c) 2013 Jeppe Nielsen. All rights reserved.
 //
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "Mesh.hpp"
 #include "Sizeable.hpp"
 #include "SlicedTexture.hpp"
 #include "SlicedQuad.hpp"
 
-namespace Pocket {
-    class SlicedQuadMeshSystem : public GameSystem<SlicedQuad, SlicedTexture, Sizeable, Mesh> {
+namespace Mini {
+    using namespace ECS;
+    class SlicedQuadMeshSystem : System<SlicedQuad, SlicedTexture, Sizeable, Mesh> {
     public:
-        void ObjectAdded(GameObject *object);
-        void ObjectRemoved(GameObject *object);
-        void UpdateMesh(GameObject* object);
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
+        void UpdateMesh(GameObject object);
     };
 }

@@ -10,7 +10,7 @@
 #include "Vector3.hpp"
 #include "Sizeable.hpp"
 
-namespace Pocket {
+namespace Mini {
     class Limitable {
     public:
         Limitable();

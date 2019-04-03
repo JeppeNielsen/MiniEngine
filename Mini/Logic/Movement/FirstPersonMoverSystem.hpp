@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Jeppe Nielsen. All rights reserved.
 //
 
-#include "GameSystem.hpp"
+#include "Scene.hpp"
 #include "Property.hpp"
 #include "InputManager.hpp"
 #include "Transform.hpp"
@@ -14,9 +14,10 @@
 #include "DraggableSystem.hpp"
 #include <map>
 
-namespace Pocket {
+namespace Mini {
+        using namespace ECS;
     class DraggableSystem;
-    class FirstPersonMoverSystem : public GameSystem<Transform, FirstPersonMover>  {
+    class FirstPersonMoverSystem : System<Transform, FirstPersonMover>  {
     public:
         FirstPersonMoverSystem();
         
@@ -29,8 +30,8 @@ private:
         void TouchDown(TouchEvent e);
         void TouchUp(TouchEvent e);
         
-        void UpdateMovement(float dt, GameObject* object);
-        bool UpdateRotation(float dt, GameObject* object);
+        void UpdateMovement(float dt, GameObject object);
+        bool UpdateRotation(float dt, GameObject object);
         
         typedef std::map<int, Vector2> Touches;
         Touches touches;

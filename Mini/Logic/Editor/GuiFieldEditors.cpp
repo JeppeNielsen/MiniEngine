@@ -15,17 +15,17 @@
 #include "GameObjectJsonSerializer.hpp"
 #include "Gui.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 void GuiFieldEditor::Initialize() {
     TypeEditorTitle::Title = [] (void* guiPtr, void* parentPtr, const std::string& title) -> void* {
         Gui* gui = static_cast<Gui*>(guiPtr);
-        GameObject* parent = static_cast<GameObject*>(parentPtr);
+        GameObject parent = static_cast<GameObject>(parentPtr);
         
-        GameObject* labelGo = gui->CreateLabel(parent, 0, 0, 0, title, 15);
-        labelGo->AddComponent<Layouter>()->Min = {20,20};
-        labelGo->AddComponent<Layouter>()->Desired = {100,20};
-        labelGo->AddComponent<Layouter>()->Max = {5000,20};
+        GameObject labelGo = gui->CreateLabel(parent, 0, 0, 0, title, 15);
+        labelGo.AddComponent<Layouter>()->Min = {20,20};
+        labelGo.AddComponent<Layouter>()->Desired = {100,20};
+        labelGo.AddComponent<Layouter>()->Max = {5000,20};
         Label* label = labelGo->GetComponent<Label>();
         labelGo->GetComponent<Colorable>()->Color = Colour::Black();
         label->HAlignment = Font::HAlignment::Center;
@@ -41,10 +41,10 @@ struct FieldInfoEditorTextboxes : public GuiFieldEditor {
         this->field = static_cast<T*>(field);
     }
 
-    void Initialize(const std::string& name, Gui* gui, GameObject* parent, GameObject* fieldObject) override {
-        GameObject* control = gui->CreatePivot(parent);
-        control->AddComponent<Sizeable>();
-        control->AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Horizontal;
+    void Initialize(const std::string& name, Gui* gui, GameObject parent, GameObject fieldObject) override {
+        GameObject control = gui->CreatePivot(parent);
+        control.AddComponent<Sizeable>();
+        control.AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Horizontal;
         
         auto label = gui->CreateLabel(control, 0, 1, nullptr, name, 12);
         gui->AddLayouter(label, {20,20}, {80,20}, {80,20});
@@ -52,11 +52,11 @@ struct FieldInfoEditorTextboxes : public GuiFieldEditor {
         label->GetComponent<Label>()->VAlignment = Font::VAlignment::Middle;
         
         for(int i=0; i<Size; ++i) {
-            GameObject* textBox = gui->CreateTextBox(control, "TextBox", 0, 0, 0, "", 15.0f);
+            GameObject textBox = gui->CreateTextBox(control, "TextBox", 0, 0, 0, "", 15.0f);
             textBox->GetComponent<Touchable>()->ClickThrough = true;
             textBox->Hierarchy().Children()[0]->GetComponent<TextBox>()->Active.Changed.Bind(this, &FieldInfoEditorTextboxes<T, Size>::TextChanged, textBox);
             textBox->Hierarchy().Children()[0]->GetComponent<Colorable>()->Color = Colour::Black();
-            textBox->AddComponent<Layouter>()->Min = {20, 20};
+            textBox.AddComponent<Layouter>()->Min = {20, 20};
             textBox->GetComponent<Layouter>()->Desired = {100, 20};
             textBox->GetComponent<Layouter>()->Max = {5000, 20};
             if (LeftAlign()) {
@@ -75,7 +75,7 @@ struct FieldInfoEditorTextboxes : public GuiFieldEditor {
         }
     }
     
-    void TextChanged(GameObject* textBoxGO) {
+    void TextChanged(GameObject textBoxGO) {
         TextBox* textBox = textBoxGO->Hierarchy().Children()[0]->GetComponent<TextBox>();
         if (textBox->Active) return;
         
@@ -104,7 +104,7 @@ struct FieldInfoEditorTextboxes : public GuiFieldEditor {
     virtual void TextboxChanged(int index, std::string text) = 0;
     virtual void UpdateTextbox(int index, std::stringstream& stream) = 0;
     virtual bool LeftAlign() { return false; }
-    GameObject* textBoxes[Size];
+    GameObject textBoxes[Size];
     
     T* field;
     T prev;
@@ -243,11 +243,11 @@ struct FieldInfoEditorBool : public GuiFieldEditor {
         this->field = static_cast<bool*>(field);
     }
 
-    void Initialize(const std::string& name, Gui* gui, GameObject* parent, GameObject* fieldObject) override {
+    void Initialize(const std::string& name, Gui* gui, GameObject parent, GameObject fieldObject) override {
     
         control = gui->CreatePivot(parent);
-        control->AddComponent<Sizeable>();
-        control->AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Horizontal;
+        control.AddComponent<Sizeable>();
+        control.AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Horizontal;
         
         auto label = gui->CreateLabel(control, 0, 1, nullptr, name, 12);
         gui->AddLayouter(label, {20,20}, {80,20}, {80,20});
@@ -256,7 +256,7 @@ struct FieldInfoEditorBool : public GuiFieldEditor {
 
         checkBoxBackground = gui->CreateControl(control, "TextBox");
         checkBoxBackground->GetComponent<Touchable>()->ClickThrough = true;
-        checkBoxBackground->AddComponent<Layouter>()->Min = {20, 20};
+        checkBoxBackground.AddComponent<Layouter>()->Min = {20, 20};
         checkBoxBackground->GetComponent<Layouter>()->Desired = {100, 20};
         checkBoxBackground->GetComponent<Layouter>()->Max = {5000, 20};
         checkBoxBackground->GetComponent<Touchable>()->Click.Bind(this, &FieldInfoEditorBool::Clicked);
@@ -288,9 +288,9 @@ struct FieldInfoEditorBool : public GuiFieldEditor {
     }
     
     bool* field;
-    GameObject* control;
-    GameObject* checkBoxBackground;
-    GameObject* checkBox;
+    GameObject control;
+    GameObject checkBoxBackground;
+    GameObject checkBox;
 };
 
 struct FieldInfoEditorBox : public FieldInfoEditorTextboxes<Box, 4> {
@@ -384,30 +384,30 @@ template<> IFieldEditor* FieldEditorCreator<Colour>::Create(Colour* ptr) {
 struct ReferenceComponentEditor : public GuiFieldEditor {
 
     GameObject::ReferenceComponent component;
-    GameObject* control;
-    GameObject* parent;
-    GameObject* label;
+    GameObject control;
+    GameObject parent;
+    GameObject label;
 
     void SetField(void* field) override {
         component = *static_cast<GameObject::ReferenceComponent*>(field);
         menu = 0;
     }
 
-    void Initialize(const std::string& name, Gui* gui, GameObject* parent, GameObject* fieldObject) override {
+    void Initialize(const std::string& name, Gui* gui, GameObject parent, GameObject fieldObject) override {
     
         this->parent = parent;
     
         control = gui->CreateControl(parent);
-        control->AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Horizontal;
+        control.AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Horizontal;
         
-        GameObject* textBox = gui->CreateControl(control, "TextBox");
-        textBox->AddComponent<Layouter>()->Min = {20, 20};
+        GameObject textBox = gui->CreateControl(control, "TextBox");
+        textBox.AddComponent<Layouter>()->Min = {20, 20};
         textBox->GetComponent<Layouter>()->Desired = {100, 20};
         textBox->GetComponent<Layouter>()->Max = {5000, 20};
         textBox->GetComponent<Touchable>()->Click.Bind([this] (TouchData d){
             MenuClicked();
         });
-        textBox->AddComponent<GameObjectFieldEditor>()->SetObject = [this] (GameObject* obj) {
+        textBox.AddComponent<GameObjectFieldEditor>()->SetObject = [this] (GameObject obj) {
             if (!obj->HasComponent(component.componentId)) return;
             component.object->ReplaceComponent(component.componentId, obj);
             UpdateLabel();
@@ -415,7 +415,7 @@ struct ReferenceComponentEditor : public GuiFieldEditor {
 
         label = gui->CreateLabel(textBox, 0, 20, 0, "", 20);
         label->GetComponent<Label>()->VAlignment = Font::VAlignment::Middle;
-        label->AddComponent<Colorable>()->Color = Colour::Black();
+        label.AddComponent<Colorable>()->Color = Colour::Black();
         
         TypeEditorTitle::Title(gui, parent, component.name);
         
@@ -442,7 +442,7 @@ struct ReferenceComponentEditor : public GuiFieldEditor {
     }
     
     void UpdateLabel() {
-        GameObject* owner = component.object->GetComponentOwner(component.componentId);
+        GameObject owner = component.object->GetComponentOwner(component.componentId);
         std::string text;
         if (owner) {
             std::string path = owner->TryGetScenePath();
@@ -457,7 +457,7 @@ struct ReferenceComponentEditor : public GuiFieldEditor {
         label->GetComponent<Label>()->Text = text;
     }
     
-    GameObject* menu;
+    GameObject menu;
     Gui* gui;
     
     struct ClickedData {
@@ -481,7 +481,7 @@ struct ReferenceComponentEditor : public GuiFieldEditor {
         world->Storage().GetPaths(guids, paths);
         
         menu = gui->CreateControl(0, "TextBox", 0, {200,200});
-        menu->AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Vertical;
+        menu.AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Vertical;
         menu->GetComponent<Transform>()->Position = control->GetComponent<Transform>()->World().TransformPosition(0);
         
         for (int i=0; i<guids.size(); ++i) {
@@ -498,8 +498,8 @@ struct ReferenceComponentEditor : public GuiFieldEditor {
             //});
 
             world->Storage().TryParseComponent(file, component.componentId, [&, this](int parentId, int id) {
-                GameObject* button = gui->CreateControl(menu, "Box");
-                button->AddComponent<Layouter>()->Desired = { 200, 30 };
+                GameObject button = gui->CreateControl(menu, "Box");
+                button.AddComponent<Layouter>()->Desired = { 200, 30 };
                 button->GetComponent<Layouter>()->Min = {50,30};
                 button->GetComponent<Layouter>()->Max = {500,30};
                 
@@ -509,9 +509,9 @@ struct ReferenceComponentEditor : public GuiFieldEditor {
                 ss<<id;
                 text += " : " + ss.str();
                 
-                GameObject* label = gui->CreateLabel(button, 0, 10, 0, text, 20);
-                //label->AddComponent<Layouter>(button);
-                label->AddComponent<Colorable>()->Color = Colour::Black();
+                GameObject label = gui->CreateLabel(button, 0, 10, 0, text, 20);
+                //label.AddComponent<Layouter>(button);
+                label.AddComponent<Colorable>()->Color = Colour::Black();
                 
                 button->GetComponent<Touchable>()->Down.Bind(this, &ReferenceComponentEditor::Clicked, { guids[i], id } );
 
@@ -529,7 +529,7 @@ struct ReferenceComponentEditor : public GuiFieldEditor {
         
         std::cout << "Guid : " << d.guid << "  object id :"<< d.objectId<<std::endl;
         
-        GameObject* object = component.object->World()->Storage().TryGetPrefab(d.guid, d.objectId);
+        GameObject object = component.object->World()->Storage().TryGetPrefab(d.guid, d.objectId);
         if (!object) return;
         component.object->ReplaceComponent(component.componentId, object);
         
@@ -548,43 +548,43 @@ template<> IFieldEditor* FieldEditorCreator<GameObject::ReferenceComponent>::Cre
 struct GameObjectHandleEditor : public GuiFieldEditor {
 
     GameObjectHandle* handle;
-    GameObject* control;
-    GameObject* parent;
-    GameObject* label;
+    GameObject control;
+    GameObject parent;
+    GameObject label;
     
-    GameObject* fieldObject;
+    GameObject fieldObject;
 
     void SetField(void* field) override {
         handle = static_cast<GameObjectHandle*>(field);
         menu = 0;
     }
 
-    void Initialize(const std::string& name, Gui* gui, GameObject* parent, GameObject* fieldObject) override {
+    void Initialize(const std::string& name, Gui* gui, GameObject parent, GameObject fieldObject) override {
     
         this->parent = parent;
         this->fieldObject = fieldObject;
     
         control = gui->CreateControl(parent);
-        control->AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Horizontal;
+        control.AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Horizontal;
         
-        GameObject* textBox = gui->CreateControl(control, "TextBox");
-        textBox->AddComponent<Layouter>()->Min = {20, 20};
+        GameObject textBox = gui->CreateControl(control, "TextBox");
+        textBox.AddComponent<Layouter>()->Min = {20, 20};
         textBox->GetComponent<Layouter>()->Desired = {100, 20};
         textBox->GetComponent<Layouter>()->Max = {5000, 20};
         textBox->GetComponent<Touchable>()->Click.Bind([this] (TouchData d){
             MenuClicked();
         });
-        textBox->AddComponent<GameObjectFieldEditor>()->SetObject = [this] (GameObject* obj) {
+        textBox.AddComponent<GameObjectFieldEditor>()->SetObject = [this] (GameObject obj) {
             handle->operator=(obj);
             UpdateLabel();
         };
         
-        //gui->CreateLabel(Pocket::GameObject *parent, const Pocket::Vector2 &position, const Pocket::Vector2 &size, Pocket::GameObject *font, const std::string &text, float fontSize)
+        //gui->CreateLabel(Pocket::GameObject parent, const Pocket::Vector2 &position, const Pocket::Vector2 &size, Pocket::GameObject font, const std::string &text, float fontSize)
         label = gui->CreateLabel(textBox, 0, 20, 0, "", 20);
         label->GetComponent<Label>()->VAlignment = Font::VAlignment::Middle;
         
-        //label->AddComponent<Layouter>(textBox);
-        label->AddComponent<Colorable>()->Color = Colour::Black();
+        //label.AddComponent<Layouter>(textBox);
+        label.AddComponent<Colorable>()->Color = Colour::Black();
         
         this->gui = gui;
         this->parent->World()->Input().TouchDown.Bind(this, &GameObjectHandleEditor::TouchUp);
@@ -593,7 +593,7 @@ struct GameObjectHandleEditor : public GuiFieldEditor {
     }
     
     void UpdateLabel() {
-        GameObject* target = handle->operator->();
+        GameObject target = handle->operator->();
         
         
         std::string path = !target ? "" : target->TryGetScenePath();
@@ -624,7 +624,7 @@ struct GameObjectHandleEditor : public GuiFieldEditor {
         
     }
     
-    GameObject* menu;
+    GameObject menu;
     Gui* gui;
     
     struct ClickedData {
@@ -649,7 +649,7 @@ struct GameObjectHandleEditor : public GuiFieldEditor {
         world->Storage().GetPaths(guids, paths);
         
         menu = gui->CreateControl(0, "TextBox", 0, {200,200});
-        menu->AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Vertical;
+        menu.AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Vertical;
         menu->GetComponent<Transform>()->Position = control->GetComponent<Transform>()->World().TransformPosition(0);
         
         GameObjectJsonSerializer serializer;
@@ -669,8 +669,8 @@ struct GameObjectHandleEditor : public GuiFieldEditor {
             serializer.TryParse(file, "", [&, this](int parentId, int id) {
             
                 if (hasCreatedItem) return;
-                GameObject* button = gui->CreateControl(menu, "Box");
-                button->AddComponent<Layouter>()->Desired = { 200, 30 };
+                GameObject button = gui->CreateControl(menu, "Box");
+                button.AddComponent<Layouter>()->Desired = { 200, 30 };
                 button->GetComponent<Layouter>()->Min = {50,30};
                 button->GetComponent<Layouter>()->Max = {500,30};
                 
@@ -680,9 +680,9 @@ struct GameObjectHandleEditor : public GuiFieldEditor {
                 ss<<id;
                 text += " : " + ss.str();
                 
-                GameObject* label = gui->CreateLabel(button, 0, 10, 0, text, 20);
-                //label->AddComponent<Layouter>(button);
-                label->AddComponent<Colorable>()->Color = Colour::Black();
+                GameObject label = gui->CreateLabel(button, 0, 10, 0, text, 20);
+                //label.AddComponent<Layouter>(button);
+                label.AddComponent<Colorable>()->Color = Colour::Black();
                 
                 button->GetComponent<Touchable>()->Down.Bind(this, &GameObjectHandleEditor::Clicked, { guids[i], id } );
                 
@@ -704,7 +704,7 @@ struct GameObjectHandleEditor : public GuiFieldEditor {
         
         std::cout << "Guid : " << d.guid << "  object id :"<< d.objectId<<std::endl;
         
-        GameObject* object = fieldObject->World()->Storage().TryGetPrefab(d.guid, d.objectId);
+        GameObject object = fieldObject->World()->Storage().TryGetPrefab(d.guid, d.objectId);
         if (!object) return;
         
         handle->operator=(object);

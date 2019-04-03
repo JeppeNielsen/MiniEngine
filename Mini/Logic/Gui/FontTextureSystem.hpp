@@ -7,12 +7,13 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "TextureComponent.hpp"
 #include "Font.hpp"
 
-namespace Pocket {
-    struct FontTextureSystem : public GameSystem<Font, TextureComponent> {
+namespace Mini {
+    using namespace ECS;
+    struct FontTextureSystem : System<Font, TextureComponent> {
     protected:
         void Update(float dt);
     };

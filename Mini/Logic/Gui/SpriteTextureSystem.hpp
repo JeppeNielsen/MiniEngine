@@ -7,16 +7,16 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "Mesh.hpp"
 #include "Sizeable.hpp"
 #include "Sprite.hpp"
 #include "Atlas.hpp"
 
-namespace Pocket {
-    struct SpriteTextureSystem : public GameSystem<Sprite, Atlas, Mesh> {
-        void ObjectAdded(GameObject *object);
-        void ObjectRemoved(GameObject *object);
-        void SpriteChanged(GameObject* object);
+namespace Mini {
+    struct SpriteTextureSystem : System<Sprite, Atlas, Mesh> {
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
+        void SpriteChanged(GameObject object);
     };
 }

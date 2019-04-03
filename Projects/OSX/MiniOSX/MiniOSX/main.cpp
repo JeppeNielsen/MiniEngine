@@ -62,8 +62,7 @@ struct Game : IState {
         device.Menu.AddChild("First").AddChild("Sub").Clicked.Bind([this] () {
             device.Exit();
         });
-        device.Menu.AddChild("Second").AddChild("Sub");
-        
+        device.Menu.AddChild("Second").AddChild("Sub").AddChild("Sub 2").AddChild("Sub 3");
         
     
         renderSystem = &scene.CreateSystem<RenderSystem>();

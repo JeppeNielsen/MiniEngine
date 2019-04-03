@@ -7,17 +7,17 @@
 //
 
 #pragma once
+#include "GameObject.hpp"
 #include "PanelLocation.hpp"
 #include "Property.hpp"
 
-namespace Pocket {
-    class GameObject;
-
+namespace Mini {
+    using namespace ECS;
     class Panel {
     public:
         Panel();
         
-        Property<GameObject*> Area;
+        Property<GameObject> Area;
         PanelLocation location;
         Event<> Dirty;
     };

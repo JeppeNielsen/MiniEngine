@@ -9,21 +9,21 @@
 #include "GameWorldViewportSystem.hpp"
 #include "Engine.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
-void GameWorldViewportSystem::ObjectAdded(GameObject* object) {
-    auto viewport = object->GetComponent<GameWorldViewport>();
+void GameWorldViewportSystem::ObjectAdded(GameObject object) {
+    auto viewport = object.GetComponent<GameWorldViewport>();
     viewport->renderTexture.Initialize(viewport->RenderTextureSize.x, viewport->RenderTextureSize.y);
-    object->GetComponent<TextureComponent>()->Texture().SetRenderTexture(&viewport->renderTexture, viewport->RenderTextureSize.x, viewport->RenderTextureSize.y);
-    object->GetComponent<Touchable>()->Down.Bind(this, &GameWorldViewportSystem::TouchDown, object);
-    object->GetComponent<Touchable>()->Up.Bind(this, &GameWorldViewportSystem::TouchUp, object);
+    object.GetComponent<TextureComponent>()->Texture().SetRenderTexture(&viewport->renderTexture, viewport->RenderTextureSize.x, viewport->RenderTextureSize.y);
+    object.GetComponent<Touchable>()->Down.Bind(this, &GameWorldViewportSystem::TouchDown, object);
+    object.GetComponent<Touchable>()->Up.Bind(this, &GameWorldViewportSystem::TouchUp, object);
     viewport->inputDevice.Initialize(12);
 }
 
-void GameWorldViewportSystem::ObjectRemoved(GameObject* object) {
-    object->GetComponent<TextureComponent>()->Texture().SetRenderTexture(nullptr, 0,0);
-    object->GetComponent<Touchable>()->Down.Unbind(this, &GameWorldViewportSystem::TouchDown, object);
-    object->GetComponent<Touchable>()->Up.Unbind(this, &GameWorldViewportSystem::TouchUp, object);
+void GameWorldViewportSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<TextureComponent>()->Texture().SetRenderTexture(nullptr, 0,0);
+    object.GetComponent<Touchable>()->Down.Unbind(this, &GameWorldViewportSystem::TouchDown, object);
+    object.GetComponent<Touchable>()->Up.Unbind(this, &GameWorldViewportSystem::TouchUp, object);
 }
 
 void GameWorldViewportSystem::Update(float dt) {
@@ -38,24 +38,24 @@ void GameWorldViewportSystem::Render() {
     }
 }
 
-void GameWorldViewportSystem::TouchDown(Pocket::TouchData d, Pocket::GameObject *object) {
-    auto viewport = object->GetComponent<GameWorldViewport>();
-    Vector2 local = object->GetComponent<Transform>()->WorldInverse().TransformPosition(d.WorldPosition);
+void GameWorldViewportSystem::TouchDown(TouchData d, GameObject object) {
+    auto viewport = object.GetComponent<GameWorldViewport>();
+    Vector2 local = object.GetComponent<Transform>()->WorldInverse().TransformPosition(d.WorldPosition);
     viewport->inputDevice.SetTouch(d.Index, true, local);
 }
 
-void GameWorldViewportSystem::TouchUp(Pocket::TouchData d, Pocket::GameObject *object) {
-    auto viewport = object->GetComponent<GameWorldViewport>();
-    Vector2 local = object->GetComponent<Transform>()->WorldInverse().TransformPosition(d.WorldPosition);
+void GameWorldViewportSystem::TouchUp(TouchData d, GameObject object) {
+    auto viewport = object.GetComponent<GameWorldViewport>();
+    Vector2 local = object.GetComponent<Transform>()->WorldInverse().TransformPosition(d.WorldPosition);
     viewport->inputDevice.SetTouch(d.Index, false, local);
 }
 
-void GameWorldViewportSystem::UpdateObject(GameObject* object, float dt) {
-    auto viewport = object->GetComponent<GameWorldViewport>();
+void GameWorldViewportSystem::UpdateObject(GameObject object, float dt) {
+    auto viewport = object.GetComponent<GameWorldViewport>();
     if (!viewport->World) return;
     
-    Sizeable* sizeable = object->GetComponent<Sizeable>();
-    auto& mesh = object->GetComponent<Mesh>()->GetMesh<Vertex>();
+    Sizeable* sizeable = object.GetComponent<Sizeable>();
+    auto& mesh = object.GetComponent<Mesh>()->GetMesh<Vertex>();
     
     if (mesh.vertices.size()!=4) {
         mesh.vertices.resize(4);
@@ -82,7 +82,7 @@ void GameWorldViewportSystem::UpdateObject(GameObject* object, float dt) {
     mesh.vertices[3].Position = {0,size.y,0};
     
     for(int i=0; i<4; ++i) {
-        mesh.vertices[i].Color = Colour::White();
+        mesh.vertices[i].Color = Color::White();
     }
     
     mesh.vertices[0].TextureCoords = {0,0};
@@ -90,15 +90,16 @@ void GameWorldViewportSystem::UpdateObject(GameObject* object, float dt) {
     mesh.vertices[2].TextureCoords = uv;
     mesh.vertices[3].TextureCoords = {0,uv.y};
     
+    /*
     Vector2 oldScreenSize = Engine::Context().ScreenSize;
     float oldScalingFactor = Engine::Context().ScreenScalingFactor;
     Engine::Context().ScreenSize = size;
     Engine::Context().ScreenScalingFactor = 1.0f;
     
-    const Matrix4x4& inv = object->GetComponent<Transform>()->WorldInverse();
+    const Matrix4x4& inv = object.GetComponent<Transform>()->WorldInverse();
     
     for (int i=0; i<12; i++) {
-        Vector2 local = inv.TransformPosition(root->Input().GetDevice()->GetTouchPosition(i));
+        Vector2 local = inv.TransformPosition(scene->Input().GetDevice()->GetTouchPosition(i));
         viewport->inputDevice.SetTouchPosition(i, local);
     }
     
@@ -109,13 +110,14 @@ void GameWorldViewportSystem::UpdateObject(GameObject* object, float dt) {
     
     Engine::Context().ScreenSize = oldScreenSize;
     Engine::Context().ScreenScalingFactor = oldScalingFactor;
+    */
 }
 
-void GameWorldViewportSystem::RenderObject(GameObject* object) {
-    auto viewport = object->GetComponent<GameWorldViewport>();
-    auto sizeable = object->GetComponent<Sizeable>();
+void GameWorldViewportSystem::RenderObject(GameObject object) {
+    auto viewport = object.GetComponent<GameWorldViewport>();
+    auto sizeable = object.GetComponent<Sizeable>();
     if (!viewport->World) return;
-    
+    /*
     viewport->renderTexture.Begin();
     glClearColor(0,0,0.7f, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -129,4 +131,5 @@ void GameWorldViewportSystem::RenderObject(GameObject* object) {
     Engine::Context().ScreenScalingFactor = oldScalingFactor;
     
     viewport->renderTexture.End();
+    */
 }

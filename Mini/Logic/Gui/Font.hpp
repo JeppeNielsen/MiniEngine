@@ -17,7 +17,7 @@
 struct FT_LibraryRec_;
 struct FT_FaceRec_;
 
-namespace Pocket {
+namespace Mini {
     class Font {
     public:
         Font();
@@ -53,7 +53,7 @@ namespace Pocket {
 
         bool IsDirty();
 
-        void UpdateBuffer(Pocket::Texture& texture);
+        void UpdateBuffer(Texture& texture);
         
         Event<> BufferUpdated;
         Event<> Cleared;

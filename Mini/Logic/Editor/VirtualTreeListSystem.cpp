@@ -10,17 +10,17 @@
 #include <cmath>
 
 
-using namespace Pocket;
+using namespace Mini;
 
 void VirtualTreeListSystem::Initialize() {
 
 }
 
-void VirtualTreeListSystem::ObjectAdded(Pocket::GameObject *object) {
+void VirtualTreeListSystem::ObjectAdded(Pocket::GameObject object) {
     object->GetComponent<VirtualTreeList>()->Root.Changed.Bind(this, &VirtualTreeListSystem::UpdateVirtualList, object);
 }
 
-void VirtualTreeListSystem::ObjectRemoved(Pocket::GameObject *object) {
+void VirtualTreeListSystem::ObjectRemoved(Pocket::GameObject object) {
     object->GetComponent<VirtualTreeList>()->Root.Changed.Unbind(this, &VirtualTreeListSystem::UpdateVirtualList, object);
 }
 
@@ -30,7 +30,7 @@ void VirtualTreeListSystem::Update(float dt) {
     }
 }
 
-void VirtualTreeListSystem::UpdateVirtualList(Pocket::GameObject *object) {
+void VirtualTreeListSystem::UpdateVirtualList(Pocket::GameObject object) {
     VirtualTreeList* treeList = object->GetComponent<VirtualTreeList>();
     if (!treeList->Pivot()) return;
     if (!treeList->Root()) {

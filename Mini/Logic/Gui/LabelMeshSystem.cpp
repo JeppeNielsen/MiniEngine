@@ -8,32 +8,32 @@
 
 #include "LabelMeshSystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
-void LabelMeshSystem::ObjectAdded(GameObject *object) {
-    object->GetComponent<Sizeable>()->Size.Changed.Bind(this, &LabelMeshSystem::SomethingChanged, object);
-    Label* label = object->GetComponent<Label>();
+void LabelMeshSystem::ObjectAdded(GameObject object) {
+    object.GetComponent<Sizeable>()->Size.Changed.Bind(this, &LabelMeshSystem::SomethingChanged, object);
+    Label* label = object.GetComponent<Label>();
     label->FontSize.Changed.Bind(this, &LabelMeshSystem::TextChanged, object);
     label->Text.Changed.Bind(this, &LabelMeshSystem::TextChanged, object);
     label->HAlignment.Changed.Bind(this, &LabelMeshSystem::SomethingChanged, object);
     label->VAlignment.Changed.Bind(this, &LabelMeshSystem::SomethingChanged, object);
     label->WordWrap.Changed.Bind(this, &LabelMeshSystem::SomethingChanged, object);
-    Font* font = object->GetComponent<Font>();
+    Font* font = object.GetComponent<Font>();
     font->BufferUpdated.Bind(this, &LabelMeshSystem::SomethingChanged, object);
     font->Cleared.Bind(this, &LabelMeshSystem::TextChanged, object);
     
     TextChanged(object);
 }
 
-void LabelMeshSystem::ObjectRemoved(GameObject *object) {
-    object->GetComponent<Sizeable>()->Size.Changed.Unbind(this, &LabelMeshSystem::SomethingChanged, object);
-    Label* label = object->GetComponent<Label>();
+void LabelMeshSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<Sizeable>()->Size.Changed.Unbind(this, &LabelMeshSystem::SomethingChanged, object);
+    Label* label = object.GetComponent<Label>();
     label->FontSize.Changed.Unbind(this, &LabelMeshSystem::TextChanged, object);
     label->Text.Changed.Unbind(this, &LabelMeshSystem::TextChanged, object);
     label->HAlignment.Changed.Unbind(this, &LabelMeshSystem::SomethingChanged, object);
     label->VAlignment.Changed.Unbind(this, &LabelMeshSystem::SomethingChanged, object);
     label->WordWrap.Changed.Unbind(this, &LabelMeshSystem::SomethingChanged, object);
-    Font* font = object->GetComponent<Font>();
+    Font* font = object.GetComponent<Font>();
     font->BufferUpdated.Unbind(this, &LabelMeshSystem::SomethingChanged, object);
     font->Cleared.Unbind(this, &LabelMeshSystem::TextChanged, object);
     
@@ -43,28 +43,28 @@ void LabelMeshSystem::ObjectRemoved(GameObject *object) {
     }
 }
 
-void LabelMeshSystem::SomethingChanged(GameObject* object) {
+void LabelMeshSystem::SomethingChanged(GameObject object) {
     dirtyObjects.insert(object);
 }
 
-void LabelMeshSystem::TextChanged(Pocket::GameObject *object) {
-    Label* label = object->GetComponent<Label>();
-    object->GetComponent<Font>()->RequestText(label->Text, label->FontSize);
+void LabelMeshSystem::TextChanged(GameObject object) {
+    Label* label = object.GetComponent<Label>();
+    object.GetComponent<Font>()->RequestText(label->Text, label->FontSize);
     dirtyObjects.insert(object);
 }
 
-void LabelMeshSystem::UpdateDirtyObject(Pocket::GameObject *object) {
-    Sizeable* sizeable = object->GetComponent<Sizeable>();
-    Mesh* mesh = object->GetComponent<Mesh>();
-    Font* font = object->GetComponent<Font>();
-    Label* label = object->GetComponent<Label>();
+void LabelMeshSystem::UpdateDirtyObject(GameObject object) {
+    Sizeable* sizeable = object.GetComponent<Sizeable>();
+    Mesh* mesh = object.GetComponent<Mesh>();
+    Font* font = object.GetComponent<Font>();
+    Label* label = object.GetComponent<Label>();
     const Vector2& size = sizeable->Size;
     mesh->Clear();
-    Colour color = Colour::White();// object->GetComponent<Colorable>()!=0 ? object->GetComponent<Colorable>()->Color() : Colour::White();
+    Color color = Color::White();// object.GetComponent<Colorable>()!=0 ? object.GetComponent<Colorable>()->Color() : Color::White();
     AddText(*mesh, *font, label->Text, size, label->FontSize, label->HAlignment, label->VAlignment, label->WordWrap, color);
 }
 
- void LabelMeshSystem::AddText(Mesh& mesh, const Font &font, std::string text, const Pocket::Vector2& size, float fontSize, Font::HAlignment hAlign, Font::VAlignment vAlign, bool wordWrap, const Colour& color) {
+ void LabelMeshSystem::AddText(Mesh& mesh, const Font &font, std::string text, const Vector2& size, float fontSize, Font::HAlignment hAlign, Font::VAlignment vAlign, bool wordWrap, const Color& color) {
  
      std::vector<Font::Letter> letters;
      font.CreateText(letters, text, size, fontSize, hAlign, vAlign, wordWrap, true);

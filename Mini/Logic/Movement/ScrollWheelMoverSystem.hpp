@@ -7,22 +7,26 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
+#include "Property.hpp"
 #include "ScrollWheelMover.hpp"
 #include "Hoverable.hpp"
 
-namespace Pocket {
-    class ScrollWheelMoverSystem : public GameSystem<Transform, ScrollWheelMover, Hoverable> {
+namespace Mini {
+    using namespace ECS;
+    class ScrollWheelMoverSystem : System<Transform, ScrollWheelMover, Hoverable> {
         public:
+            ~ScrollWheelMoverSystem();
             void Initialize() override;
-            void Destroy() override;
-            void ObjectAdded(GameObject* object) override;
-            void ObjectRemoved(GameObject* object) override;
+            void ObjectAdded(GameObject object) override;
+            void ObjectRemoved(GameObject object) override;
             void Update(float dt) override;
         
+            Property<InputManager*> Input;
+        
         private:
-            void Enter(TouchData d, GameObject* object);
-            void Exit(TouchData d, GameObject* object);
+            void Enter(TouchData d, GameObject object);
+            void Exit(TouchData d, GameObject object);
         
             void ScrollChanged(float delta);
         

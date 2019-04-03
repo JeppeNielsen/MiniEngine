@@ -7,19 +7,18 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "Droppable.hpp"
 #include "PanelDropper.hpp"
 #include "Transform.hpp"
 
-namespace Pocket {
+namespace Mini {
     class PanelSystem;
-    struct PanelDropSystem : public GameSystem<Droppable, PanelDropper, Transform> {
+    struct PanelDropSystem : System<Droppable, PanelDropper, Transform> {
         PanelSystem* panels;
         void Initialize() override;
-        void ObjectAdded(GameObject* object) override;
-        void ObjectRemoved(GameObject* object) override;
+        void ObjectAdded(GameObject object) override;
+        void ObjectRemoved(GameObject object) override;
         void Dropped(DroppedData d);
-        static void CreateSubSystems(GameStorage& storage);
     };
 }

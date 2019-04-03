@@ -7,7 +7,7 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "Scene.hpp"
 #include "Draggable.hpp"
 #include "DraggableMotion.hpp"
 #include "Velocity.hpp"
@@ -15,25 +15,23 @@
 #include <map>
 #include <vector>
 
-namespace Pocket {
-    class DraggableMotionSystem : public GameSystem<Transform, Velocity, Draggable> {
+namespace Mini {
+    using namespace ECS;
+    class DraggableMotionSystem : System<Transform, Velocity, Draggable> {
     public:
-        void ObjectAdded(GameObject* object);
-        void ObjectRemoved(GameObject* object);
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
         void Update(float dt);
-        
     private:
-        
-        void DraggingChanged(GameObject* object);
+        void DraggingChanged(GameObject object);
     
         struct DraggingData {
-            GameObject* object;
+            GameObject object;
             Vector3 lastPosition;
             std::vector<Vector3> velocities;
         };
         
-        typedef std::map<Draggable*, DraggingData> DraggingObjects;
+        using DraggingObjects = std::map<Draggable*, DraggingData>;
         DraggingObjects draggingObjects;
-        
     };
 }

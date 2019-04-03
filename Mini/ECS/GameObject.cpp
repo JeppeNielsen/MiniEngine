@@ -32,7 +32,10 @@ bool GameObject::operator != (const GameObject& other) const {
 }
 
 bool GameObject::operator < (const GameObject& other) const {
-    return id < other.id;
+    if (scene == other.scene) {
+        return id < other.id;
+    }
+    return scene < other.scene;
 }
 
 GameObject::operator bool() const {

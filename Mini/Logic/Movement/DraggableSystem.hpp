@@ -7,18 +7,19 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "Scene.hpp"
 #include "Draggable.hpp"
 #include "Touchable.hpp"
 #include "Transform.hpp"
 #include "Plane.hpp"
 #include <map>
 
-namespace Pocket {
-    class DraggableSystem : public GameSystem<Transform, Touchable, Draggable> {
+namespace Mini {
+    using namespace ECS;
+    class DraggableSystem : System<Transform, Touchable, Draggable> {
     public:
-        void ObjectAdded(GameObject *object);
-        void ObjectRemoved(GameObject *object);
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
         void Update(float dt);
         bool IsTouchIndexUsed(int touchIndex);
     private:
@@ -36,7 +37,7 @@ namespace Pocket {
         typedef std::map<Touchable*, DraggingObject> DraggingObjects;
         DraggingObjects draggingObjects;
         
-        void Down(TouchData d, GameObject* object);
-        void Up(TouchData d, GameObject* object);
+        void Down(TouchData d, GameObject object);
+        void Up(TouchData d, GameObject object);
     };
 }

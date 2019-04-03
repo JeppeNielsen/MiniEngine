@@ -8,7 +8,7 @@
 
 #include "Panel.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 Panel::Panel() {
     Area = nullptr;

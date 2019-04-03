@@ -8,7 +8,7 @@
 
 #include "VirtualTreeListSpawner.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 VirtualTreeListSpawner::VirtualTreeListSpawner() {
     OnCreate = 0;

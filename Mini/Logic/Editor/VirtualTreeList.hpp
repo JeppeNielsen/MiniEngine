@@ -13,19 +13,20 @@
 #include <vector>
 #include <map>
 
-namespace Pocket {
+namespace Mini {
+    using namespace ECS;
     struct VirtualTreeList {
         VirtualTreeList();
         void operator=(const VirtualTreeList& other);
         
-        Property<GameObject*> Pivot;
-        Property<GameObject*> Root;
+        Property<GameObject> Pivot;
+        Property<GameObject> Root;
         Property<float> ItemHeight;
         Property<float> ItemIndent;
         Property<Vector2> Margins;
         
-        std::function<std::string(GameObject*)> ExpandedHashFunction;
-        std::function<bool(GameObject* object)> PredicateFunction;
+        std::function<std::string(GameObject)> ExpandedHashFunction;
+        std::function<bool(GameObject object)> PredicateFunction;
         
         struct ExpandedNode {
             DirtyProperty<int> Height;
@@ -34,15 +35,15 @@ namespace Pocket {
         using ExpandedNodes = std::map<std::string, ExpandedNode>;
         ExpandedNodes expandedNodes;
         
-        void SetNodeExpanded(GameObject* node, bool expand);
-        bool IsNodeExpanded(GameObject* node);
+        void SetNodeExpanded(GameObject node, bool expand);
+        bool IsNodeExpanded(GameObject node);
         
-        int GetNodeHeight(GameObject* node);
+        int GetNodeHeight(GameObject node);
         
-        std::string DefaultExpandedHashFunction(GameObject* go);
+        std::string DefaultExpandedHashFunction(GameObject go);
         
         struct Node {
-            GameObject* node;
+            GameObject node;
             int position;
             int depth;
             bool hasChildren;
@@ -56,7 +57,7 @@ namespace Pocket {
             }
             
             inline bool operator < (const Node& other) const {
-                if (node!=other.node) return ((void*)node)<((void*)other.node);
+                if (node!=other.node) return node.operator<(other.node); //((void*)node)<((void*)other.node);
                 if (position!=other.position) return position<other.position;
                 return depth<other.depth;
             }
@@ -71,7 +72,7 @@ namespace Pocket {
         
         void GetNodes(int lower, int upper, Nodes& nodesFound);
         
-        void GetNodesRecursive(GameObject* object, int lower, int upper, int& index, int depth, Nodes& nodesFound);
+        void GetNodesRecursive(GameObject object, int lower, int upper, int& index, int depth, Nodes& nodesFound);
         
         void Clear();
         

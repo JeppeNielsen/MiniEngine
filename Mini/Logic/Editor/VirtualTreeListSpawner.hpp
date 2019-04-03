@@ -12,17 +12,17 @@
 #include "GameObject.hpp"
 #include "VirtualTreeList.hpp"
 
-namespace Pocket {
+namespace Mini {
   class VirtualTreeListSpawner {
     public:
       
         struct SpawnedNode {
             SpawnedNode() : node(nullptr), parent(nullptr), foldOutButton(nullptr) { }
-            GameObject* node;
-            GameObject* parent;
+            GameObject node;
+            GameObject parent;
             bool hasChildren;
             float height;
-            GameObject* foldOutButton;
+            GameObject foldOutButton;
             int depth;
             int position;
         };
@@ -32,6 +32,6 @@ namespace Pocket {
         std::function<void(const SpawnedNode& node)> OnRemove;
         std::function<void(const SpawnedNode& node)> OnFoldoutChanged;
         std::map<VirtualTreeList::Node, SpawnedNode> objects;
-        std::function<bool(GameObject*)> HasChildren;
+        std::function<bool(GameObject)> HasChildren;
   };
 }

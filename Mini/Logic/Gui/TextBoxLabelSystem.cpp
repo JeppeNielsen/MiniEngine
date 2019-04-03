@@ -10,7 +10,7 @@
 #include <cmath>
 #include "Orderable.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 void TextBoxLabelSystem::Initialize() {
     cursor = 0;
@@ -21,8 +21,8 @@ void TextBoxLabelSystem::Initialize() {
     activeTextureObject = 0;
 }
 
-void TextBoxLabelSystem::ObjectAdded(GameObject *object) {
-    TextBox* textbox = object->GetComponent<TextBox>();
+void TextBoxLabelSystem::ObjectAdded(GameObject object) {
+    TextBox* textbox = object.GetComponent<TextBox>();
     textbox->Text.Changed.Bind(this, &TextBoxLabelSystem::TextBoxChanged, object);
     textbox->Active.Changed.Bind(this, &TextBoxLabelSystem::TextBoxActiveChanged, object);
     if (textbox->Active) {
@@ -33,8 +33,8 @@ void TextBoxLabelSystem::ObjectAdded(GameObject *object) {
     TextBoxActiveChanged(object);
 }
 
-void TextBoxLabelSystem::ObjectRemoved(GameObject *object) {
-    TextBox* textBox = object->GetComponent<TextBox>();
+void TextBoxLabelSystem::ObjectRemoved(GameObject object) {
+    TextBox* textBox = object.GetComponent<TextBox>();
     textBox->Text.Changed.Unbind(this, &TextBoxLabelSystem::TextBoxChanged, object);
     textBox->Active.Changed.Unbind(this, &TextBoxLabelSystem::TextBoxActiveChanged, object);
     if (cursor && activeTextbox == textBox) {
@@ -43,14 +43,14 @@ void TextBoxLabelSystem::ObjectRemoved(GameObject *object) {
     }
 }
 
-void TextBoxLabelSystem::TextBoxChanged(GameObject* object) {
-    TextBox* textBox = object->GetComponent<TextBox>();
-    object->GetComponent<Label>()->Text = textBox->Text;
+void TextBoxLabelSystem::TextBoxChanged(GameObject object) {
+    TextBox* textBox = object.GetComponent<TextBox>();
+    object.GetComponent<Label>()->Text = textBox->Text;
 }
 
-void TextBoxLabelSystem::TextBoxActiveChanged(GameObject *object) {
+void TextBoxLabelSystem::TextBoxActiveChanged(GameObject object) {
     
-    TextBox* textBox = object->GetComponent<TextBox>();
+    TextBox* textBox = object.GetComponent<TextBox>();
     
     activeTextbox = 0;
     if (cursor) {
@@ -64,27 +64,27 @@ void TextBoxLabelSystem::TextBoxActiveChanged(GameObject *object) {
         activeTextbox = textBox;
         
         cursor = object->CreateObject();
-        cursor->AddComponent<Transform>();
-        cursor->Hierarchy().Parent = object;
-        cursor->AddComponent<Mesh>()->GetMesh<Vertex>().AddQuad(0, {cursorWidth,object->GetComponent<Label>()->FontSize * 1.1f}, Colour::Black());
-        cursor->AddComponent<Renderable>();
-        cursor->AddComponent<Orderable>();
+        cursor.AddComponent<Transform>();
+        cursor.Hierarchy().Parent = object;
+        cursor.AddComponent<Mesh>()->GetMesh<Vertex>().AddQuad(0, {cursorWidth,object.GetComponent<Label>()->FontSize * 1.1f}, Color::Black());
+        cursor.AddComponent<Renderable>();
+        cursor.AddComponent<Orderable>();
         activeTextureObject = object;
         timer = 0;
     }
 }
 
-void TextBoxLabelSystem::MoveCursor(GameObject *object) {
+void TextBoxLabelSystem::MoveCursor(GameObject object) {
     if (!cursor) return;
-    Mesh* mesh = object->GetComponent<Mesh>();
+    Mesh* mesh = object.GetComponent<Mesh>();
     timer = 0;
     if (mesh->Vertices().empty()) {
-        Sizeable* sizeable = object->GetComponent<Sizeable>();
-        cursor->GetComponent<Transform>()->Position = sizeable->Size * 0.5f;
+        Sizeable* sizeable = object.GetComponent<Sizeable>();
+        cursor.GetComponent<Transform>()->Position = sizeable->Size * 0.5f;
     } else {
         const BoundingBox& bounds = mesh->LocalBoundingBox;
         Vector3 local = Vector3(bounds.center.x + bounds.extends.x * 0.5f + cursorWidth, bounds.center.y,0);
-        cursor->GetComponent<Transform>()->Position = local;
+        cursor.GetComponent<Transform>()->Position = local;
     }
 }
 
@@ -101,6 +101,6 @@ void TextBoxLabelSystem::Update(float dt) {
         MoveCursor(activeTextureObject);
     }
     timer += dt;
-    cursor->Hierarchy().Enabled = fmodf(timer, 0.8f)<0.4f;
+    cursor.Hierarchy().Enabled = fmodf(timer, 0.8f)<0.4f;
 }
 

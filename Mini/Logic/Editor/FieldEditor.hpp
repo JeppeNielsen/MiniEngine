@@ -7,10 +7,10 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "GuiFieldEditors.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct FieldEditor {
         public:
             FieldEditor();

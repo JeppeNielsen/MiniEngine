@@ -11,7 +11,7 @@
 #include "Point.hpp"
 #include "InputDevice.hpp"
 
-namespace Pocket {
+namespace Mini {
     class GameWorld;
     class GameWorldViewport {
     public:

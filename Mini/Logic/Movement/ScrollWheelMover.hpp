@@ -10,7 +10,7 @@
 #include "Property.hpp"
 #include "Vector3.hpp"
 
-namespace Pocket {
+namespace Mini {
     class ScrollWheelMover {
     public:
         Property<float> Speed;

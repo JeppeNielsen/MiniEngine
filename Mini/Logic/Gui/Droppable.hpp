@@ -9,9 +9,9 @@
 #include "Touchable.hpp"
 #include <functional>
 
-namespace Pocket {
+namespace Mini {
     struct DroppedData {
-        GameObject* object;
+        GameObject object;
         TouchData touchData;
         std::vector<TouchData> droppedTouches;
     };
@@ -19,7 +19,7 @@ namespace Pocket {
     struct Droppable {
         Droppable() { activateThreshhold = 10.0f; }
         Event<DroppedData> Dropped;
-        std::function<GameObject*(GameObject*, TouchData)> OnCreate;
+        std::function<GameObject(GameObject, TouchData)> OnCreate;
         float activateThreshhold;
     };
 }

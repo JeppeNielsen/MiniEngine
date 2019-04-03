@@ -8,20 +8,20 @@
 
 #include "DraggableMotionSystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
-void DraggableMotionSystem::ObjectAdded(Pocket::GameObject *object) {
-    object->GetComponent<Draggable>()->IsDragging.Changed.Bind(this, &DraggableMotionSystem::DraggingChanged, object);
+void DraggableMotionSystem::ObjectAdded(GameObject object) {
+    object.GetComponent<Draggable>()->IsDragging.Changed.Bind(this, &DraggableMotionSystem::DraggingChanged, object);
 }
 
-void DraggableMotionSystem::ObjectRemoved(Pocket::GameObject *object) {
-    object->GetComponent<Draggable>()->IsDragging.Changed.Unbind(this, &DraggableMotionSystem::DraggingChanged, object);
+void DraggableMotionSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<Draggable>()->IsDragging.Changed.Unbind(this, &DraggableMotionSystem::DraggingChanged, object);
 }
 
-void DraggableMotionSystem::DraggingChanged(Pocket::GameObject *object) {
-    Draggable *draggable = object->GetComponent<Draggable>();
+void DraggableMotionSystem::DraggingChanged(GameObject object) {
+    Draggable *draggable = object.GetComponent<Draggable>();
     if (draggable->IsDragging) {
-        draggingObjects[draggable] = { object, object->GetComponent<Transform>()->Position };
+        draggingObjects[draggable] = { object, object.GetComponent<Transform>()->Position };
     } else {
         DraggingObjects::iterator it = draggingObjects.find(draggable);
         
@@ -32,7 +32,7 @@ void DraggableMotionSystem::DraggingChanged(Pocket::GameObject *object) {
                     velocity += it->second.velocities[i];
                 }
                 velocity /= it->second.velocities.size();
-                object->GetComponent<Velocity>()->velocity = velocity;
+                object.GetComponent<Velocity>()->velocity = velocity;
             }
             draggingObjects.erase(it);
         }
@@ -40,9 +40,8 @@ void DraggableMotionSystem::DraggingChanged(Pocket::GameObject *object) {
 }
 
 void DraggableMotionSystem::Update(float dt) {
-    
     for (auto& it : draggingObjects) {
-        Transform* transform = it.second.object->GetComponent<Transform>();
+        Transform* transform = it.second.object.GetComponent<Transform>();
         Vector3 position = transform->Position;
         
         Vector3 velocity = (position-it.second.lastPosition) / dt;
@@ -52,6 +51,4 @@ void DraggableMotionSystem::Update(float dt) {
         }
         it.second.lastPosition = position;
     }
-    
-    
 }

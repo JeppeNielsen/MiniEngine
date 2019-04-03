@@ -9,20 +9,20 @@
 #include "VirtualTreeListSpawnerSystem.hpp"
 #include "Colorable.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 void VirtualTreeListSpawnerSystem::Initialize() {
 
 }
 
-void VirtualTreeListSpawnerSystem::ObjectAdded(Pocket::GameObject *object) {
+void VirtualTreeListSpawnerSystem::ObjectAdded(Pocket::GameObject object) {
     object->GetComponent<VirtualTreeList>()->NodeCreated.Bind(this, &VirtualTreeListSpawnerSystem::NodeCreated, object);
     object->GetComponent<VirtualTreeList>()->NodeRemoved.Bind(this, &VirtualTreeListSpawnerSystem::NodeRemoved, object);
     object->GetComponent<VirtualTreeList>()->NodeExpanded.Bind(this, &VirtualTreeListSpawnerSystem::NodeExpanded, object);
     object->GetComponent<Sizeable>()->Size.Changed.Bind(this, &VirtualTreeListSpawnerSystem::SizeChanged, object);
 }
 
-void VirtualTreeListSpawnerSystem::ObjectRemoved(Pocket::GameObject *object) {
+void VirtualTreeListSpawnerSystem::ObjectRemoved(Pocket::GameObject object) {
     object->GetComponent<VirtualTreeList>()->NodeCreated.Unbind(this, &VirtualTreeListSpawnerSystem::NodeCreated, object);
     object->GetComponent<VirtualTreeList>()->NodeRemoved.Unbind(this, &VirtualTreeListSpawnerSystem::NodeRemoved, object);
     object->GetComponent<VirtualTreeList>()->NodeExpanded.Unbind(this, &VirtualTreeListSpawnerSystem::NodeExpanded, object);
@@ -34,7 +34,7 @@ void VirtualTreeListSpawnerSystem::ObjectRemoved(Pocket::GameObject *object) {
     object->GetComponent<Sizeable>()->Size.Changed.Unbind(this, &VirtualTreeListSpawnerSystem::SizeChanged, object);
 }
 
-void VirtualTreeListSpawnerSystem::NodeCreated(VirtualTreeList::Node e, Pocket::GameObject *object) {
+void VirtualTreeListSpawnerSystem::NodeCreated(VirtualTreeList::Node e, Pocket::GameObject object) {
     VirtualTreeList* treeList = object->GetComponent<VirtualTreeList>();
     VirtualTreeListSpawner* spawner = object->GetComponent<VirtualTreeListSpawner>();
     auto& objects = spawner->objects;
@@ -44,8 +44,8 @@ void VirtualTreeListSpawnerSystem::NodeCreated(VirtualTreeList::Node e, Pocket::
     VirtualTreeListSpawner::SpawnedNode node;
     node.node = e.node;
     node.parent = object->CreateChild();
-    node.parent->AddComponent<Transform>()->Position = nodePosition;
-    node.parent->AddComponent<Sizeable>()->Size = { object->GetComponent<Sizeable>()->Size().x - treeList->Margins().x - treeList->Margins().y, treeList->ItemHeight };
+    node.parent.AddComponent<Transform>()->Position = nodePosition;
+    node.parent.AddComponent<Sizeable>()->Size = { object->GetComponent<Sizeable>()->Size().x - treeList->Margins().x - treeList->Margins().y, treeList->ItemHeight };
     node.height = treeList->ItemHeight;
     node.foldOutButton = 0;
     node.hasChildren = !spawner->HasChildren ? !e.node->Hierarchy().Children().empty() : spawner->HasChildren(e.node);
@@ -61,7 +61,7 @@ void VirtualTreeListSpawnerSystem::NodeCreated(VirtualTreeList::Node e, Pocket::
     }
 }
 
-void VirtualTreeListSpawnerSystem::NodeRemoved(VirtualTreeList::Node e, Pocket::GameObject *object) {
+void VirtualTreeListSpawnerSystem::NodeRemoved(VirtualTreeList::Node e, Pocket::GameObject object) {
     VirtualTreeListSpawner* spawner = object->GetComponent<VirtualTreeListSpawner>();
     auto& objects = spawner->objects;
     
@@ -82,7 +82,7 @@ void VirtualTreeListSpawnerSystem::NodeRemoved(VirtualTreeList::Node e, Pocket::
     //std::cout << "Removed object : " << e.node->ID << std::endl;
 }
 
-void VirtualTreeListSpawnerSystem::NodeExpanded(VirtualTreeList::Node e, Pocket::GameObject *object) {
+void VirtualTreeListSpawnerSystem::NodeExpanded(VirtualTreeList::Node e, Pocket::GameObject object) {
     VirtualTreeListSpawner* spawner = object->GetComponent<VirtualTreeListSpawner>();
     
     auto it = spawner->objects.find(e);
@@ -95,7 +95,7 @@ void VirtualTreeListSpawnerSystem::FoldOutClicked(Pocket::TouchData d, FoldoutDa
     foldout.treelist->SetNodeExpanded(foldout.node, !foldout.treelist->IsNodeExpanded(foldout.node));
 }
 
-void VirtualTreeListSpawnerSystem::SizeChanged(Pocket::GameObject *object) {
+void VirtualTreeListSpawnerSystem::SizeChanged(Pocket::GameObject object) {
     VirtualTreeList* treeList = object->GetComponent<VirtualTreeList>();
     VirtualTreeListSpawner* spawner = object->GetComponent<VirtualTreeListSpawner>();
     Sizeable* sizeable = object->GetComponent<Sizeable>();

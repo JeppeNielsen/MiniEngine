@@ -7,7 +7,7 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "GameObjectEditor.hpp"
 #include "Transform.hpp"
 #include "Sizeable.hpp"
@@ -17,8 +17,8 @@
 #include "ScriptWorld.hpp"
 #endif
 
-namespace Pocket {
-    class GameObjectEditorSystem : public GameSystem<GameObjectEditor, Transform, Sizeable> {
+namespace Mini {
+    class GameObjectEditorSystem : System<GameObjectEditor, Transform, Sizeable> {
         public:
             GameObjectEditorSystem();
             void Initialize();
@@ -27,8 +27,8 @@ namespace Pocket {
 #ifdef SCRIPTING_ENABLED
             ScriptWorld* scriptWorld;
 #endif
-            void ObjectAdded(GameObject* object);
-            void ObjectRemoved(GameObject* object);
+            void ObjectAdded(GameObject object);
+            void ObjectRemoved(GameObject object);
         
             template<class T>
             void IgnoreComponent() {
@@ -39,12 +39,12 @@ namespace Pocket {
             std::function<bool(int componentID)> Predicate;
         
         private:
-            void ObjectChanged(GameObject* object);
-            void CreateEditors(GameObject* object);
+            void ObjectChanged(GameObject object);
+            void CreateEditors(GameObject object);
             typedef std::vector<int> IgnoredComponents;
             IgnoredComponents ignoredComponents;
         
-            using DirtyObjects = std::set<GameObject*>;
+            using DirtyObjects = std::set<GameObject>;
             DirtyObjects dirtyObjects;
     };
 }

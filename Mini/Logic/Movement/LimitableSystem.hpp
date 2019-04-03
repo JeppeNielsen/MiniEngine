@@ -8,12 +8,13 @@
 
 #pragma once
 
-#include "GameSystem.hpp"
+#include "Scene.hpp"
 #include "Transform.hpp"
 #include "Limitable.hpp"
 
-namespace Pocket {
-    class LimitableSystem : public GameSystem<Transform, Limitable> {
+namespace Mini {
+    using namespace ECS;
+    class LimitableSystem : System<Transform, Limitable> {
     public:
         void Update(float dt);
     };

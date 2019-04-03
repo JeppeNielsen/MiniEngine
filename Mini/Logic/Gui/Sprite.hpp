@@ -11,7 +11,7 @@
 #include <string>
 #include "Vector2.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct Sprite {
     public:
         Sprite() {

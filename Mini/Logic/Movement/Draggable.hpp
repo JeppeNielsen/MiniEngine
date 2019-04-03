@@ -9,7 +9,7 @@
 #pragma once
 #include "Property.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct Draggable {
         
         Draggable() : Movement(MovementMode::Normal) { IsDragging = false; }

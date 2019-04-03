@@ -8,10 +8,10 @@
 
 #include "LayoutSystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
-void LayoutSystem::ObjectAdded(GameObject* object) {
-    Layouter* layouter = object->GetComponent<Layouter>();
+void LayoutSystem::ObjectAdded(GameObject object) {
+    Layouter* layouter = object.GetComponent<Layouter>();
     
     layouter->GlobalMin.Method = [layouter, object] (Vector2& value) {
         value = DoLayout(layouter, object,
@@ -42,16 +42,16 @@ void LayoutSystem::ObjectAdded(GameObject* object) {
     layouter->GlobalMax.HasBecomeDirty.Bind(this, &LayoutSystem::GlobalMaxDirty, object);
     layouter->GlobalDesired.HasBecomeDirty.Bind(this, &LayoutSystem::GlobalDesiredDirty, object);
     
-    object->Hierarchy().Parent.Changed.Bind(this, &LayoutSystem::ParentChanged, object);
+    object.Hierarchy().Parent.Changed.Bind(this, &LayoutSystem::ParentChanged, object);
     
-    object->GetComponent<Sizeable>()->Size.Changed.Bind(this, &LayoutSystem::SizeChanged, object);
+    object.GetComponent<Sizeable>()->Size.Changed.Bind(this, &LayoutSystem::SizeChanged, object);
     
     dirtyObjects.insert(object);
     TryInvokeChangesToParent(object);
 }
 
-void LayoutSystem::ObjectRemoved(GameObject* object) {
-    Layouter* layouter = object->GetComponent<Layouter>();
+void LayoutSystem::ObjectRemoved(GameObject object) {
+    Layouter* layouter = object.GetComponent<Layouter>();
     layouter->GlobalMin.Method = nullptr;
     layouter->GlobalMax.Method = nullptr;
     layouter->GlobalDesired.Method = nullptr;
@@ -64,9 +64,9 @@ void LayoutSystem::ObjectRemoved(GameObject* object) {
     layouter->GlobalMax.HasBecomeDirty.Unbind(this, &LayoutSystem::GlobalMaxDirty, object);
     layouter->GlobalDesired.HasBecomeDirty.Unbind(this, &LayoutSystem::GlobalDesiredDirty, object);
     
-    object->Hierarchy().Parent.Changed.Unbind(this, &LayoutSystem::ParentChanged, object);
+    object.Hierarchy().Parent.Changed.Unbind(this, &LayoutSystem::ParentChanged, object);
     
-    object->GetComponent<Sizeable>()->Size.Changed.Unbind(this, &LayoutSystem::SizeChanged, object);
+    object.GetComponent<Sizeable>()->Size.Changed.Unbind(this, &LayoutSystem::SizeChanged, object);
     
     TryInvokeChangesToParent(object);
     
@@ -76,10 +76,10 @@ void LayoutSystem::ObjectRemoved(GameObject* object) {
     }
 }
 
-void LayoutSystem::TryInvokeChangesToParent(Pocket::GameObject *object) {
-    GameObject* current = object->Hierarchy().Parent;
-    Layouter* currentLayouter = current ? current->GetComponent<Layouter>() : nullptr;
-    if (currentLayouter && current && !current->IsRemoved()) {
+void LayoutSystem::TryInvokeChangesToParent(GameObject object) {
+    GameObject current = object.Hierarchy().Parent;
+    Layouter* currentLayouter = current ? current.GetComponent<Layouter>() : nullptr;
+    if (currentLayouter && current) {
         currentLayouter->GlobalMin.MakeDirty();
         currentLayouter->GlobalMax.MakeDirty();
         currentLayouter->GlobalDesired.MakeDirty();
@@ -99,42 +99,42 @@ void LayoutSystem::DesiredChanged(Layouter* layouter) {
     layouter->GlobalDesired.MakeDirty();
 }
 
-void LayoutSystem::GlobalMinDirty(GameObject* object) {
-    GameObject* parent = object->Hierarchy().Parent;
+void LayoutSystem::GlobalMinDirty(GameObject object) {
+    GameObject parent = object.Hierarchy().Parent;
     if (!object) return;
-    Layouter* parentLayouter = parent->GetComponent<Layouter>();
+    Layouter* parentLayouter = parent.GetComponent<Layouter>();
     if (parentLayouter) {
         parentLayouter->GlobalMin.MakeDirty();
     }
     dirtyObjects.insert(object);
 }
 
-void LayoutSystem::GlobalMaxDirty(GameObject* object) {
-    GameObject* parent = object->Hierarchy().Parent;
+void LayoutSystem::GlobalMaxDirty(GameObject object) {
+    GameObject parent = object.Hierarchy().Parent;
     if (!object) return;
-    Layouter* parentLayouter = parent->GetComponent<Layouter>();
+    Layouter* parentLayouter = parent.GetComponent<Layouter>();
     if (parentLayouter) {
         parentLayouter->GlobalMax.MakeDirty();
     }
     dirtyObjects.insert(object);
 }
 
-void LayoutSystem::GlobalDesiredDirty(GameObject* object) {
-    GameObject* parent = object->Hierarchy().Parent;
+void LayoutSystem::GlobalDesiredDirty(GameObject object) {
+    GameObject parent = object.Hierarchy().Parent;
     if (!object) return;
-    Layouter* parentLayouter = parent->GetComponent<Layouter>();
+    Layouter* parentLayouter = parent.GetComponent<Layouter>();
     if (parentLayouter) {
         parentLayouter->GlobalDesired.MakeDirty();
     }
     dirtyObjects.insert(object);
 }
 
-void LayoutSystem::ParentChanged(GameObject* object) {
-    GameObject* old = object->Hierarchy().Parent.PreviousValue();
-    GameObject* current = object->Hierarchy().Parent;
+void LayoutSystem::ParentChanged(GameObject object) {
+    GameObject old = object.Hierarchy().Parent.PreviousValue();
+    GameObject current = object.Hierarchy().Parent;
     
-    Layouter* oldLayouter = old ? old->GetComponent<Layouter>() : nullptr;
-    Layouter* currentLayouter = current ? current->GetComponent<Layouter>() : nullptr;
+    Layouter* oldLayouter = old ? old.GetComponent<Layouter>() : nullptr;
+    Layouter* currentLayouter = current ? current.GetComponent<Layouter>() : nullptr;
     
     if (oldLayouter) {
         dirtyObjects.insert(old);
@@ -144,18 +144,18 @@ void LayoutSystem::ParentChanged(GameObject* object) {
     }
 }
 
-void LayoutSystem::SizeChanged(GameObject* object) {
+void LayoutSystem::SizeChanged(GameObject object) {
     dirtyObjects.insert(object);
 }
 
-Vector2 LayoutSystem::DoLayout(Layouter* layouter, GameObject* object,
+Vector2 LayoutSystem::DoLayout(Layouter* layouter, GameObject object,
     const std::function<Vector2(Layouter* layouter)>& localGetter,
     const std::function<Vector2(Layouter* layouter)>& globalGetter
 ) {
     int count = 0;
-    for(auto child : object->Hierarchy().Children()) {
-        if (!child->Hierarchy().Enabled) continue;
-        Layouter* childLayouter = child->GetComponent<Layouter>();
+    for(auto child : object.Hierarchy().Children()) {
+        if (!child.Hierarchy().Enabled) continue;
+        Layouter* childLayouter = child.GetComponent<Layouter>();
         if (!childLayouter) continue;
         count++;
     }
@@ -165,9 +165,9 @@ Vector2 LayoutSystem::DoLayout(Layouter* layouter, GameObject* object,
 	
     if (layouter->ChildrenLayoutMode() == Layouter::LayoutMode::Horizontal) {
         Vector2 size { 0, localGetter(layouter).y };
-        for(auto child : object->Hierarchy().Children()) {
-            if (!child->Hierarchy().Enabled) continue;
-            Layouter* childLayouter = child->GetComponent<Layouter>();
+        for(auto child : object.Hierarchy().Children()) {
+            if (!child.Hierarchy().Enabled) continue;
+            Layouter* childLayouter = child.GetComponent<Layouter>();
             if (!childLayouter) continue;
             Vector2 childSize = globalGetter(childLayouter);
             size.x += childSize.x;
@@ -177,9 +177,9 @@ Vector2 LayoutSystem::DoLayout(Layouter* layouter, GameObject* object,
         return size;
     } else {
         Vector2 size { localGetter(layouter).x, 0 };
-        for(auto child : object->Hierarchy().Children()) {
-            if (!child->Hierarchy().Enabled) continue;
-            Layouter* childLayouter = child->GetComponent<Layouter>();
+        for(auto child : object.Hierarchy().Children()) {
+            if (!child.Hierarchy().Enabled) continue;
+            Layouter* childLayouter = child.GetComponent<Layouter>();
             if (!childLayouter) continue;
             Vector2 childSize = globalGetter(childLayouter);
             size.x = std::max(size.x, childSize.x);
@@ -192,7 +192,7 @@ Vector2 LayoutSystem::DoLayout(Layouter* layouter, GameObject* object,
 
 void LayoutSystem::Update(float dt) {
     while (!dirtyObjects.empty()) {
-        std::set<GameObject*> temp = dirtyObjects;
+        std::set<GameObject> temp = dirtyObjects;
         dirtyObjects.clear();
         for(auto o : temp) {
             CalcLayout(o);
@@ -200,18 +200,18 @@ void LayoutSystem::Update(float dt) {
     }
 }
 
-void LayoutSystem::CalcLayout(GameObject* object) {
-    Vector2 size = object->GetComponent<Sizeable>()->Size;
-    Layouter* layouter = object->GetComponent<Layouter>();
+void LayoutSystem::CalcLayout(GameObject object) {
+    Vector2 size = object.GetComponent<Sizeable>()->Size;
+    Layouter* layouter = object.GetComponent<Layouter>();
     
     if (layouter->ChildrenLayoutMode() == Layouter::LayoutMode::Horizontal) {
         if (layouter->GlobalMin().x>=size.x) {
             float x = 0;
-            for(auto child : object->Hierarchy().Children()) {
-                if (!child->Hierarchy().Enabled) continue;
-                Layouter* childLayouter = child->GetComponent<Layouter>();
-                Sizeable* childSizable = child->GetComponent<Sizeable>();
-                Transform* childTransform = child->GetComponent<Transform>();
+            for(auto child : object.Hierarchy().Children()) {
+                if (!child.Hierarchy().Enabled) continue;
+                Layouter* childLayouter = child.GetComponent<Layouter>();
+                Sizeable* childSizable = child.GetComponent<Sizeable>();
+                Transform* childTransform = child.GetComponent<Transform>();
                 if (!childLayouter || !childSizable || !childTransform) continue;
                 
                 float yPos = size.y * 0.5f - childLayouter->Min().y*0.5f;
@@ -226,11 +226,11 @@ void LayoutSystem::CalcLayout(GameObject* object) {
             float desiredMargin = layouter->GlobalDesired().x - layouter->GlobalMin().x;
             float fraction = (size.x - layouter->GlobalMin().x) / desiredMargin;
             float x = 0;
-            for(auto child : object->Hierarchy().Children()) {
-                if (!child->Hierarchy().Enabled) continue;
-                Layouter* childLayouter = child->GetComponent<Layouter>();
-                Sizeable* childSizable = child->GetComponent<Sizeable>();
-                Transform* childTransform = child->GetComponent<Transform>();
+            for(auto child : object.Hierarchy().Children()) {
+                if (!child.Hierarchy().Enabled) continue;
+                Layouter* childLayouter = child.GetComponent<Layouter>();
+                Sizeable* childSizable = child.GetComponent<Sizeable>();
+                Transform* childTransform = child.GetComponent<Transform>();
                 if (!childLayouter || !childSizable || !childTransform) continue;
                 
                 float minWidth = childLayouter->GlobalMin().x;
@@ -251,11 +251,11 @@ void LayoutSystem::CalcLayout(GameObject* object) {
             if (fraction>1) fraction = 1;
             
             float x = 0;
-            for(auto child : object->Hierarchy().Children()) {
-                if (!child->Hierarchy().Enabled) continue;
-                Layouter* childLayouter = child->GetComponent<Layouter>();
-                Sizeable* childSizable = child->GetComponent<Sizeable>();
-                Transform* childTransform = child->GetComponent<Transform>();
+            for(auto child : object.Hierarchy().Children()) {
+                if (!child.Hierarchy().Enabled) continue;
+                Layouter* childLayouter = child.GetComponent<Layouter>();
+                Sizeable* childSizable = child.GetComponent<Sizeable>();
+                Transform* childTransform = child.GetComponent<Transform>();
                 if (!childLayouter || !childSizable || !childTransform) continue;
                 
                 float desWidth = childLayouter->GlobalDesired().x;
@@ -274,11 +274,11 @@ void LayoutSystem::CalcLayout(GameObject* object) {
     
         if (layouter->GlobalMin().y>=size.y) {
             float y = 0;
-            for(auto child : object->Hierarchy().Children()) {
-                if (!child->Hierarchy().Enabled) continue;
-                Layouter* childLayouter = child->GetComponent<Layouter>();
-                Sizeable* childSizable = child->GetComponent<Sizeable>();
-                Transform* childTransform = child->GetComponent<Transform>();
+            for(auto child : object.Hierarchy().Children()) {
+                if (!child.Hierarchy().Enabled) continue;
+                Layouter* childLayouter = child.GetComponent<Layouter>();
+                Sizeable* childSizable = child.GetComponent<Sizeable>();
+                Transform* childTransform = child.GetComponent<Transform>();
                 if (!childLayouter || !childSizable || !childTransform) continue;
                 
                 Vector2 childSize = { size.x, childLayouter->GlobalMin().y };
@@ -291,11 +291,11 @@ void LayoutSystem::CalcLayout(GameObject* object) {
             float desiredMargin = layouter->GlobalDesired().y - layouter->GlobalMin().y;
             float fraction = (size.y - layouter->GlobalMin().y) / desiredMargin;
             float y = 0;
-            for(auto child : object->Hierarchy().Children()) {
-                if (!child->Hierarchy().Enabled) continue;
-                Layouter* childLayouter = child->GetComponent<Layouter>();
-                Sizeable* childSizable = child->GetComponent<Sizeable>();
-                Transform* childTransform = child->GetComponent<Transform>();
+            for(auto child : object.Hierarchy().Children()) {
+                if (!child.Hierarchy().Enabled) continue;
+                Layouter* childLayouter = child.GetComponent<Layouter>();
+                Sizeable* childSizable = child.GetComponent<Sizeable>();
+                Transform* childTransform = child.GetComponent<Transform>();
                 if (!childLayouter || !childSizable || !childTransform) continue;
                 
                 float minWidth = childLayouter->GlobalMin().y;
@@ -313,11 +313,11 @@ void LayoutSystem::CalcLayout(GameObject* object) {
             if (fraction>1) fraction = 1;
         
             float y = 0;
-            for(auto child : object->Hierarchy().Children()) {
-                if (!child->Hierarchy().Enabled) continue;
-                Layouter* childLayouter = child->GetComponent<Layouter>();
-                Sizeable* childSizable = child->GetComponent<Sizeable>();
-                Transform* childTransform = child->GetComponent<Transform>();
+            for(auto child : object.Hierarchy().Children()) {
+                if (!child.Hierarchy().Enabled) continue;
+                Layouter* childLayouter = child.GetComponent<Layouter>();
+                Sizeable* childSizable = child.GetComponent<Sizeable>();
+                Transform* childTransform = child.GetComponent<Transform>();
                 if (!childLayouter || !childSizable || !childTransform) continue;
                 
                 float desWidth = childLayouter->GlobalDesired().y;

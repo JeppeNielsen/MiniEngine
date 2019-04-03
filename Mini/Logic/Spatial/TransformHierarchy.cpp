@@ -6,7 +6,7 @@ using namespace ECS;
 
 void TransformHierarchy::ObjectAdded(GameObject object) {
 
-    //GameObject* ownerObject = object->GetComponentOwner<Transform>();
+    //GameObject ownerObject = object->GetComponentOwner<Transform>();
     //if (ownerObject != object) return;
     
     Transform* transform = object.GetComponent<Transform>();
@@ -32,7 +32,7 @@ void TransformHierarchy::ObjectAdded(GameObject object) {
 
 void TransformHierarchy::ObjectRemoved(GameObject object) {
 
-    //GameObject* ownerObject = object->GetComponentOwner<Transform>();
+    //GameObject ownerObject = object->GetComponentOwner<Transform>();
     //if (ownerObject != object) return;
 
     Transform* transform = object.GetComponent<Transform>();

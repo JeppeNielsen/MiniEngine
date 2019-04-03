@@ -10,23 +10,17 @@
 #include "PanelSystem.hpp"
 #include "Gui.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 void PanelAreaSystem::Initialize() {
-    root->CreateSystem<PanelSplitterSystem>()->Order = -1;
-    panels = root->CreateSystem<PanelSystem>();
-    gui = root->CreateSystem<class Gui>();
-}
-
-void PanelAreaSystem::CreateSubSystems(GameStorage& storage) {
-    storage.AddSystemType<PanelSplitterSystem>();
-    storage.AddSystemType<PanelSystem>();
-    storage.AddSystemType<Gui>();
+    scene->CreateSystem<PanelSplitterSystem>();//->Order = -1;
+    panels = scene->CreateSystem<PanelSystem>();
+    gui = scene->CreateSystem<class Gui>();
 }
 
 void PanelAreaSystem::Update(float dt) {
     for(auto o : Objects()) {
-        PanelArea* area = o->GetComponent<PanelArea>();
+        PanelArea* area = o.GetComponent<PanelArea>();
         if (area->IsDirty) {
             area->IsDirty = false;
             CreateSplitters(o, area);
@@ -34,9 +28,9 @@ void PanelAreaSystem::Update(float dt) {
     }
 }
 
-void PanelAreaSystem::CreateSplitters(GameObject* object, PanelArea* area) {
-    for(auto o : object->Hierarchy().Children()) {
-        if (o->GetComponent<PanelSplitter>()) {
+void PanelAreaSystem::CreateSplitters(GameObject object, PanelArea* area) {
+    for(auto o : object.Hierarchy().Children()) {
+        if (o.GetComponent<PanelSplitter>()) {
             o->Remove();
         }
     }
@@ -44,8 +38,8 @@ void PanelAreaSystem::CreateSplitters(GameObject* object, PanelArea* area) {
     std::map<std::string, float> newSplits;
     
     for(auto o : panels->Objects()) {
-        Panel* panel = o->GetComponent<Panel>();
-        GameObject* panelArea = panel->Area;
+        Panel* panel = o.GetComponent<Panel>();
+        GameObject panelArea = panel->Area;
         if (panelArea!=object) continue;
         
         panel->location.RecurseLocations([this, &newSplits, area, object, panelArea, panel] (const PanelLocation& location) {
@@ -61,11 +55,11 @@ void PanelAreaSystem::CreateSplitters(GameObject* object, PanelArea* area) {
                 newSplits[id] = 0.5f;
             }
             
-            GameObject* splitter = gui->CreateControl(object, "Box");
-            splitter->AddComponent<PanelSplitter>()->location = splitLocation;
-            splitter->GetComponent<PanelSplitter>()->isHorizontal = location.IsHorizontal();
-            splitter->GetComponent<PanelSplitter>()->area = panelArea;
-            splitter->AddComponent<Draggable>()->Movement = location.IsHorizontal() ? Draggable::MovementMode::XAxis : Draggable::MovementMode::YAxis;
+            GameObject splitter = gui->CreateControl(object, "Box");
+            splitter.AddComponent<PanelSplitter>()->location = splitLocation;
+            splitter.GetComponent<PanelSplitter>()->isHorizontal = location.IsHorizontal();
+            splitter.GetComponent<PanelSplitter>()->area = panelArea;
+            splitter.AddComponent<Draggable>()->Movement = location.IsHorizontal() ? Draggable::MovementMode::XAxis : Draggable::MovementMode::YAxis;
             splitter->RemoveComponent<Renderable>();
         });
         
@@ -75,32 +69,32 @@ void PanelAreaSystem::CreateSplitters(GameObject* object, PanelArea* area) {
     area->Splits = newSplits;
 }
 
-void PanelAreaSystem::PanelSplitterSystem::ObjectAdded(GameObject* object) {
-    object->GetComponent<PanelSplitter>()->area->GetComponent<Sizeable>()->Size.Changed.Bind(this, &PanelSplitterSystem::AreaSizeChanged, object);
-    object->GetComponent<PanelSplitter>()->area->GetComponent<PanelArea>()->SplitValueChanged.Bind(this, &PanelSplitterSystem::SplitValueChanged, object);
+void PanelAreaSystem::PanelSplitterSystem::ObjectAdded(GameObject object) {
+    object.GetComponent<PanelSplitter>()->area.GetComponent<Sizeable>()->Size.Changed.Bind(this, &PanelSplitterSystem::AreaSizeChanged, object);
+    object.GetComponent<PanelSplitter>()->area.GetComponent<PanelArea>()->SplitValueChanged.Bind(this, &PanelSplitterSystem::SplitValueChanged, object);
     splittersNeedingAlignment.insert(object);
 }
 
-void PanelAreaSystem::PanelSplitterSystem::ObjectRemoved(GameObject* object) {
-    object->GetComponent<PanelSplitter>()->area->GetComponent<Sizeable>()->Size.Changed.Unbind(this, &PanelSplitterSystem::AreaSizeChanged, object);
-    object->GetComponent<PanelSplitter>()->area->GetComponent<PanelArea>()->SplitValueChanged.Unbind(this, &PanelSplitterSystem::SplitValueChanged, object);
+void PanelAreaSystem::PanelSplitterSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<PanelSplitter>()->area.GetComponent<Sizeable>()->Size.Changed.Unbind(this, &PanelSplitterSystem::AreaSizeChanged, object);
+    object.GetComponent<PanelSplitter>()->area.GetComponent<PanelArea>()->SplitValueChanged.Unbind(this, &PanelSplitterSystem::SplitValueChanged, object);
     auto it = splittersNeedingAlignment.find(object);
     if (it!=splittersNeedingAlignment.end()) {
         splittersNeedingAlignment.erase(it);
     }
 }
 
-void PanelAreaSystem::PanelSplitterSystem::AreaSizeChanged(GameObject* object) {
+void PanelAreaSystem::PanelSplitterSystem::AreaSizeChanged(GameObject object) {
     splittersNeedingAlignment.insert(object);
 }
 
-void PanelAreaSystem::PanelSplitterSystem::SplitValueChanged(std::string id, GameObject* object) {
+void PanelAreaSystem::PanelSplitterSystem::SplitValueChanged(std::string id, GameObject object) {
     splittersNeedingAlignment.insert(object);
 }
 
 void PanelAreaSystem::PanelSplitterSystem::Update(float dt) {
     for(auto o : Objects()) {
-        if (o->GetComponent<Draggable>()->IsDragging) {
+        if (o.GetComponent<Draggable>()->IsDragging) {
             SetSplitValueFromTransform(o);
         }
     }
@@ -111,12 +105,12 @@ void PanelAreaSystem::PanelSplitterSystem::Update(float dt) {
     splittersNeedingAlignment.clear();
 }
 
-void PanelAreaSystem::PanelSplitterSystem::AlignSplitter(GameObject* object) {
-    PanelSplitter* splitter = object->GetComponent<PanelSplitter>();
-    Sizeable* areaSize = splitter->area->GetComponent<Sizeable>();
-    PanelArea* area = splitter->area->GetComponent<PanelArea>();
-    Transform* transform = object->GetComponent<Transform>();
-    Sizeable* sizeable = object->GetComponent<Sizeable>();
+void PanelAreaSystem::PanelSplitterSystem::AlignSplitter(GameObject object) {
+    PanelSplitter* splitter = object.GetComponent<PanelSplitter>();
+    Sizeable* areaSize = splitter->area.GetComponent<Sizeable>();
+    PanelArea* area = splitter->area.GetComponent<PanelArea>();
+    Transform* transform = object.GetComponent<Transform>();
+    Sizeable* sizeable = object.GetComponent<Sizeable>();
     
     float splitValue = area->GetSplitValue(splitter->location.Id());
     
@@ -133,11 +127,11 @@ void PanelAreaSystem::PanelSplitterSystem::AlignSplitter(GameObject* object) {
     }
 }
 
-void PanelAreaSystem::PanelSplitterSystem::SetSplitValueFromTransform(GameObject* object) {
-    PanelSplitter* splitter = object->GetComponent<PanelSplitter>();
-    Sizeable* areaSize = splitter->area->GetComponent<Sizeable>();
-    PanelArea* area = splitter->area->GetComponent<PanelArea>();
-    Transform* transform = object->GetComponent<Transform>();
+void PanelAreaSystem::PanelSplitterSystem::SetSplitValueFromTransform(GameObject object) {
+    PanelSplitter* splitter = object.GetComponent<PanelSplitter>();
+    Sizeable* areaSize = splitter->area.GetComponent<Sizeable>();
+    PanelArea* area = splitter->area.GetComponent<PanelArea>();
+    Transform* transform = object.GetComponent<Transform>();
     
     Rect rect = splitter->location.GetRect(areaSize->Size, [area] (const std::string& id) {
        return area->GetSplitValue(id);

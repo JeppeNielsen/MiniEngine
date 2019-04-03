@@ -8,27 +8,27 @@
 
 #include "SpriteTextureSystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
-void SpriteTextureSystem::ObjectAdded(GameObject *object) {
-    Sprite* sprite = object->GetComponent<Sprite>();
+void SpriteTextureSystem::ObjectAdded(GameObject object) {
+    Sprite* sprite = object.GetComponent<Sprite>();
     sprite->SpriteName.Changed.Bind(this, &SpriteTextureSystem::SpriteChanged, object);
     sprite->CornerSize.Changed.Bind(this, &SpriteTextureSystem::SpriteChanged, object);
     
     SpriteChanged(object);
 }
 
-void SpriteTextureSystem::ObjectRemoved(GameObject *object) {
-    Sprite* sprite = object->GetComponent<Sprite>();
+void SpriteTextureSystem::ObjectRemoved(GameObject object) {
+    Sprite* sprite = object.GetComponent<Sprite>();
     sprite->SpriteName.Changed.Unbind(this, &SpriteTextureSystem::SpriteChanged,object);
     sprite->CornerSize.Changed.Unbind(this, &SpriteTextureSystem::SpriteChanged,object);
 }
 
-void SpriteTextureSystem::SpriteChanged(GameObject* object) {
+void SpriteTextureSystem::SpriteChanged(GameObject object) {
     
-    Sprite* sprite = object->GetComponent<Sprite>();
-    Atlas* atlas = object->GetComponent<Atlas>();
-    Mesh* mesh = object->GetComponent<Mesh>();
+    Sprite* sprite = object.GetComponent<Sprite>();
+    Atlas* atlas = object.GetComponent<Atlas>();
+    Mesh* mesh = object.GetComponent<Mesh>();
     
     auto& vertices = mesh->GetMesh<Vertex>().vertices;
     Vector2 cornerSize = sprite->CornerSize;

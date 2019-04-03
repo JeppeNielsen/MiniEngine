@@ -8,7 +8,7 @@
 
 #include "PanelArea.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 PanelArea::PanelArea() { IsDirty = false; }
 

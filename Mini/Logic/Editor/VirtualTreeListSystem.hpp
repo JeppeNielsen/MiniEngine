@@ -7,19 +7,19 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "VirtualTreeList.hpp"
 #include "Sizeable.hpp"
 #include "Transform.hpp"
 
-namespace Pocket {
-  class VirtualTreeListSystem : public GameSystem<VirtualTreeList, Transform, Sizeable> {
+namespace Mini {
+  class VirtualTreeListSystem : System<VirtualTreeList, Transform, Sizeable> {
     public:
         void Initialize();
-        void ObjectAdded(GameObject* object);
-        void ObjectRemoved(GameObject* object);
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
         void Update(float dt);
     private:
-        void UpdateVirtualList(GameObject* object);
+        void UpdateVirtualList(GameObject object);
   };
 }

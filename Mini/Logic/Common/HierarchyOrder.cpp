@@ -48,8 +48,8 @@ void HierarchyOrder::CalculateOrder(int& orderOffset, GameObject object) {
     if (children.empty()) return;
     
     //auto sortedChildren = children;
-    //std::sort(sortedChildren.begin(), sortedChildren.end(), [] (GameObject* a, GameObject* b) {
-    //    return a->Hierarchy().Order()<b->Hierarchy().Order();
+    //std::sort(sortedChildren.begin(), sortedChildren.end(), [] (GameObject a, GameObject b) {
+    //    return a.Hierarchy().Order()<b.Hierarchy().Order();
     //});
     
     for(auto child : children) {

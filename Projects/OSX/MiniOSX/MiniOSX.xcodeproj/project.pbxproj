@@ -100,6 +100,47 @@
 		7214CE9121E549B300D1FEFA /* TouchSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE8A21E549B200D1FEFA /* TouchSystem.cpp */; };
 		7214CE9421E678DC00D1FEFA /* AppMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7214CE9321E678DC00D1FEFA /* AppMenu.mm */; };
 		7214CE9721E690E600D1FEFA /* NSOpenGLView-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7214CE9621E690E600D1FEFA /* NSOpenGLView-Info.plist */; };
+		7214CEE121E920EE00D1FEFA /* RectPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEE021E920EE00D1FEFA /* RectPacker.cpp */; };
+		7214CEFA21E9264400D1FEFA /* DraggableMotionSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEE621E9264400D1FEFA /* DraggableMotionSystem.cpp */; };
+		7214CEFB21E9264400D1FEFA /* DraggableSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEE821E9264400D1FEFA /* DraggableSystem.cpp */; };
+		7214CEFC21E9264400D1FEFA /* FirstPersonMover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEEA21E9264400D1FEFA /* FirstPersonMover.cpp */; };
+		7214CEFD21E9264400D1FEFA /* FirstPersonMoverSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEEC21E9264400D1FEFA /* FirstPersonMoverSystem.cpp */; };
+		7214CEFE21E9264400D1FEFA /* Limitable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEEE21E9264400D1FEFA /* Limitable.cpp */; };
+		7214CEFF21E9264400D1FEFA /* LimitableSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEF021E9264400D1FEFA /* LimitableSystem.cpp */; };
+		7214CF0021E9264400D1FEFA /* ScrollWheelMover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEF221E9264400D1FEFA /* ScrollWheelMover.cpp */; };
+		7214CF0121E9264400D1FEFA /* ScrollWheelMoverSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEF421E9264400D1FEFA /* ScrollWheelMoverSystem.cpp */; };
+		7214CF0221E9264400D1FEFA /* VelocitySystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CEF721E9264400D1FEFA /* VelocitySystem.cpp */; };
+		7214CF3621E927EE00D1FEFA /* DroppableSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF0521E927EE00D1FEFA /* DroppableSystem.cpp */; };
+		7214CF3721E927EE00D1FEFA /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF0721E927EE00D1FEFA /* Font.cpp */; };
+		7214CF3821E927EE00D1FEFA /* FontTextureSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF0921E927EE00D1FEFA /* FontTextureSystem.cpp */; };
+		7214CF3921E927EE00D1FEFA /* GameWorldViewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF0B21E927EE00D1FEFA /* GameWorldViewport.cpp */; };
+		7214CF3A21E927EE00D1FEFA /* GameWorldViewportSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF0D21E927EE00D1FEFA /* GameWorldViewportSystem.cpp */; };
+		7214CF3B21E927EE00D1FEFA /* Gui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF0F21E927EE00D1FEFA /* Gui.cpp */; };
+		7214CF3C21E927EE00D1FEFA /* LabelMeshSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF1221E927EE00D1FEFA /* LabelMeshSystem.cpp */; };
+		7214CF3D21E927EE00D1FEFA /* LayoutSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF1621E927EE00D1FEFA /* LayoutSystem.cpp */; };
+		7214CF3E21E927EE00D1FEFA /* Panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF1A21E927EE00D1FEFA /* Panel.cpp */; };
+		7214CF3F21E927EE00D1FEFA /* PanelArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF1C21E927EE00D1FEFA /* PanelArea.cpp */; };
+		7214CF4021E927EE00D1FEFA /* PanelAreaSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF1E21E927EE00D1FEFA /* PanelAreaSystem.cpp */; };
+		7214CF4121E927EE00D1FEFA /* PanelDropper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2021E927EE00D1FEFA /* PanelDropper.cpp */; };
+		7214CF4221E927EE00D1FEFA /* PanelDropSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2221E927EE00D1FEFA /* PanelDropSystem.cpp */; };
+		7214CF4321E927EE00D1FEFA /* PanelLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2421E927EE00D1FEFA /* PanelLocation.cpp */; };
+		7214CF4421E927EE00D1FEFA /* PanelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2621E927EE00D1FEFA /* PanelSystem.cpp */; };
+		7214CF4521E927EE00D1FEFA /* SlicedQuadMeshSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2A21E927EE00D1FEFA /* SlicedQuadMeshSystem.cpp */; };
+		7214CF4621E927EE00D1FEFA /* SpriteMeshSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2D21E927EE00D1FEFA /* SpriteMeshSystem.cpp */; };
+		7214CF4721E927EE00D1FEFA /* SpriteTextureSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2F21E927EE00D1FEFA /* SpriteTextureSystem.cpp */; };
+		7214CF4821E927EE00D1FEFA /* TextBoxLabelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF3221E927EE00D1FEFA /* TextBoxLabelSystem.cpp */; };
+		7214CF4921E927EE00D1FEFA /* TextBoxSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF3421E927EE00D1FEFA /* TextBoxSystem.cpp */; };
+		7214CF6221E92F4B00D1FEFA /* FieldEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF4B21E92F4A00D1FEFA /* FieldEditor.cpp */; };
+		7214CF6321E92F4B00D1FEFA /* FieldEditorSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF4D21E92F4A00D1FEFA /* FieldEditorSystem.cpp */; };
+		7214CF6421E92F4B00D1FEFA /* GameObjectEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF4F21E92F4A00D1FEFA /* GameObjectEditor.cpp */; };
+		7214CF6521E92F4B00D1FEFA /* GameObjectEditorSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF5121E92F4A00D1FEFA /* GameObjectEditorSystem.cpp */; };
+		7214CF6621E92F4B00D1FEFA /* GuiFieldEditors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF5421E92F4A00D1FEFA /* GuiFieldEditors.cpp */; };
+		7214CF6721E92F4B00D1FEFA /* HierarchyEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF5621E92F4A00D1FEFA /* HierarchyEditor.cpp */; };
+		7214CF6821E92F4B00D1FEFA /* HierarchyEditorSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF5821E92F4A00D1FEFA /* HierarchyEditorSystem.cpp */; };
+		7214CF6921E92F4B00D1FEFA /* VirtualTreeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF5A21E92F4A00D1FEFA /* VirtualTreeList.cpp */; };
+		7214CF6A21E92F4B00D1FEFA /* VirtualTreeListSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF5C21E92F4A00D1FEFA /* VirtualTreeListSpawner.cpp */; };
+		7214CF6B21E92F4B00D1FEFA /* VirtualTreeListSpawnerSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF5E21E92F4A00D1FEFA /* VirtualTreeListSpawnerSystem.cpp */; };
+		7214CF6C21E92F4B00D1FEFA /* VirtualTreeListSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF6021E92F4A00D1FEFA /* VirtualTreeListSystem.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -382,6 +423,99 @@
 		7214CE9321E678DC00D1FEFA /* AppMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppMenu.mm; sourceTree = "<group>"; };
 		7214CE9521E6800800D1FEFA /* OSXView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSXView.h; sourceTree = "<group>"; };
 		7214CE9621E690E600D1FEFA /* NSOpenGLView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NSOpenGLView-Info.plist"; sourceTree = "<group>"; };
+		7214CEDF21E920EE00D1FEFA /* RectPacker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RectPacker.hpp; sourceTree = "<group>"; };
+		7214CEE021E920EE00D1FEFA /* RectPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectPacker.cpp; sourceTree = "<group>"; };
+		7214CEE321E9264400D1FEFA /* Draggable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Draggable.hpp; sourceTree = "<group>"; };
+		7214CEE521E9264400D1FEFA /* DraggableMotion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DraggableMotion.hpp; sourceTree = "<group>"; };
+		7214CEE621E9264400D1FEFA /* DraggableMotionSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DraggableMotionSystem.cpp; sourceTree = "<group>"; };
+		7214CEE721E9264400D1FEFA /* DraggableMotionSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DraggableMotionSystem.hpp; sourceTree = "<group>"; };
+		7214CEE821E9264400D1FEFA /* DraggableSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DraggableSystem.cpp; sourceTree = "<group>"; };
+		7214CEE921E9264400D1FEFA /* DraggableSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DraggableSystem.hpp; sourceTree = "<group>"; };
+		7214CEEA21E9264400D1FEFA /* FirstPersonMover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FirstPersonMover.cpp; sourceTree = "<group>"; };
+		7214CEEB21E9264400D1FEFA /* FirstPersonMover.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FirstPersonMover.hpp; sourceTree = "<group>"; };
+		7214CEEC21E9264400D1FEFA /* FirstPersonMoverSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FirstPersonMoverSystem.cpp; sourceTree = "<group>"; };
+		7214CEED21E9264400D1FEFA /* FirstPersonMoverSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FirstPersonMoverSystem.hpp; sourceTree = "<group>"; };
+		7214CEEE21E9264400D1FEFA /* Limitable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Limitable.cpp; sourceTree = "<group>"; };
+		7214CEEF21E9264400D1FEFA /* Limitable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Limitable.hpp; sourceTree = "<group>"; };
+		7214CEF021E9264400D1FEFA /* LimitableSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LimitableSystem.cpp; sourceTree = "<group>"; };
+		7214CEF121E9264400D1FEFA /* LimitableSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LimitableSystem.hpp; sourceTree = "<group>"; };
+		7214CEF221E9264400D1FEFA /* ScrollWheelMover.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScrollWheelMover.cpp; sourceTree = "<group>"; };
+		7214CEF321E9264400D1FEFA /* ScrollWheelMover.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScrollWheelMover.hpp; sourceTree = "<group>"; };
+		7214CEF421E9264400D1FEFA /* ScrollWheelMoverSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScrollWheelMoverSystem.cpp; sourceTree = "<group>"; };
+		7214CEF521E9264400D1FEFA /* ScrollWheelMoverSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScrollWheelMoverSystem.hpp; sourceTree = "<group>"; };
+		7214CEF621E9264400D1FEFA /* Velocity.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Velocity.hpp; sourceTree = "<group>"; };
+		7214CEF721E9264400D1FEFA /* VelocitySystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VelocitySystem.cpp; sourceTree = "<group>"; };
+		7214CEF821E9264400D1FEFA /* VelocitySystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VelocitySystem.hpp; sourceTree = "<group>"; };
+		7214CF0421E927EE00D1FEFA /* Droppable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Droppable.hpp; sourceTree = "<group>"; };
+		7214CF0521E927EE00D1FEFA /* DroppableSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DroppableSystem.cpp; sourceTree = "<group>"; };
+		7214CF0621E927EE00D1FEFA /* DroppableSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DroppableSystem.hpp; sourceTree = "<group>"; };
+		7214CF0721E927EE00D1FEFA /* Font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Font.cpp; sourceTree = "<group>"; };
+		7214CF0821E927EE00D1FEFA /* Font.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Font.hpp; sourceTree = "<group>"; };
+		7214CF0921E927EE00D1FEFA /* FontTextureSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontTextureSystem.cpp; sourceTree = "<group>"; };
+		7214CF0A21E927EE00D1FEFA /* FontTextureSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FontTextureSystem.hpp; sourceTree = "<group>"; };
+		7214CF0B21E927EE00D1FEFA /* GameWorldViewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameWorldViewport.cpp; sourceTree = "<group>"; };
+		7214CF0C21E927EE00D1FEFA /* GameWorldViewport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameWorldViewport.hpp; sourceTree = "<group>"; };
+		7214CF0D21E927EE00D1FEFA /* GameWorldViewportSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameWorldViewportSystem.cpp; sourceTree = "<group>"; };
+		7214CF0E21E927EE00D1FEFA /* GameWorldViewportSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameWorldViewportSystem.hpp; sourceTree = "<group>"; };
+		7214CF0F21E927EE00D1FEFA /* Gui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Gui.cpp; sourceTree = "<group>"; };
+		7214CF1021E927EE00D1FEFA /* Gui.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Gui.hpp; sourceTree = "<group>"; };
+		7214CF1121E927EE00D1FEFA /* Label.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Label.hpp; sourceTree = "<group>"; };
+		7214CF1221E927EE00D1FEFA /* LabelMeshSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LabelMeshSystem.cpp; sourceTree = "<group>"; };
+		7214CF1321E927EE00D1FEFA /* LabelMeshSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LabelMeshSystem.hpp; sourceTree = "<group>"; };
+		7214CF1521E927EE00D1FEFA /* Layouter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Layouter.hpp; sourceTree = "<group>"; };
+		7214CF1621E927EE00D1FEFA /* LayoutSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutSystem.cpp; sourceTree = "<group>"; };
+		7214CF1721E927EE00D1FEFA /* LayoutSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LayoutSystem.hpp; sourceTree = "<group>"; };
+		7214CF1A21E927EE00D1FEFA /* Panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Panel.cpp; sourceTree = "<group>"; };
+		7214CF1B21E927EE00D1FEFA /* Panel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Panel.hpp; sourceTree = "<group>"; };
+		7214CF1C21E927EE00D1FEFA /* PanelArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanelArea.cpp; sourceTree = "<group>"; };
+		7214CF1D21E927EE00D1FEFA /* PanelArea.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PanelArea.hpp; sourceTree = "<group>"; };
+		7214CF1E21E927EE00D1FEFA /* PanelAreaSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanelAreaSystem.cpp; sourceTree = "<group>"; };
+		7214CF1F21E927EE00D1FEFA /* PanelAreaSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PanelAreaSystem.hpp; sourceTree = "<group>"; };
+		7214CF2021E927EE00D1FEFA /* PanelDropper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanelDropper.cpp; sourceTree = "<group>"; };
+		7214CF2121E927EE00D1FEFA /* PanelDropper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PanelDropper.hpp; sourceTree = "<group>"; };
+		7214CF2221E927EE00D1FEFA /* PanelDropSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanelDropSystem.cpp; sourceTree = "<group>"; };
+		7214CF2321E927EE00D1FEFA /* PanelDropSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PanelDropSystem.hpp; sourceTree = "<group>"; };
+		7214CF2421E927EE00D1FEFA /* PanelLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanelLocation.cpp; sourceTree = "<group>"; };
+		7214CF2521E927EE00D1FEFA /* PanelLocation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PanelLocation.hpp; sourceTree = "<group>"; };
+		7214CF2621E927EE00D1FEFA /* PanelSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanelSystem.cpp; sourceTree = "<group>"; };
+		7214CF2721E927EE00D1FEFA /* PanelSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PanelSystem.hpp; sourceTree = "<group>"; };
+		7214CF2821E927EE00D1FEFA /* Sizeable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sizeable.hpp; sourceTree = "<group>"; };
+		7214CF2921E927EE00D1FEFA /* SlicedQuad.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SlicedQuad.hpp; sourceTree = "<group>"; };
+		7214CF2A21E927EE00D1FEFA /* SlicedQuadMeshSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SlicedQuadMeshSystem.cpp; sourceTree = "<group>"; };
+		7214CF2B21E927EE00D1FEFA /* SlicedQuadMeshSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SlicedQuadMeshSystem.hpp; sourceTree = "<group>"; };
+		7214CF2C21E927EE00D1FEFA /* Sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sprite.hpp; sourceTree = "<group>"; };
+		7214CF2D21E927EE00D1FEFA /* SpriteMeshSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteMeshSystem.cpp; sourceTree = "<group>"; };
+		7214CF2E21E927EE00D1FEFA /* SpriteMeshSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SpriteMeshSystem.hpp; sourceTree = "<group>"; };
+		7214CF2F21E927EE00D1FEFA /* SpriteTextureSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteTextureSystem.cpp; sourceTree = "<group>"; };
+		7214CF3021E927EE00D1FEFA /* SpriteTextureSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SpriteTextureSystem.hpp; sourceTree = "<group>"; };
+		7214CF3121E927EE00D1FEFA /* TextBox.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextBox.hpp; sourceTree = "<group>"; };
+		7214CF3221E927EE00D1FEFA /* TextBoxLabelSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBoxLabelSystem.cpp; sourceTree = "<group>"; };
+		7214CF3321E927EE00D1FEFA /* TextBoxLabelSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextBoxLabelSystem.hpp; sourceTree = "<group>"; };
+		7214CF3421E927EE00D1FEFA /* TextBoxSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBoxSystem.cpp; sourceTree = "<group>"; };
+		7214CF3521E927EE00D1FEFA /* TextBoxSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextBoxSystem.hpp; sourceTree = "<group>"; };
+		7214CF4B21E92F4A00D1FEFA /* FieldEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FieldEditor.cpp; sourceTree = "<group>"; };
+		7214CF4C21E92F4A00D1FEFA /* FieldEditor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FieldEditor.hpp; sourceTree = "<group>"; };
+		7214CF4D21E92F4A00D1FEFA /* FieldEditorSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FieldEditorSystem.cpp; sourceTree = "<group>"; };
+		7214CF4E21E92F4A00D1FEFA /* FieldEditorSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FieldEditorSystem.hpp; sourceTree = "<group>"; };
+		7214CF4F21E92F4A00D1FEFA /* GameObjectEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObjectEditor.cpp; sourceTree = "<group>"; };
+		7214CF5021E92F4A00D1FEFA /* GameObjectEditor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameObjectEditor.hpp; sourceTree = "<group>"; };
+		7214CF5121E92F4A00D1FEFA /* GameObjectEditorSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObjectEditorSystem.cpp; sourceTree = "<group>"; };
+		7214CF5221E92F4A00D1FEFA /* GameObjectEditorSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameObjectEditorSystem.hpp; sourceTree = "<group>"; };
+		7214CF5321E92F4A00D1FEFA /* GameObjectFieldEditor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GameObjectFieldEditor.hpp; sourceTree = "<group>"; };
+		7214CF5421E92F4A00D1FEFA /* GuiFieldEditors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuiFieldEditors.cpp; sourceTree = "<group>"; };
+		7214CF5521E92F4A00D1FEFA /* GuiFieldEditors.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GuiFieldEditors.hpp; sourceTree = "<group>"; };
+		7214CF5621E92F4A00D1FEFA /* HierarchyEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HierarchyEditor.cpp; sourceTree = "<group>"; };
+		7214CF5721E92F4A00D1FEFA /* HierarchyEditor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HierarchyEditor.hpp; sourceTree = "<group>"; };
+		7214CF5821E92F4A00D1FEFA /* HierarchyEditorSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HierarchyEditorSystem.cpp; sourceTree = "<group>"; };
+		7214CF5921E92F4A00D1FEFA /* HierarchyEditorSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HierarchyEditorSystem.hpp; sourceTree = "<group>"; };
+		7214CF5A21E92F4A00D1FEFA /* VirtualTreeList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualTreeList.cpp; sourceTree = "<group>"; };
+		7214CF5B21E92F4A00D1FEFA /* VirtualTreeList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VirtualTreeList.hpp; sourceTree = "<group>"; };
+		7214CF5C21E92F4A00D1FEFA /* VirtualTreeListSpawner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualTreeListSpawner.cpp; sourceTree = "<group>"; };
+		7214CF5D21E92F4A00D1FEFA /* VirtualTreeListSpawner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VirtualTreeListSpawner.hpp; sourceTree = "<group>"; };
+		7214CF5E21E92F4A00D1FEFA /* VirtualTreeListSpawnerSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualTreeListSpawnerSystem.cpp; sourceTree = "<group>"; };
+		7214CF5F21E92F4A00D1FEFA /* VirtualTreeListSpawnerSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VirtualTreeListSpawnerSystem.hpp; sourceTree = "<group>"; };
+		7214CF6021E92F4A00D1FEFA /* VirtualTreeListSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualTreeListSystem.cpp; sourceTree = "<group>"; };
+		7214CF6121E92F4A00D1FEFA /* VirtualTreeListSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VirtualTreeListSystem.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -528,6 +662,8 @@
 		7214CAD721E1FEC100D1FEFA /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				7214CEE021E920EE00D1FEFA /* RectPacker.cpp */,
+				7214CEDF21E920EE00D1FEFA /* RectPacker.hpp */,
 				7214CE7621E2AF0900D1FEFA /* Octree.hpp */,
 				7214CB1321E28D1100D1FEFA /* MetaHelper.hpp */,
 				7214CE6F21E29D0000D1FEFA /* DirtyProperty.hpp */,
@@ -924,6 +1060,9 @@
 		7214CCC921E29C9200D1FEFA /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				7214CF4A21E92F4A00D1FEFA /* Editor */,
+				7214CF0321E927EE00D1FEFA /* Gui */,
+				7214CEE221E9264400D1FEFA /* Movement */,
 				7214CE7E21E549B200D1FEFA /* Interaction */,
 				7214CE7021E2A34200D1FEFA /* Common */,
 				7214CD9821E29C9200D1FEFA /* Rendering */,
@@ -1012,6 +1151,142 @@
 			path = Interaction;
 			sourceTree = "<group>";
 		};
+		7214CEE221E9264400D1FEFA /* Movement */ = {
+			isa = PBXGroup;
+			children = (
+				7214CEE321E9264400D1FEFA /* Draggable.hpp */,
+				7214CEE521E9264400D1FEFA /* DraggableMotion.hpp */,
+				7214CEE621E9264400D1FEFA /* DraggableMotionSystem.cpp */,
+				7214CEE721E9264400D1FEFA /* DraggableMotionSystem.hpp */,
+				7214CEE821E9264400D1FEFA /* DraggableSystem.cpp */,
+				7214CEE921E9264400D1FEFA /* DraggableSystem.hpp */,
+				7214CEEA21E9264400D1FEFA /* FirstPersonMover.cpp */,
+				7214CEEB21E9264400D1FEFA /* FirstPersonMover.hpp */,
+				7214CEEC21E9264400D1FEFA /* FirstPersonMoverSystem.cpp */,
+				7214CEED21E9264400D1FEFA /* FirstPersonMoverSystem.hpp */,
+				7214CEEE21E9264400D1FEFA /* Limitable.cpp */,
+				7214CEEF21E9264400D1FEFA /* Limitable.hpp */,
+				7214CEF021E9264400D1FEFA /* LimitableSystem.cpp */,
+				7214CEF121E9264400D1FEFA /* LimitableSystem.hpp */,
+				7214CEF221E9264400D1FEFA /* ScrollWheelMover.cpp */,
+				7214CEF321E9264400D1FEFA /* ScrollWheelMover.hpp */,
+				7214CEF421E9264400D1FEFA /* ScrollWheelMoverSystem.cpp */,
+				7214CEF521E9264400D1FEFA /* ScrollWheelMoverSystem.hpp */,
+				7214CEF621E9264400D1FEFA /* Velocity.hpp */,
+				7214CEF721E9264400D1FEFA /* VelocitySystem.cpp */,
+				7214CEF821E9264400D1FEFA /* VelocitySystem.hpp */,
+			);
+			path = Movement;
+			sourceTree = "<group>";
+		};
+		7214CF0321E927EE00D1FEFA /* Gui */ = {
+			isa = PBXGroup;
+			children = (
+				7214CF0421E927EE00D1FEFA /* Droppable.hpp */,
+				7214CF0521E927EE00D1FEFA /* DroppableSystem.cpp */,
+				7214CF0621E927EE00D1FEFA /* DroppableSystem.hpp */,
+				7214CF0721E927EE00D1FEFA /* Font.cpp */,
+				7214CF0821E927EE00D1FEFA /* Font.hpp */,
+				7214CF0921E927EE00D1FEFA /* FontTextureSystem.cpp */,
+				7214CF0A21E927EE00D1FEFA /* FontTextureSystem.hpp */,
+				7214CF0B21E927EE00D1FEFA /* GameWorldViewport.cpp */,
+				7214CF0C21E927EE00D1FEFA /* GameWorldViewport.hpp */,
+				7214CF0D21E927EE00D1FEFA /* GameWorldViewportSystem.cpp */,
+				7214CF0E21E927EE00D1FEFA /* GameWorldViewportSystem.hpp */,
+				7214CF0F21E927EE00D1FEFA /* Gui.cpp */,
+				7214CF1021E927EE00D1FEFA /* Gui.hpp */,
+				7214CF1121E927EE00D1FEFA /* Label.hpp */,
+				7214CF1221E927EE00D1FEFA /* LabelMeshSystem.cpp */,
+				7214CF1321E927EE00D1FEFA /* LabelMeshSystem.hpp */,
+				7214CF1421E927EE00D1FEFA /* Layout */,
+				7214CF1821E927EE00D1FEFA /* Menu */,
+				7214CF1921E927EE00D1FEFA /* Panels */,
+				7214CF2821E927EE00D1FEFA /* Sizeable.hpp */,
+				7214CF2921E927EE00D1FEFA /* SlicedQuad.hpp */,
+				7214CF2A21E927EE00D1FEFA /* SlicedQuadMeshSystem.cpp */,
+				7214CF2B21E927EE00D1FEFA /* SlicedQuadMeshSystem.hpp */,
+				7214CF2C21E927EE00D1FEFA /* Sprite.hpp */,
+				7214CF2D21E927EE00D1FEFA /* SpriteMeshSystem.cpp */,
+				7214CF2E21E927EE00D1FEFA /* SpriteMeshSystem.hpp */,
+				7214CF2F21E927EE00D1FEFA /* SpriteTextureSystem.cpp */,
+				7214CF3021E927EE00D1FEFA /* SpriteTextureSystem.hpp */,
+				7214CF3121E927EE00D1FEFA /* TextBox.hpp */,
+				7214CF3221E927EE00D1FEFA /* TextBoxLabelSystem.cpp */,
+				7214CF3321E927EE00D1FEFA /* TextBoxLabelSystem.hpp */,
+				7214CF3421E927EE00D1FEFA /* TextBoxSystem.cpp */,
+				7214CF3521E927EE00D1FEFA /* TextBoxSystem.hpp */,
+			);
+			path = Gui;
+			sourceTree = "<group>";
+		};
+		7214CF1421E927EE00D1FEFA /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				7214CF1521E927EE00D1FEFA /* Layouter.hpp */,
+				7214CF1621E927EE00D1FEFA /* LayoutSystem.cpp */,
+				7214CF1721E927EE00D1FEFA /* LayoutSystem.hpp */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		7214CF1821E927EE00D1FEFA /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		7214CF1921E927EE00D1FEFA /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				7214CF1A21E927EE00D1FEFA /* Panel.cpp */,
+				7214CF1B21E927EE00D1FEFA /* Panel.hpp */,
+				7214CF1C21E927EE00D1FEFA /* PanelArea.cpp */,
+				7214CF1D21E927EE00D1FEFA /* PanelArea.hpp */,
+				7214CF1E21E927EE00D1FEFA /* PanelAreaSystem.cpp */,
+				7214CF1F21E927EE00D1FEFA /* PanelAreaSystem.hpp */,
+				7214CF2021E927EE00D1FEFA /* PanelDropper.cpp */,
+				7214CF2121E927EE00D1FEFA /* PanelDropper.hpp */,
+				7214CF2221E927EE00D1FEFA /* PanelDropSystem.cpp */,
+				7214CF2321E927EE00D1FEFA /* PanelDropSystem.hpp */,
+				7214CF2421E927EE00D1FEFA /* PanelLocation.cpp */,
+				7214CF2521E927EE00D1FEFA /* PanelLocation.hpp */,
+				7214CF2621E927EE00D1FEFA /* PanelSystem.cpp */,
+				7214CF2721E927EE00D1FEFA /* PanelSystem.hpp */,
+			);
+			path = Panels;
+			sourceTree = "<group>";
+		};
+		7214CF4A21E92F4A00D1FEFA /* Editor */ = {
+			isa = PBXGroup;
+			children = (
+				7214CF4B21E92F4A00D1FEFA /* FieldEditor.cpp */,
+				7214CF4C21E92F4A00D1FEFA /* FieldEditor.hpp */,
+				7214CF4D21E92F4A00D1FEFA /* FieldEditorSystem.cpp */,
+				7214CF4E21E92F4A00D1FEFA /* FieldEditorSystem.hpp */,
+				7214CF4F21E92F4A00D1FEFA /* GameObjectEditor.cpp */,
+				7214CF5021E92F4A00D1FEFA /* GameObjectEditor.hpp */,
+				7214CF5121E92F4A00D1FEFA /* GameObjectEditorSystem.cpp */,
+				7214CF5221E92F4A00D1FEFA /* GameObjectEditorSystem.hpp */,
+				7214CF5321E92F4A00D1FEFA /* GameObjectFieldEditor.hpp */,
+				7214CF5421E92F4A00D1FEFA /* GuiFieldEditors.cpp */,
+				7214CF5521E92F4A00D1FEFA /* GuiFieldEditors.hpp */,
+				7214CF5621E92F4A00D1FEFA /* HierarchyEditor.cpp */,
+				7214CF5721E92F4A00D1FEFA /* HierarchyEditor.hpp */,
+				7214CF5821E92F4A00D1FEFA /* HierarchyEditorSystem.cpp */,
+				7214CF5921E92F4A00D1FEFA /* HierarchyEditorSystem.hpp */,
+				7214CF5A21E92F4A00D1FEFA /* VirtualTreeList.cpp */,
+				7214CF5B21E92F4A00D1FEFA /* VirtualTreeList.hpp */,
+				7214CF5C21E92F4A00D1FEFA /* VirtualTreeListSpawner.cpp */,
+				7214CF5D21E92F4A00D1FEFA /* VirtualTreeListSpawner.hpp */,
+				7214CF5E21E92F4A00D1FEFA /* VirtualTreeListSpawnerSystem.cpp */,
+				7214CF5F21E92F4A00D1FEFA /* VirtualTreeListSpawnerSystem.hpp */,
+				7214CF6021E92F4A00D1FEFA /* VirtualTreeListSystem.cpp */,
+				7214CF6121E92F4A00D1FEFA /* VirtualTreeListSystem.hpp */,
+			);
+			path = Editor;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1083,11 +1358,14 @@
 			files = (
 				7214CCC421E2929100D1FEFA /* tinystr.cpp in Sources */,
 				7214CB2E21E28D3000D1FEFA /* FileHelper.cpp in Sources */,
+				7214CF4521E927EE00D1FEFA /* SlicedQuadMeshSystem.cpp in Sources */,
 				7214CC9F21E2929100D1FEFA /* pshinter.c in Sources */,
+				7214CF3A21E927EE00D1FEFA /* GameWorldViewportSystem.cpp in Sources */,
 				7214CAE921E1FEC100D1FEFA /* Point.cpp in Sources */,
 				7214CB2321E28D1100D1FEFA /* GameObjectIterator.cpp in Sources */,
 				7214CE4921E29C9300D1FEFA /* Camera.cpp in Sources */,
 				7214CAE121E1FEC100D1FEFA /* InputManager.cpp in Sources */,
+				7214CF3D21E927EE00D1FEFA /* LayoutSystem.cpp in Sources */,
 				7214CB5421E28FB600D1FEFA /* Vertex.cpp in Sources */,
 				7214CE9121E549B300D1FEFA /* TouchSystem.cpp in Sources */,
 				7214CB4A21E28FB500D1FEFA /* Clipper.cpp in Sources */,
@@ -1095,32 +1373,43 @@
 				7214CAE621E1FEC100D1FEFA /* Matrix3x3.cpp in Sources */,
 				7214CB2421E28D1100D1FEFA /* Hierarchy.cpp in Sources */,
 				7214CE4821E29C9300D1FEFA /* Atlas.cpp in Sources */,
+				7214CF6321E92F4B00D1FEFA /* FieldEditorSystem.cpp in Sources */,
 				7214CE9021E549B300D1FEFA /* TouchCancelSystem.cpp in Sources */,
 				7214CB2F21E28D3000D1FEFA /* CommandRunner.cpp in Sources */,
+				7214CEFD21E9264400D1FEFA /* FirstPersonMoverSystem.cpp in Sources */,
 				7214CADE21E1FEC100D1FEFA /* Device.cpp in Sources */,
 				7214CCC321E2929100D1FEFA /* hid.c in Sources */,
 				7214CCC821E2929100D1FEFA /* miniz.c in Sources */,
 				7214CAF321E1FEC100D1FEFA /* Timer.cpp in Sources */,
+				7214CF3721E927EE00D1FEFA /* Font.cpp in Sources */,
 				7214CB2621E28D1100D1FEFA /* Scene.cpp in Sources */,
 				7214CE4D21E29C9300D1FEFA /* DistanceScaler.cpp in Sources */,
 				7214CB4E21E28FB500D1FEFA /* ImageLoader.cpp in Sources */,
 				7214CB5D21E2911F00D1FEFA /* FileReader.mm in Sources */,
+				7214CF3B21E927EE00D1FEFA /* Gui.cpp in Sources */,
+				7214CF4321E927EE00D1FEFA /* PanelLocation.cpp in Sources */,
+				7214CF0121E9264400D1FEFA /* ScrollWheelMoverSystem.cpp in Sources */,
 				7214CAF021E1FEC100D1FEFA /* Vector3.cpp in Sources */,
 				7214CE8F21E549B300D1FEFA /* Touchable.cpp in Sources */,
 				7214CE5521E29C9300D1FEFA /* SlicedTexture.cpp in Sources */,
 				7214CE8C21E549B300D1FEFA /* Hoverable.cpp in Sources */,
 				7214CE9421E678DC00D1FEFA /* AppMenu.mm in Sources */,
 				7214CE8D21E549B300D1FEFA /* HoverSystem.cpp in Sources */,
+				7214CF6621E92F4B00D1FEFA /* GuiFieldEditors.cpp in Sources */,
 				7214CE4B21E29C9300D1FEFA /* ColorSystem.cpp in Sources */,
 				7214CB6121E291A800D1FEFA /* FileArchive.cpp in Sources */,
 				7214CC7A21E2929100D1FEFA /* autofit.c in Sources */,
 				7214CB5C21E2911F00D1FEFA /* File.mm in Sources */,
 				7214CAFC21E1FF8400D1FEFA /* main.cpp in Sources */,
+				7214CF6721E92F4B00D1FEFA /* HierarchyEditor.cpp in Sources */,
+				7214CF4721E927EE00D1FEFA /* SpriteTextureSystem.cpp in Sources */,
 				7214CE4F21E29C9300D1FEFA /* Light.cpp in Sources */,
 				7214CE5421E29C9300D1FEFA /* ShaderComponent.cpp in Sources */,
+				7214CF3921E927EE00D1FEFA /* GameWorldViewport.cpp in Sources */,
 				7214CE4A21E29C9300D1FEFA /* Colorable.cpp in Sources */,
 				7214CCAB21E2929100D1FEFA /* sfnt.c in Sources */,
 				7214CB4F21E28FB500D1FEFA /* RenderTexture.cpp in Sources */,
+				7214CF3C21E927EE00D1FEFA /* LabelMeshSystem.cpp in Sources */,
 				7214CAEB21E1FEC100D1FEFA /* Quaternion.cpp in Sources */,
 				7214CE7421E2A34200D1FEFA /* HierarchyOrder.cpp in Sources */,
 				7214CAE821E1FEC100D1FEFA /* Plane.cpp in Sources */,
@@ -1128,48 +1417,75 @@
 				7214CCA421E2929100D1FEFA /* psnames.c in Sources */,
 				7214CE6421E29C9300D1FEFA /* TransformHierarchy.cpp in Sources */,
 				7214CAEF21E1FEC100D1FEFA /* Vector2.cpp in Sources */,
+				7214CF4121E927EE00D1FEFA /* PanelDropper.cpp in Sources */,
 				7214CB1F21E28D1100D1FEFA /* JsonDeserializer.cpp in Sources */,
+				7214CF6821E92F4B00D1FEFA /* HierarchyEditorSystem.cpp in Sources */,
 				7214CB5021E28FB600D1FEFA /* Shader.cpp in Sources */,
 				7214CCB921E2929100D1FEFA /* smooth.c in Sources */,
 				7214CB5E21E2911F00D1FEFA /* FileSystemWatcher.cpp in Sources */,
+				7214CF6921E92F4B00D1FEFA /* VirtualTreeList.cpp in Sources */,
+				7214CF6C21E92F4B00D1FEFA /* VirtualTreeListSystem.cpp in Sources */,
+				7214CF3F21E927EE00D1FEFA /* PanelArea.cpp in Sources */,
 				7214CB2721E28D1100D1FEFA /* FieldInfo.cpp in Sources */,
 				7214CE8E21E549B300D1FEFA /* Picker.cpp in Sources */,
 				7214CB5321E28FB600D1FEFA /* TextureAtlas.cpp in Sources */,
+				7214CF4421E927EE00D1FEFA /* PanelSystem.cpp in Sources */,
 				7214CCC521E2929100D1FEFA /* tinyxml.cpp in Sources */,
+				7214CF4921E927EE00D1FEFA /* TextBoxSystem.cpp in Sources */,
 				7214CB2821E28D1100D1FEFA /* TypeInfo.cpp in Sources */,
 				7214CCC621E2929100D1FEFA /* tinyxmlerror.cpp in Sources */,
 				7214CAF121E1FEC100D1FEFA /* Window.mm in Sources */,
+				7214CF3E21E927EE00D1FEFA /* Panel.cpp in Sources */,
 				7214CC9521E2929100D1FEFA /* cff.c in Sources */,
+				7214CEE121E920EE00D1FEFA /* RectPacker.cpp in Sources */,
 				7214CAEE21E1FEC100D1FEFA /* TransitionHelper.cpp in Sources */,
 				7214CCC721E2929100D1FEFA /* tinyxmlparser.cpp in Sources */,
+				7214CF0021E9264400D1FEFA /* ScrollWheelMover.cpp in Sources */,
 				7214CAED21E1FEC100D1FEFA /* Rect.cpp in Sources */,
+				7214CF6421E92F4B00D1FEFA /* GameObjectEditor.cpp in Sources */,
+				7214CF4621E927EE00D1FEFA /* SpriteMeshSystem.cpp in Sources */,
 				7214CAE321E1FEC100D1FEFA /* BoundingFrustum.cpp in Sources */,
 				7214CB2521E28D1100D1FEFA /* ObjectList.cpp in Sources */,
 				7214CB2021E28D1100D1FEFA /* JsonSerializer.cpp in Sources */,
+				7214CF4221E927EE00D1FEFA /* PanelDropSystem.cpp in Sources */,
+				7214CF4821E927EE00D1FEFA /* TextBoxLabelSystem.cpp in Sources */,
 				7214CE5221E29C9300D1FEFA /* Mesh.cpp in Sources */,
+				7214CF0221E9264400D1FEFA /* VelocitySystem.cpp in Sources */,
 				7214CB5221E28FB600D1FEFA /* Texture.cpp in Sources */,
 				7214CB4D21E28FB500D1FEFA /* ImageHelper.cpp in Sources */,
 				7214CAE721E1FEC100D1FEFA /* Matrix4x4.cpp in Sources */,
+				7214CF6221E92F4B00D1FEFA /* FieldEditor.cpp in Sources */,
+				7214CF6521E92F4B00D1FEFA /* GameObjectEditorSystem.cpp in Sources */,
+				7214CF3821E927EE00D1FEFA /* FontTextureSystem.cpp in Sources */,
 				7214CC8121E2929100D1FEFA /* ftbase.c in Sources */,
 				7214CAF221E1FEC100D1FEFA /* StringHelper.cpp in Sources */,
 				7214CE5321E29C9300D1FEFA /* RenderSystem.cpp in Sources */,
 				7214CB2221E28D1100D1FEFA /* GameObject.cpp in Sources */,
+				7214CF3621E927EE00D1FEFA /* DroppableSystem.cpp in Sources */,
 				7214CAE021E1FEC100D1FEFA /* InputDevice.cpp in Sources */,
 				7214CE7D21E5314500D1FEFA /* Screen.cpp in Sources */,
 				7214CAEA21E1FEC100D1FEFA /* Point3.cpp in Sources */,
 				7214CCA821E2929100D1FEFA /* raster.c in Sources */,
 				7214CC8921E2929100D1FEFA /* ftinit.c in Sources */,
+				7214CEFE21E9264400D1FEFA /* Limitable.cpp in Sources */,
 				7214CB5121E28FB600D1FEFA /* ShaderCollection.cpp in Sources */,
 				7214CB2121E28D1100D1FEFA /* Database.cpp in Sources */,
 				7214CADF21E1FEC100D1FEFA /* Engine.cpp in Sources */,
 				7214CAEC21E1FEC100D1FEFA /* Ray.cpp in Sources */,
+				7214CF6B21E92F4B00D1FEFA /* VirtualTreeListSpawnerSystem.cpp in Sources */,
 				7214CE5821E29C9300D1FEFA /* TextureComponent.cpp in Sources */,
 				7214CC9221E2929100D1FEFA /* ftsystem.c in Sources */,
+				7214CEFA21E9264400D1FEFA /* DraggableMotionSystem.cpp in Sources */,
 				7214CAE221E1FEC100D1FEFA /* BoundingBox.cpp in Sources */,
+				7214CEFB21E9264400D1FEFA /* DraggableSystem.cpp in Sources */,
 				7214CAE421E1FEC100D1FEFA /* Box.cpp in Sources */,
 				7214CB4B21E28FB500D1FEFA /* Color.cpp in Sources */,
 				7214CCBA21E2929100D1FEFA /* truetype.c in Sources */,
 				7214CE6321E29C9300D1FEFA /* Transform.cpp in Sources */,
+				7214CEFC21E9264400D1FEFA /* FirstPersonMover.cpp in Sources */,
+				7214CF4021E927EE00D1FEFA /* PanelAreaSystem.cpp in Sources */,
+				7214CF6A21E92F4B00D1FEFA /* VirtualTreeListSpawner.cpp in Sources */,
+				7214CEFF21E9264400D1FEFA /* LimitableSystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

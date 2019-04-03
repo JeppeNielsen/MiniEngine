@@ -7,24 +7,24 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "TextBox.hpp"
 #include "Touchable.hpp"
 #include <map>
 
-namespace Pocket {
+namespace Mini {
     class Gui;
-    class TextBoxSystem : public GameSystem<TextBox, Touchable> {
+    class TextBoxSystem : System<TextBox, Touchable> {
     public:
         
         void Initialize();
-        void ObjectAdded(GameObject *object);
-        void ObjectRemoved(GameObject *object);
-        void ActiveTextBoxChanged(GameObject* object);
-        void TouchInputUp(Pocket::TouchEvent e);
-        void TouchDown(Pocket::TouchData d, GameObject *object);
-        void TouchUp(Pocket::TouchData d, GameObject *object);
-        void TouchClick(Pocket::TouchData d, GameObject *object);
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
+        void ActiveTextBoxChanged(GameObject object);
+        void TouchInputUp(TouchEvent e);
+        void TouchDown(TouchData d, GameObject object);
+        void TouchUp(TouchData d, GameObject object);
+        void TouchClick(TouchData d, GameObject object);
         void Update(float dt);
         void KeyboardActiveChanged();
         void KeyboardTextChanged();
@@ -36,7 +36,7 @@ namespace Pocket {
             float distanceMoved;
         };
         
-        typedef std::map<GameObject*, pushedTextBox> PushedTextBoxes;
+        typedef std::map<GameObject, pushedTextBox> PushedTextBoxes;
         PushedTextBoxes pushedTextBoxes;
         
         bool touchWasUp;

@@ -9,13 +9,13 @@
 #include "FontTextureSystem.hpp"
 #include "OpenGL.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 void FontTextureSystem::Update(float dt) {
     for(auto o : Objects()) {
-        Font* font = o->GetComponent<Font>();
+        Font* font = o.GetComponent<Font>();
         if (font->IsDirty()) {
-            TextureComponent* texture = o->GetComponent<TextureComponent>();
+            TextureComponent* texture = o.GetComponent<TextureComponent>();
             font->UpdateBuffer(texture->Texture());
         }
     }

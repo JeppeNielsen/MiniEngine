@@ -8,20 +8,20 @@
 
 #include "FieldEditorSystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 void FieldEditorSystem::Initialize() {
     GuiFieldEditor::Initialize();
 }
 
-void FieldEditorSystem::ObjectAdded(GameObject* object) {
+void FieldEditorSystem::ObjectAdded(GameObject object) {
     FieldEditor* editor = object->GetComponent<FieldEditor>();
     editor->TypeChanged.Bind(this, &FieldEditorSystem::FieldChanged, object);
     editor->Field.Changed.Bind(this, &FieldEditorSystem::FieldChanged,object);
     FieldChanged(object);
 }
 
-void FieldEditorSystem::ObjectRemoved(GameObject* object) {
+void FieldEditorSystem::ObjectRemoved(GameObject object) {
     FieldEditor* editor = object->GetComponent<FieldEditor>();
     editor->TypeChanged.Unbind(this, &FieldEditorSystem::FieldChanged, object);
     editor->Field.Changed.Unbind(this, &FieldEditorSystem::FieldChanged, object);
@@ -41,7 +41,7 @@ void FieldEditorSystem::Update(float dt) {
     }
 }
 
-void FieldEditorSystem::FieldChanged(GameObject* object) {
+void FieldEditorSystem::FieldChanged(GameObject object) {
     FieldEditor* editor = object->GetComponent<FieldEditor>();
     if (editor->editor) {
         editor->editor->Destroy();

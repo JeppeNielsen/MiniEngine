@@ -7,21 +7,21 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "Scene.hpp"
 #include "FieldEditor.hpp"
 #include "Sizeable.hpp"
 #include "Transform.hpp"
 #include "Gui.hpp"
 
-namespace Pocket {
-class FieldEditorSystem : public GameSystem<FieldEditor, Sizeable, Transform> {
+namespace Mini {
+class FieldEditorSystem : System<FieldEditor, Sizeable, Transform> {
     public:
         Gui* gui;
     
         void Initialize();
-        void ObjectAdded(GameObject* object);
-        void ObjectRemoved(GameObject* object);
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
         void Update(float dt);
-        void FieldChanged(GameObject* object);
+        void FieldChanged(GameObject object);
     };
 }

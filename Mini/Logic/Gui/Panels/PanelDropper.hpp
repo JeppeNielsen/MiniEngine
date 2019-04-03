@@ -7,10 +7,11 @@
 //
 
 #pragma once
+#include "GameObject.hpp"
 
-namespace Pocket {
-    class GameObject;
+namespace Mini {
+    using namespace ECS;
     struct PanelDropper {
-        GameObject* panel;
+        GameObject panel;
     };
 }

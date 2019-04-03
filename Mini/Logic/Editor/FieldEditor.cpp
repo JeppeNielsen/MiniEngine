@@ -8,7 +8,7 @@
 
 #include "FieldEditor.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 FieldEditor::FieldEditor() :editor(0) {
     editor = 0;

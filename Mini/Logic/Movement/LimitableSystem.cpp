@@ -8,12 +8,12 @@
 
 #include "LimitableSystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 void LimitableSystem::Update(float dt) {
-    for (GameObject* object : Objects()) {
-        Transform* transform = object->GetComponent<Transform>();
-        Limitable* limitable = object->GetComponent<Limitable>();
+    for (GameObject object : Objects()) {
+        Transform* transform = object.GetComponent<Transform>();
+        Limitable* limitable = object.GetComponent<Limitable>();
         Vector3 position = transform->Position;
         if (limitable->Size && limitable->View) {
             limitable->min = -limitable->Size->Size + limitable->View->Size;

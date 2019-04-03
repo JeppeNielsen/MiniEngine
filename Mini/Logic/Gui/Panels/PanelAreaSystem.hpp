@@ -7,40 +7,39 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "PanelArea.hpp"
 #include <set>
 #include "Draggable.hpp"
 #include "Transform.hpp"
 #include "PanelLocation.hpp"
 
-namespace Pocket {
+namespace Mini {
     class Gui;
     class PanelSystem;
     
     struct PanelSplitter {
-        GameObject* area;
+        GameObject area;
         PanelLocation location;
         bool isHorizontal;
     };
 
-    struct PanelAreaSystem : public GameSystem<PanelArea> {
+    struct PanelAreaSystem : System<PanelArea> {
         PanelSystem* panels;
         Gui* gui;
         void Initialize() override;
         void Update(float dt) override;
-        void CreateSplitters(GameObject* object, PanelArea* area);
-        static void CreateSubSystems(GameStorage& storage);
+        void CreateSplitters(GameObject object, PanelArea* area);
         
-        struct PanelSplitterSystem : public GameSystem<PanelSplitter, Draggable, Transform> {
-            std::set<GameObject*> splittersNeedingAlignment;
-            void ObjectAdded(GameObject* object) override;
-            void ObjectRemoved(GameObject* object) override;
-            void AreaSizeChanged(GameObject* object);
-            void SplitValueChanged(std::string id, GameObject* object);
+        struct PanelSplitterSystem : System<PanelSplitter, Draggable, Transform> {
+            std::set<GameObject> splittersNeedingAlignment;
+            void ObjectAdded(GameObject object) override;
+            void ObjectRemoved(GameObject object) override;
+            void AreaSizeChanged(GameObject object);
+            void SplitValueChanged(std::string id, GameObject object);
             void Update(float dt) override;
-            void AlignSplitter(GameObject* object);
-            void SetSplitValueFromTransform(GameObject* object);
+            void AlignSplitter(GameObject object);
+            void SetSplitValueFromTransform(GameObject object);
         };
     };
 }

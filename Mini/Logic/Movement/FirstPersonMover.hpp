@@ -9,7 +9,7 @@
 #pragma once
 #include "Quaternion.hpp"
 
-namespace Pocket {
+namespace Mini {
     class FirstPersonMover {
     public:
         FirstPersonMover();

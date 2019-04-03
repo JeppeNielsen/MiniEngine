@@ -7,23 +7,23 @@
 //
 #include "SpriteMeshSystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
-void SpriteMeshSystem::ObjectAdded(GameObject *object) {
-    object->GetComponent<Sizeable>()->Size.Changed.Bind(this, &SpriteMeshSystem::UpdateMesh, object);
-    object->GetComponent<Sprite>()->CornerSize.Changed.Bind(this, &SpriteMeshSystem::UpdateMesh, object);
+void SpriteMeshSystem::ObjectAdded(GameObject object) {
+    object.GetComponent<Sizeable>()->Size.Changed.Bind(this, &SpriteMeshSystem::UpdateMesh, object);
+    object.GetComponent<Sprite>()->CornerSize.Changed.Bind(this, &SpriteMeshSystem::UpdateMesh, object);
     UpdateMesh(object);
 }
 
-void SpriteMeshSystem::ObjectRemoved(GameObject *object) {
-    object->GetComponent<Sizeable>()->Size.Changed.Unbind(this, &SpriteMeshSystem::UpdateMesh, object);
-    object->GetComponent<Sprite>()->CornerSize.Changed.Unbind(this, &SpriteMeshSystem::UpdateMesh, object);
+void SpriteMeshSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<Sizeable>()->Size.Changed.Unbind(this, &SpriteMeshSystem::UpdateMesh, object);
+    object.GetComponent<Sprite>()->CornerSize.Changed.Unbind(this, &SpriteMeshSystem::UpdateMesh, object);
 }
 
-void SpriteMeshSystem::UpdateMesh(GameObject* object) {
-    const Vector2& size = object->GetComponent<Sizeable>()->Size;
-    Mesh* mesh = object->GetComponent<Mesh>();
-    Sprite* sprite = object->GetComponent<Sprite>();
+void SpriteMeshSystem::UpdateMesh(GameObject object) {
+    const Vector2& size = object.GetComponent<Sizeable>()->Size;
+    Mesh* mesh = object.GetComponent<Mesh>();
+    Sprite* sprite = object.GetComponent<Sprite>();
     const Vector2& wantedCornerSize = sprite->CornerSize;
     
     auto& vertices = mesh->GetMesh<Vertex>().vertices;

@@ -7,25 +7,25 @@
 //
 #include "SlicedQuadMeshSystem.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
-void SlicedQuadMeshSystem::ObjectAdded(GameObject *object) {
-    object->GetComponent<Sizeable>()->Size.Changed.Bind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
-    object->GetComponent<SlicedQuad>()->InnerSize.Changed.Bind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
-    object->GetComponent<SlicedQuad>()->OuterSize.Changed.Bind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
+void SlicedQuadMeshSystem::ObjectAdded(GameObject object) {
+    object.GetComponent<Sizeable>()->Size.Changed.Bind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
+    object.GetComponent<SlicedQuad>()->InnerSize.Changed.Bind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
+    object.GetComponent<SlicedQuad>()->OuterSize.Changed.Bind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
     UpdateMesh(object);
 }
 
-void SlicedQuadMeshSystem::ObjectRemoved(GameObject *object) {
-    object->GetComponent<Sizeable>()->Size.Changed.Unbind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
-    object->GetComponent<SlicedQuad>()->InnerSize.Changed.Unbind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
-    object->GetComponent<SlicedQuad>()->OuterSize.Changed.Unbind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
+void SlicedQuadMeshSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<Sizeable>()->Size.Changed.Unbind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
+    object.GetComponent<SlicedQuad>()->InnerSize.Changed.Unbind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
+    object.GetComponent<SlicedQuad>()->OuterSize.Changed.Unbind(this, &SlicedQuadMeshSystem::UpdateMesh, object);
 }
 
-void SlicedQuadMeshSystem::UpdateMesh(GameObject* object) {
-    const Vector2& size = object->GetComponent<Sizeable>()->Size;
-    Mesh* mesh = object->GetComponent<Mesh>();
-    SlicedQuad* slicedQuad = object->GetComponent<SlicedQuad>();
+void SlicedQuadMeshSystem::UpdateMesh(GameObject object) {
+    const Vector2& size = object.GetComponent<Sizeable>()->Size;
+    Mesh* mesh = object.GetComponent<Mesh>();
+    SlicedQuad* slicedQuad = object.GetComponent<SlicedQuad>();
     //float outer = sprite->OuterSize;
     float inner = slicedQuad->InnerSize;
     
@@ -112,7 +112,7 @@ void SlicedQuadMeshSystem::UpdateMesh(GameObject* object) {
         vertices[14].Position = Vector3(size.x - cornerSize.x,size.y,0);
         vertices[15].Position = Vector3(size.x,size.y,0);
         
-        SlicedTexture* slicedTexture = object->GetComponent<SlicedTexture>();
+        SlicedTexture* slicedTexture = object.GetComponent<SlicedTexture>();
         
         const Box& base = slicedTexture->BaseArea;
         const Box& inner = slicedTexture->InnerArea;

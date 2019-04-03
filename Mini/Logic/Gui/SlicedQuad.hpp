@@ -12,7 +12,7 @@
 #include "Property.hpp"
 #include "Rect.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct SlicedQuad {
     public:
         SlicedQuad() {

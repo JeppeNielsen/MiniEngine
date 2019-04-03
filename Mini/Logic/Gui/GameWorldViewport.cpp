@@ -8,6 +8,6 @@
 
 #include "GameWorldViewport.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 GameWorldViewport::GameWorldViewport() : World(nullptr), RenderTextureSize(1024,1024) {}

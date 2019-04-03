@@ -8,7 +8,7 @@
 
 #include "FirstPersonMover.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 FirstPersonMover::FirstPersonMover() {
     MovementSpeed = 0.2f;

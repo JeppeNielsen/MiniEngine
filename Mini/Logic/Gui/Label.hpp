@@ -10,7 +10,7 @@
 #include "Font.hpp"
 #include "TypeInfo.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct Label {
     public:
         Label() {

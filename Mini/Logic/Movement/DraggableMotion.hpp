@@ -7,8 +7,8 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct DraggableMotion {};
 }

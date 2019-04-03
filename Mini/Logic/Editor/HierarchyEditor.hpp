@@ -8,11 +8,11 @@
 #pragma once
 #include "GameObject.hpp"
 
-namespace Pocket {
+namespace Mini {
   class HierarchyEditor {
   public:
         HierarchyEditor();
-        Property<GameObject*> Object;
+        Property<GameObject> Object;
         size_t prevChildrenCount;
   };
 }

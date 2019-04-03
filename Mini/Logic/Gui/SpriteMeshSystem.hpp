@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Jeppe Nielsen. All rights reserved.
 //
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "Mesh.hpp"
 #include "Sizeable.hpp"
 #include "Sprite.hpp"
 
-namespace Pocket {
-    class SpriteMeshSystem : public GameSystem<Sprite, Sizeable, Mesh> {
+namespace Mini {
+    class SpriteMeshSystem : System<Sprite, Sizeable, Mesh> {
     public:
-        void ObjectAdded(GameObject *object);
-        void ObjectRemoved(GameObject *object);
-        void UpdateMesh(GameObject* object);
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
+        void UpdateMesh(GameObject object);
     };
 }

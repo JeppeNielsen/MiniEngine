@@ -13,14 +13,14 @@
 #include <vector>
 #include <functional>
 
-namespace Pocket {
+namespace Mini {
     class Gui;
     struct GuiFieldEditor : public IFieldEditor {
         static void Initialize();
     
-        void Create(const std::string& name, void* context, void* parent, GameObject* object) override {
-            Initialize(name, (Gui*)context, (GameObject*) parent, object);
+        void Create(const std::string& name, void* context, void* parent, GameObject object) override {
+            Initialize(name, (Gui*)context, (GameObject) parent, object);
         }
-        virtual void Initialize(const std::string& name, Gui* gui, GameObject* guiParent, GameObject* fieldObject) = 0;
+        virtual void Initialize(const std::string& name, Gui* gui, GameObject guiParent, GameObject fieldObject) = 0;
     };
 }

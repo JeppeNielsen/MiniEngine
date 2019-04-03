@@ -11,7 +11,7 @@
 #include <functional>
 #include "Rect.hpp"
 
-namespace Pocket {
+namespace Mini {
     class Panel;
 
     enum class PanelDirection { Top, Bottom, Left, Right };

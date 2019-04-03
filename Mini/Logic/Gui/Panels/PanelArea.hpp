@@ -11,7 +11,7 @@
 #include <string>
 #include "Event.hpp"
 
-namespace Pocket {
+namespace Mini {
     struct PanelArea {
         PanelArea();
         float GetSplitValue(const std::string& id);

@@ -8,12 +8,13 @@
 
 #pragma once
 
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "Transform.hpp"
 #include "Velocity.hpp"
 
-namespace Pocket {
-    class VelocitySystem : public GameSystem<Transform, Velocity> {
+namespace Mini {
+    using namespace ECS;
+    class VelocitySystem : System<Transform, Velocity> {
     public:
         void Update(float dt);
     };

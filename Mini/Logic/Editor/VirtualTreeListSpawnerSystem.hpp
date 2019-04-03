@@ -7,26 +7,26 @@
 //
 
 #pragma once
-#include "GameSystem.hpp"
+#include "System.hpp"
 #include "Transform.hpp"
 #include "VirtualTreeList.hpp"
 #include "VirtualTreeListSpawner.hpp"
 #include "Touchable.hpp"
 #include "Sizeable.hpp"
 
-namespace Pocket {
-  class VirtualTreeListSpawnerSystem : public GameSystem<VirtualTreeList, VirtualTreeListSpawner, Transform, Sizeable> {
+namespace Mini {
+  class VirtualTreeListSpawnerSystem : System<VirtualTreeList, VirtualTreeListSpawner, Transform, Sizeable> {
     public:
         void Initialize();
-        void ObjectAdded(GameObject* object);
-        void ObjectRemoved(GameObject* object);
+        void ObjectAdded(GameObject object);
+        void ObjectRemoved(GameObject object);
     private:
-        void NodeCreated(VirtualTreeList::Node e, GameObject* object);
-        void NodeRemoved(VirtualTreeList::Node e, GameObject* object);
-        void NodeExpanded(VirtualTreeList::Node e, GameObject* object);
+        void NodeCreated(VirtualTreeList::Node e, GameObject object);
+        void NodeRemoved(VirtualTreeList::Node e, GameObject object);
+        void NodeExpanded(VirtualTreeList::Node e, GameObject object);
       
         struct FoldoutData {
-            GameObject* node;
+            GameObject node;
             VirtualTreeList* treelist;
             
             inline bool operator ==(const FoldoutData &other) const{
@@ -39,7 +39,7 @@ namespace Pocket {
         };
       
         void FoldOutClicked(TouchData d, FoldoutData foldout);
-        void SizeChanged(GameObject* object);
+        void SizeChanged(GameObject object);
       
   };
 }

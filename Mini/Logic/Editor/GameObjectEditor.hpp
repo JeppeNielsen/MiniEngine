@@ -11,15 +11,15 @@
 #include "GameObject.hpp"
 #include "TypeInfo.hpp"
 
-namespace Pocket {
+namespace Mini {
     class GameObjectEditor {
     public:
         GameObjectEditor();
-        Property<GameObject*> Object;
+        Property<GameObject> Object;
 
         struct ComponentCreatedData {
             TypeInfo typeInfo;
-            GameObject* editorPivot;
+            GameObject editorPivot;
         };
         
         std::vector<GameObject::ComponentEditor> editors;

@@ -17,8 +17,8 @@ void TouchSystem::Initialize() {
     octree = &scene->CreateSystem<OctreeSystem>();
     cameras = &scene->CreateSystem<TouchSystem::CameraSystem>();
 
-    //root->Input().TouchDown.Bind(this, &TouchSystem::TouchDown);
-    //root->Input().TouchUp.Bind(this, &TouchSystem::TouchUp);
+    //scene->Input().TouchDown.Bind(this, &TouchSystem::TouchDown);
+    //scene->Input().TouchUp.Bind(this, &TouchSystem::TouchUp);
     
     Input.Changed.Bind([this]() {
         if (!Input()) return;

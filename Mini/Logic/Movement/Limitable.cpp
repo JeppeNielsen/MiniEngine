@@ -8,7 +8,7 @@
 
 #include "Limitable.hpp"
 
-using namespace Pocket;
+using namespace Mini;
 
 Limitable::Limitable() {
     min = Vector3(0,0,0);
