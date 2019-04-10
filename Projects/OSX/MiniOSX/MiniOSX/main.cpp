@@ -11,6 +11,7 @@
 #include "RenderSystem.hpp"
 #include "TouchSystem.hpp"
 #include "JsonSerializer.hpp"
+#include "FirstPersonMoverSystem.hpp"
 
 using namespace Mini;
 using namespace Mini::ECS;
@@ -18,6 +19,15 @@ using namespace Mini::ECS;
 struct RotationSpeed {
     Vector3 speed;
     TYPE_FIELDS_BEGIN
+    TYPE_FIELD(speed)
+    TYPE_FIELDS_END
+};
+
+struct ColorPulsator {
+    float alpha;
+    float speed;
+    TYPE_FIELDS_BEGIN
+    TYPE_FIELD(alpha)
     TYPE_FIELD(speed)
     TYPE_FIELDS_END
 };
@@ -46,7 +56,20 @@ struct ClickRotationChanger : System<RotationSpeed, Touchable> {
         ser.SerializeObject(go, std::cout);
         
     }
+};
 
+struct ColorPulsatorSystem : System<ColorPulsator, Mesh> {
+    void Update(float dt) {
+        for(auto go : Objects()) {
+            auto mesh = go.GetComponent<Mesh>();
+            auto pulsator = go.GetComponent<ColorPulsator>();
+            mesh->GetMesh<Vertex>().SetColor(Color::White(pulsator->alpha));
+            pulsator->alpha += pulsator->speed * dt;
+            if (pulsator->alpha>1.0f) {
+                pulsator->alpha = 0.0f;
+            }
+        }
+    }
 };
 
 struct Game : IState {
@@ -71,12 +94,15 @@ struct Game : IState {
         scene.CreateSystem<RotationSpeedSystem>();
         scene.CreateSystem<TouchSystem>().Input = &device.Input;
         scene.CreateSystem<ClickRotationChanger>();
+        scene.CreateSystem<FirstPersonMoverSystem>().Input = &device.Input;
+        scene.CreateSystem<ColorPulsatorSystem>();
         
         auto camera = scene.CreateObject();
         camera.AddComponent<Camera>();
         camera.AddComponent<Transform>();
-
-        for(int i =0; i<6; i++) {
+        camera.AddComponent<FirstPersonMover>();
+        
+        for(int i =0; i<100; i++) {
             CreateCube({-10 + i * 4.0f, 0.0f, -10.0f});
         }
         
@@ -88,9 +114,11 @@ struct Game : IState {
         auto cube = scene.CreateObject();
         cube.AddComponent<Transform>()->Position = pos;
         cube.AddComponent<Mesh>()->GetMesh<Vertex>().AddCube(0, 1);
+        cube.GetComponent<Mesh>()->GetMesh<Vertex>().SetColor(Color::White(0.2f));
         cube.AddComponent<RotationSpeed>(Vector3(1,1,0));
-        cube.AddComponent<Renderable>();
+        cube.AddComponent<Renderable>()->BlendMode = BlendModeType::Alpha;
         cube.AddComponent<Touchable>();
+        cube.AddComponent<ColorPulsator>(pos.x, 0.3f);
     }
     
     void ButtonDown(ButtonEvent e) {
