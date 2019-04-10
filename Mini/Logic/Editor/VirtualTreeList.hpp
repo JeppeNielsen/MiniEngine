@@ -10,6 +10,8 @@
 #include "Property.hpp"
 #include "DirtyProperty.hpp"
 #include "GameObject.hpp"
+#include "Hierarchy.hpp"
+#include "Vector2.hpp"
 #include <vector>
 #include <map>
 

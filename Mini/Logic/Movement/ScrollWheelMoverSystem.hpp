@@ -14,7 +14,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class ScrollWheelMoverSystem : System<Transform, ScrollWheelMover, Hoverable> {
+    struct ScrollWheelMoverSystem : System<Transform, ScrollWheelMover, Hoverable> {
         public:
             ~ScrollWheelMoverSystem();
             void Initialize() override;

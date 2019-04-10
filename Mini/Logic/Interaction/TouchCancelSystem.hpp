@@ -16,7 +16,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class TouchCancelSystem : public System<Touchable, TouchableCanceller, Transform> {
+    struct TouchCancelSystem : System<Touchable, TouchableCanceller, Transform> {
     public:
         void ObjectAdded(GameObject object) override;
         void ObjectRemoved(GameObject object) override;

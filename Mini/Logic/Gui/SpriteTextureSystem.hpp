@@ -7,13 +7,14 @@
 //
 
 #pragma once
-#include "System.hpp"
+#include "Scene.hpp"
 #include "Mesh.hpp"
 #include "Sizeable.hpp"
 #include "Sprite.hpp"
 #include "Atlas.hpp"
 
 namespace Mini {
+    using namespace ECS;
     struct SpriteTextureSystem : System<Sprite, Atlas, Mesh> {
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);

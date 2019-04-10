@@ -7,7 +7,7 @@
 //
 
 #pragma once
-#include "System.hpp"
+#include "Scene.hpp"
 #include "Layouter.hpp"
 #include "Transform.hpp"
 #include "Sizeable.hpp"
@@ -15,7 +15,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class LayoutSystem : System<Layouter, Transform, Sizeable> {
+    struct LayoutSystem : System<Layouter, Transform, Sizeable> {
     protected:
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);

@@ -111,8 +111,8 @@ GameObject Gui::CreateControl(GameObject parent) {
     control.AddComponent<Colorable>();
     control.AddComponent<Sizeable>();
     control.AddComponent<Sprite>();
-    control.AddComponent<class Atlas>(atlas);
-    control.AddComponent<TextureComponent>(atlas);
+    control.AddReferenceComponent<class Atlas>(atlas);
+    control.AddReferenceComponent<TextureComponent>(atlas);
     return control;
 }
 
@@ -143,11 +143,11 @@ GameObject Gui::CreateControl(GameObject parent, const std::string &spriteName, 
 
 GameObject Gui::CreateClipper(GameObject parent, bool push) {
     GameObject clipper = CreatePivot(parent, 0);
-    clipper.AddComponent<Mesh>(parent);
+    clipper.AddReferenceComponent<Mesh>(parent);
     clipper.AddComponent<Renderable>()->BlendMode = BlendModeType::Alpha;
     clipper.GetComponent<Renderable>()->Clip = push ? 1 : 2;
-    clipper.AddComponent<Sizeable>(parent);
-    clipper.AddComponent<Sprite>(parent);
+    clipper.AddReferenceComponent<Sizeable>(parent);
+    clipper.AddReferenceComponent<Sprite>(parent);
     clipper.AddComponent<Touchable>();
     return clipper;
 }
@@ -170,12 +170,12 @@ GameObject Gui::CreateLabel(GameObject parent, const Vector2 &position, const Ve
         font = fonts[0];
     }
     GameObject label = CreatePivot(parent, position);
-    label.AddComponent<Font>(font);
+    label.AddReferenceComponent<Font>(font);
     label.AddComponent<Mesh>();
     label.AddComponent<Renderable>()->BlendMode = BlendModeType::Alpha;
     label.AddComponent<Colorable>();
     label.AddComponent<Sizeable>()->Size = size;
-    label.AddComponent<TextureComponent>(font);
+    label.AddReferenceComponent<TextureComponent>(font);
     label.AddComponent<Label>()->FontSize = fontSize;
     label.GetComponent<Label>()->Text = text;
     return label;
@@ -187,7 +187,7 @@ GameObject Gui::CreateLabelControl(GameObject parent, const std::string &spriteN
     Label* label = labelGO.GetComponent<Label>();
     label->HAlignment = Font::HAlignment::Center;
     label->VAlignment = Font::VAlignment::Middle;
-    labelGO->ReplaceComponent<Sizeable>(control);
+    //labelGO->ReplaceComponent<Sizeable>(control);
     
     return control;
 }
@@ -201,12 +201,12 @@ GameObject Gui::CreateTextBox(GameObject parent, const std::string &spriteName, 
     }
 
     GameObject labelGO = CreatePivot(control);
-    labelGO.AddComponent<Font>(font);
+    labelGO.AddReferenceComponent<Font>(font);
     labelGO.AddComponent<Mesh>();
     labelGO.AddComponent<Renderable>()->BlendMode = BlendModeType::Alpha;
     labelGO.AddComponent<Colorable>();
-    labelGO.AddComponent<Sizeable>(control);
-    labelGO.AddComponent<TextureComponent>(font);
+    labelGO.AddReferenceComponent<Sizeable>(control);
+    labelGO.AddReferenceComponent<TextureComponent>(font);
     labelGO.AddComponent<Label>()->FontSize = fontSize;
     labelGO.GetComponent<Label>()->Text = text;
 
@@ -214,25 +214,25 @@ GameObject Gui::CreateTextBox(GameObject parent, const std::string &spriteName, 
     label->HAlignment = Font::HAlignment::Center;
     label->VAlignment = Font::VAlignment::Middle;
     labelGO.AddComponent<TextBox>()->Text = text;
-    labelGO.AddComponent<Touchable>(control);
+    labelGO.AddReferenceComponent<Touchable>(control);
     labelGO.GetComponent<Colorable>()->Color = Color::Black();
     return control;
 }
 
-GameObject Gui::CreateListbox(GameObject parent, const std::string &spriteName, const Vector2 &position, const Vector2 &size, GameObject pivot) {
+GameObject Gui::CreateListbox(GameObject parent, const std::string &spriteName, const Vector2 &position, const Vector2 &size, GameObject& pivot) {
     GameObject listbox = CreateControl(parent, spriteName, position, size);
     listbox.AddComponent<Layouter>()->ChildrenLayoutMode = Layouter::LayoutMode::Vertical;
     listbox.GetComponent<Touchable>()->ClickThrough = false;
     listbox.AddComponent<Hoverable>();
     CreateClipper(listbox, true);
     GameObject p = CreatePivot(listbox);
-    p.AddComponent<Sizeable>(listbox);
-    p.AddComponent<Touchable>(listbox);
+    p.AddReferenceComponent<Sizeable>(listbox);
+    p.AddReferenceComponent<Touchable>(listbox);
     //p.AddComponent<Draggable>()->Movement = Draggable::MovementMode::YAxis;
     //p.AddComponent<DraggableMotion>();
     //p.AddComponent<Velocity>()->MinimumSpeedBeforeStop = 5;
     //p.GetComponent<Velocity>()->Friction = 5;
-    p.AddComponent<Hoverable>(listbox);
+    p.AddReferenceComponent<Hoverable>(listbox);
     p.AddComponent<ScrollWheelMover>()->Movement = {0,-100,0};
     p.GetComponent<ScrollWheelMover>()->Speed = 1.0f;
     
@@ -240,7 +240,7 @@ GameObject Gui::CreateListbox(GameObject parent, const std::string &spriteName, 
     //limitable->Size = p.GetComponent<Sizeable>();
     //limitable->View = listbox.GetComponent<Sizeable>();
     CreateClipper(listbox, false);
-    (*pivot)=p;
+    pivot=p;
     return listbox;
 }
 

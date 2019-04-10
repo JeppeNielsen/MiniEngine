@@ -12,12 +12,8 @@
 
 using namespace Mini;
 
-void DroppableSystem::CreateSubSystems(GameStorage &storage) {
-    storage.AddSystemType<TouchSystem>();
-}
-
 void DroppableSystem::Initialize() {
-    touchSystem = scene->CreateSystem<TouchSystem>();
+    touchSystem = &scene->CreateSystem<TouchSystem>();
 }
 
 void DroppableSystem::ObjectAdded(GameObject object) {
@@ -36,7 +32,7 @@ void DroppableSystem::ObjectRemoved(GameObject object) {
 
 void DroppableSystem::Update(float dt) {
     for(auto it = downObjects.begin(); it!=downObjects.end();) {
-        Vector2 pos = scene->Input().GetTouchPosition(it->second.touchData.Index);
+        Vector2 pos = Input()->GetTouchPosition(it->second.touchData.Index);
         Vector2 delta = pos - it->second.prevPosition;
         if (delta.Length()>it->second.maxMovement) {
             DropStarted(it->second.touchData, it->first);

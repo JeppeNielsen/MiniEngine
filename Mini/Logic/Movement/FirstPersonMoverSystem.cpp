@@ -16,13 +16,16 @@ FirstPersonMoverSystem::FirstPersonMoverSystem() : draggableSystem(0) {
 }
 
 void FirstPersonMoverSystem::Initialize() {
-    scene->Input().TouchDown.Bind(this, &FirstPersonMoverSystem::TouchDown);
-    scene->Input().TouchUp.Bind(this, &FirstPersonMoverSystem::TouchUp);
+    Input.Changed.Bind([this]() {
+        if (!Input()) return;
+        Input()->TouchDown.Bind(this, &FirstPersonMoverSystem::TouchDown);
+        Input()->TouchUp.Bind(this, &FirstPersonMoverSystem::TouchUp);
+    });
 }
 
 void FirstPersonMoverSystem::Destroy() {
-    scene->Input().TouchDown.Unbind(this, &FirstPersonMoverSystem::TouchDown);
-    scene->Input().TouchUp.Unbind(this, &FirstPersonMoverSystem::TouchUp);
+    Input()->TouchDown.Unbind(this, &FirstPersonMoverSystem::TouchDown);
+    Input()->TouchUp.Unbind(this, &FirstPersonMoverSystem::TouchUp);
 }
 
 void FirstPersonMoverSystem::TouchDown(TouchEvent e) {
@@ -30,10 +33,9 @@ void FirstPersonMoverSystem::TouchDown(TouchEvent e) {
     touches[e.Index] = e.Position;
     
     if (e.Index==1) {
-        const ObjectCollection& list = Objects();
-        for (ObjectCollection::const_iterator it = list.begin(); it!=list.end(); ++it) {
-            Transform* transform = (*it).GetComponent<Transform>();
-            FirstPersonMover* mover = (*it).GetComponent<FirstPersonMover>();
+        for (auto object : Objects()) {
+            Transform* transform = object.GetComponent<Transform>();
+            FirstPersonMover* mover = object.GetComponent<FirstPersonMover>();
             mover->initialRotation = transform->Rotation();
         }
     }
@@ -47,7 +49,7 @@ void FirstPersonMoverSystem::TouchUp(TouchEvent e) {
 void FirstPersonMoverSystem::Update(float dt) {
     if (!isDraggableSystemChecked) {
         isDraggableSystemChecked = true;
-        draggableSystem = scene->CreateSystem<DraggableSystem>(); // this was CreateSystem<>
+        draggableSystem = &scene->CreateSystem<DraggableSystem>();
     }
     
     for(auto o : Objects()) {
@@ -60,12 +62,12 @@ void FirstPersonMoverSystem::Update(float dt) {
 void FirstPersonMoverSystem::UpdateMovement(float dt, GameObject object) {
     int touchIndex = object.GetComponent<FirstPersonMover>()->MovementTouchIndex;
     if (draggableSystem && draggableSystem->IsTouchIndexUsed(touchIndex)) return;
-    if (scene->Input().IsTouchSwallowed(touchIndex, 0)) return;
+    if (Input()->IsTouchSwallowed(touchIndex, 0)) return;
     
     Touches::iterator it = touches.find(touchIndex);
     if (it==touches.end()) return;
     
-    Vector2 delta = scene->Input().GetTouchPosition(touchIndex) - it->second;
+    Vector2 delta = Input()->GetTouchPosition(touchIndex) - it->second;
     
     Transform* transform = object.GetComponent<Transform>();
     FirstPersonMover* mover = object.GetComponent<FirstPersonMover>();
@@ -75,12 +77,12 @@ void FirstPersonMoverSystem::UpdateMovement(float dt, GameObject object) {
 
 bool FirstPersonMoverSystem::UpdateRotation(float dt, GameObject object) {
     int touchIndex = object.GetComponent<FirstPersonMover>()->RotationTouchIndex;
-    if (scene->Input().IsTouchSwallowed(touchIndex, 0)) return false;
+    if (Input()->IsTouchSwallowed(touchIndex, 0)) return false;
     
     Touches::iterator it = touches.find(touchIndex);
     if (it==touches.end()) return false;
     
-    Vector2 delta = scene->Input().GetTouchPosition(touchIndex) - it->second;
+    Vector2 delta = Input()->GetTouchPosition(touchIndex) - it->second;
     
     Transform* transform = object.GetComponent<Transform>();
     FirstPersonMover* mover = object.GetComponent<FirstPersonMover>();

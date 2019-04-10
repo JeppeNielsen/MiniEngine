@@ -14,7 +14,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class LimitableSystem : System<Transform, Limitable> {
+    struct LimitableSystem : System<Transform, Limitable> {
     public:
         void Update(float dt);
     };

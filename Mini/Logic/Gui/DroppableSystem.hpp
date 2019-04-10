@@ -14,8 +14,10 @@
 
 namespace Mini {
     using namespace ECS;
-    class DroppableSystem : System<Droppable, Touchable> {
+    struct DroppableSystem : System<Droppable, Touchable> {
     public:
+        Property<InputManager*> Input;
+    
         void Initialize();
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);

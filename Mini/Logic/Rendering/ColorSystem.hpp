@@ -15,7 +15,7 @@
 
 namespace Mini {
   using namespace ECS;
-  class ColorSystem : System<Mesh, Colorable> {
+  struct ColorSystem : System<Mesh, Colorable> {
     public:
         void ObjectAdded(GameObject object) override;
         void ObjectRemoved(GameObject object) override;

@@ -7,6 +7,7 @@
 //
 
 #include "LayoutSystem.hpp"
+#include "Hierarchy.hpp"
 
 using namespace Mini;
 

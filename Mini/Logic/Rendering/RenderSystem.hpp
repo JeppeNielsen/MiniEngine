@@ -16,7 +16,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class RenderSystem : public System<Transform, Mesh, Renderable> {
+    struct RenderSystem : System<Transform, Mesh, Renderable> {
     public:
         using OctreeSystem = OctreeSystem<Renderable>;
         

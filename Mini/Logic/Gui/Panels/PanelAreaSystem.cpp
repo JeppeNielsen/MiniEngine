@@ -14,8 +14,8 @@ using namespace Mini;
 
 void PanelAreaSystem::Initialize() {
     scene->CreateSystem<PanelSplitterSystem>();//->Order = -1;
-    panels = scene->CreateSystem<PanelSystem>();
-    gui = scene->CreateSystem<class Gui>();
+    panels = &scene->CreateSystem<PanelSystem>();
+    gui = &scene->CreateSystem<class Gui>();
 }
 
 void PanelAreaSystem::Update(float dt) {
@@ -31,7 +31,7 @@ void PanelAreaSystem::Update(float dt) {
 void PanelAreaSystem::CreateSplitters(GameObject object, PanelArea* area) {
     for(auto o : object.Hierarchy().Children()) {
         if (o.GetComponent<PanelSplitter>()) {
-            o->Remove();
+            o.Remove();
         }
     }
     
@@ -60,7 +60,7 @@ void PanelAreaSystem::CreateSplitters(GameObject object, PanelArea* area) {
             splitter.GetComponent<PanelSplitter>()->isHorizontal = location.IsHorizontal();
             splitter.GetComponent<PanelSplitter>()->area = panelArea;
             splitter.AddComponent<Draggable>()->Movement = location.IsHorizontal() ? Draggable::MovementMode::XAxis : Draggable::MovementMode::YAxis;
-            splitter->RemoveComponent<Renderable>();
+            splitter.RemoveComponent<Renderable>();
         });
         
         

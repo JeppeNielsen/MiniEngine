@@ -8,7 +8,7 @@
 
 #pragma once
 #include <vector>
-#include "System.hpp"
+#include "Scene.hpp"
 #include "RenderSystem.hpp"
 #include "TransformHierarchy.hpp"
 #include "TouchSystem.hpp"
@@ -18,7 +18,7 @@
 #include "DraggableSystem.hpp"
 #include "HierarchyOrder.hpp"
 #include "DroppableSystem.hpp"
-#include "LayoutSystem.hpp"
+//#include "LayoutSystem.hpp"
 #include "TextBoxSystem.hpp"
 #include "TextBoxLabelSystem.hpp"
 #include "ColorSystem.hpp"
@@ -57,7 +57,7 @@ namespace Mini {
         GameObject CreateLabel(GameObject parent, const Vector2 &position, const Vector2 &size, GameObject font, const std::string &text, float fontSize);
         GameObject CreateLabelControl(GameObject parent, const std::string &spriteName, const Vector2 &position, const Vector2 &size, GameObject font, std::string text, float fontSize);
         GameObject CreateTextBox(GameObject parent, const std::string &spriteName, const Vector2 &position, const Vector2 &size, GameObject font, std::string text, float fontSize);
-        GameObject CreateListbox(GameObject parent, const std::string &spriteName, const Vector2 &position, const Vector2 &size, GameObject pivot);
+        GameObject CreateListbox(GameObject parent, const std::string &spriteName, const Vector2 &position, const Vector2 &size, GameObject& pivot);
         
         GameObject CreateLayoutControl(GameObject parent, const std::string& spriteName, const Vector2& minSize, const Vector2& desiredSize, const Vector2& maxSize, Layouter::LayoutMode layoutMode = Layouter::LayoutMode::Vertical);
         GameObject CreateLayout(GameObject parent, const Vector2& minSize, const Vector2& desiredSize, const Vector2& maxSize, Layouter::LayoutMode layoutMode = Layouter::LayoutMode::Vertical);

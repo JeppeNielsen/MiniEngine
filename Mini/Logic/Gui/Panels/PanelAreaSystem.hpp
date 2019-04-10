@@ -17,6 +17,7 @@
 namespace Mini {
     class Gui;
     class PanelSystem;
+    using namespace ECS;
     
     struct PanelSplitter {
         GameObject area;

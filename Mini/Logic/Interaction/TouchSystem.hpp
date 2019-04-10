@@ -21,7 +21,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class TouchSystem : public System<Transform, Mesh, Touchable> {
+    struct TouchSystem : System<Transform, Mesh, Touchable> {
     private:
         using OctreeSystem = OctreeSystem<Touchable>;
         struct CameraSystem : System<Transform, Camera> {};

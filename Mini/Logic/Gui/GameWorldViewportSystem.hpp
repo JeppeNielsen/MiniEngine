@@ -7,7 +7,7 @@
 //
 
 #pragma once
-#include "System.hpp"
+#include "Scene.hpp"
 #include "GameWorldViewport.hpp"
 #include "Transform.hpp"
 #include "Sizeable.hpp"
@@ -16,7 +16,7 @@
 #include "Touchable.hpp"
 
 namespace Mini {
-    class GameWorldViewportSystem : System<GameWorldViewport, Transform, Sizeable, Mesh, TextureComponent, Touchable> {
+    struct GameWorldViewportSystem : System<GameWorldViewport, Transform, Sizeable, Mesh, TextureComponent, Touchable> {
     protected:
         void ObjectAdded(GameObject object) override;
         void ObjectRemoved(GameObject object) override;

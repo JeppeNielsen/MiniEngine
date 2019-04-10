@@ -13,7 +13,7 @@
 using namespace Mini;
 
 void PanelDropSystem::Initialize() {
-    panels = scene->CreateSystem<PanelSystem>();
+    panels = &scene->CreateSystem<PanelSystem>();
 }
 
 void PanelDropSystem::ObjectAdded(GameObject object) {

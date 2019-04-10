@@ -23,7 +23,7 @@ VirtualTreeList::VirtualTreeList() {
     Margins = 2;
 }
 
-void VirtualTreeList::operator=(const Pocket::VirtualTreeList &other) {
+void VirtualTreeList::operator=(const VirtualTreeList &other) {
     Root = 0;
     Pivot = 0;
     visibleNodes.clear();
@@ -32,25 +32,25 @@ void VirtualTreeList::operator=(const Pocket::VirtualTreeList &other) {
     NodeRemoved.Clear();
 }
 
-void VirtualTreeList::SetNodeExpanded(Pocket::GameObject node, bool expand) {
+void VirtualTreeList::SetNodeExpanded(GameObject node, bool expand) {
     std::string hash = ExpandedHashFunction(node);
     auto it = expandedNodes.find(hash);
     if (expand && it==expandedNodes.end()) {
         ExpandedNode& expandedNode = expandedNodes[hash];
         expandedNode.Height.Method = [this, node](auto& v) {
             v = 1;
-            for(auto o : node->Hierarchy().Children()) {
+            for(auto o : node.Hierarchy().Children()) {
                 v += this->GetNodeHeight(o);
             }
         };
         expandedNode.Height.MakeDirty();
-        if (node->Hierarchy().Parent()) {
-            expandedNodes[ExpandedHashFunction(node->Hierarchy().Parent())].Height.MakeDirty();
+        if (node.Hierarchy().Parent()) {
+            expandedNodes[ExpandedHashFunction(node.Hierarchy().Parent())].Height.MakeDirty();
         }
     } else if (!expand && it!=expandedNodes.end()) {
         expandedNodes.erase(it);
-        if (node->Hierarchy().Parent()) {
-            expandedNodes[ExpandedHashFunction(node->Hierarchy().Parent())].Height.MakeDirty();
+        if (node.Hierarchy().Parent()) {
+            expandedNodes[ExpandedHashFunction(node.Hierarchy().Parent())].Height.MakeDirty();
         }
     }
     
@@ -62,16 +62,16 @@ void VirtualTreeList::SetNodeExpanded(Pocket::GameObject node, bool expand) {
     }
 }
 
-bool VirtualTreeList::IsNodeExpanded(Pocket::GameObject node) {
+bool VirtualTreeList::IsNodeExpanded(GameObject node) {
     if (!ShowRoot && node == Root()) return true;
     std::string hash = ExpandedHashFunction(node);
     return expandedNodes.find(hash) != expandedNodes.end();
 }
 
-int VirtualTreeList::GetNodeHeight(Pocket::GameObject node) {
+int VirtualTreeList::GetNodeHeight(GameObject node) {
     if (!ShowRoot && node == Root) {
         int v = 1;
-        for(auto o : node->Hierarchy().Children()) {
+        for(auto o : node.Hierarchy().Children()) {
             v += this->GetNodeHeight(o);
         }
         return v;
@@ -87,12 +87,12 @@ void VirtualTreeList::GetNodes(int lower, int upper, Nodes &nodesFound) {
     GetNodesRecursive(Root, lower, upper, index, ShowRoot ? 0 : -1, nodesFound);
 }
 
-void VirtualTreeList::GetNodesRecursive(Pocket::GameObject object, int lower, int upper, int &index, int depth, Nodes &nodesFound) {
+void VirtualTreeList::GetNodesRecursive(GameObject object, int lower, int upper, int &index, int depth, Nodes &nodesFound) {
     if (index>upper) return;
     if ((ShowRoot || (object!=Root)) && PredicateFunction && !PredicateFunction(object)) return;
     if (index>=lower && index<=upper) {
         if (ShowRoot || (object!=Root)) {
-            nodesFound.push_back({object, index, depth, !object->Hierarchy().Children().empty() });
+            nodesFound.push_back({object, index, depth, !object.Hierarchy().Children().empty() });
         }
     }
     index++;
@@ -102,7 +102,7 @@ void VirtualTreeList::GetNodesRecursive(Pocket::GameObject object, int lower, in
     if (height>1) {
         int endIndex = height + index-1;
         if (!(upper<index || lower>=endIndex)) {
-            for(auto child : object->Hierarchy().Children()) {
+            for(auto child : object.Hierarchy().Children()) {
                 GetNodesRecursive(child, lower, upper, index, depth+1, nodesFound);
             }
         } else {
@@ -111,9 +111,9 @@ void VirtualTreeList::GetNodesRecursive(Pocket::GameObject object, int lower, in
     }
 }
 
-std::string VirtualTreeList::DefaultExpandedHashFunction(Pocket::GameObject go) {
+std::string VirtualTreeList::DefaultExpandedHashFunction(GameObject go) {
     std::stringstream s;
-    s<<go;
+    s<<go.Id();
     return s.str();
 }
 

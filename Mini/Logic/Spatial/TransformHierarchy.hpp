@@ -4,8 +4,8 @@
 
 namespace Mini {
     using namespace ECS;
-	class TransformHierarchy : public System<Transform> {
-    public:
+	struct TransformHierarchy : System<Transform> {
+    protected:
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);
         void ParentChanged(GameObject object);

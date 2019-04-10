@@ -18,7 +18,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class HoverSystem : public System<Transform, Mesh, Hoverable> {
+    struct HoverSystem : System<Transform, Mesh, Hoverable> {
     private:
         using OctreeSystem = OctreeSystem<Hoverable>;
         struct CameraSystem : System<Transform, Camera> {};

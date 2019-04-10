@@ -16,11 +16,12 @@
 
 namespace Mini {
     using namespace ECS;
-    class DraggableSystem : System<Transform, Touchable, Draggable> {
-    public:
+    struct DraggableSystem : System<Transform, Touchable, Draggable> {
+    protected:
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);
         void Update(float dt);
+    public:
         bool IsTouchIndexUsed(int touchIndex);
     private:
         struct DraggingObject {

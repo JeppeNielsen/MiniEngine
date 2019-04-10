@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Jeppe Nielsen. All rights reserved.
 //
 #pragma once
-#include "System.hpp"
+#include "Scene.hpp"
 #include "Mesh.hpp"
 #include "Sizeable.hpp"
 #include "SlicedTexture.hpp"
@@ -14,7 +14,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class SlicedQuadMeshSystem : System<SlicedQuad, SlicedTexture, Sizeable, Mesh> {
+    struct SlicedQuadMeshSystem : System<SlicedQuad, SlicedTexture, Sizeable, Mesh> {
     public:
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);

@@ -69,7 +69,7 @@ void HierarchyEditorSystem::ObjectChanged(GameObject object) {
     gameObjectName->Hierarchy().Children()[0]->GetComponent<Colorable>()->Color = Colour::Black();
     //gameObjectName.AddComponent<Layoutable>();
     gameObjectName.AddComponent<Selectable>(editor->Object);
-    gameObjectName->GetComponent<Colorable>()->Color = Colour::White(0.5f);
+    gameObjectName.GetComponent<Colorable>()->Color = Colour::White(0.5f);
     gameObjectName.AddComponent<SelectedColorer>()->Selected = Colour(0.5f, 0.5f, 0.5f, 1.0f);
     gameObjectName.AddComponent<Draggable>();
     gameObjectName.AddComponent<Droppable>()->Dropped.Bind(this, &HierarchyEditorSystem::OnDropped, editor->Object());

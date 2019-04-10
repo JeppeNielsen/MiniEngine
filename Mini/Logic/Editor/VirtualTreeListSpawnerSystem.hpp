@@ -7,7 +7,7 @@
 //
 
 #pragma once
-#include "System.hpp"
+#include "Scene.hpp"
 #include "Transform.hpp"
 #include "VirtualTreeList.hpp"
 #include "VirtualTreeListSpawner.hpp"
@@ -15,7 +15,8 @@
 #include "Sizeable.hpp"
 
 namespace Mini {
-  class VirtualTreeListSpawnerSystem : System<VirtualTreeList, VirtualTreeListSpawner, Transform, Sizeable> {
+  using namespace ECS;
+  struct VirtualTreeListSpawnerSystem : System<VirtualTreeList, VirtualTreeListSpawner, Transform, Sizeable> {
     public:
         void Initialize();
         void ObjectAdded(GameObject object);

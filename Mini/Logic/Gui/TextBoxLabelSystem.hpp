@@ -7,7 +7,7 @@
 //
 
 #pragma once
-#include "System.hpp"
+#include "Scene.hpp"
 #include "Sizeable.hpp"
 #include "TextBox.hpp"
 #include "Label.hpp"
@@ -16,7 +16,8 @@
 #include "Sizeable.hpp"
 
 namespace Mini {
-    class TextBoxLabelSystem : System<TextBox, Label, Mesh, Sizeable> {
+    using namespace ECS;
+    struct TextBoxLabelSystem : System<TextBox, Label, Mesh, Sizeable> {
     public:
         
         const float cursorWidth = 2.0f;

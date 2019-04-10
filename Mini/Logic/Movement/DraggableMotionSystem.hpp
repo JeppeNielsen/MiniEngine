@@ -17,7 +17,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class DraggableMotionSystem : System<Transform, Velocity, Draggable> {
+    struct DraggableMotionSystem : System<Transform, Velocity, Draggable> {
     public:
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);

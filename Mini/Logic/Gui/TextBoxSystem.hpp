@@ -7,15 +7,19 @@
 //
 
 #pragma once
-#include "System.hpp"
+#include "Scene.hpp"
 #include "TextBox.hpp"
 #include "Touchable.hpp"
 #include <map>
+#include "InputManager.hpp"
 
 namespace Mini {
+    using namespace ECS;
     class Gui;
-    class TextBoxSystem : System<TextBox, Touchable> {
+    struct TextBoxSystem : System<TextBox, Touchable> {
     public:
+        
+        Property<InputManager*> Input;
         
         void Initialize();
         void ObjectAdded(GameObject object);

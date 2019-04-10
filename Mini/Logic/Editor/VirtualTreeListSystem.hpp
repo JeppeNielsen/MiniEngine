@@ -13,9 +13,10 @@
 #include "Transform.hpp"
 
 namespace Mini {
-  class VirtualTreeListSystem : System<VirtualTreeList, Transform, Sizeable> {
+  struct VirtualTreeListSystem : System<VirtualTreeList, Transform, Sizeable> {
     public:
         void Initialize();
+    protected:
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);
         void Update(float dt);

@@ -13,7 +13,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class HierarchyOrder : public System<Orderable> {
+    struct HierarchyOrder : System<Orderable> {
     public:
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);

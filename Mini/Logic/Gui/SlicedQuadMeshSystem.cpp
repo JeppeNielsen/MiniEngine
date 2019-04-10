@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Jeppe Nielsen. All rights reserved.
 //
 #include "SlicedQuadMeshSystem.hpp"
+#include "SlicedQuad.hpp"
 
 using namespace Mini;
 

@@ -15,11 +15,13 @@
 #include <map>
 
 namespace Mini {
-        using namespace ECS;
+    using namespace ECS;
     class DraggableSystem;
-    class FirstPersonMoverSystem : System<Transform, FirstPersonMover>  {
+    struct FirstPersonMoverSystem : System<Transform, FirstPersonMover>  {
     public:
         FirstPersonMoverSystem();
+        
+        Property<InputManager*> Input;
         
         void Initialize();
         void Destroy();

@@ -38,8 +38,7 @@ void TextBoxLabelSystem::ObjectRemoved(GameObject object) {
     textBox->Text.Changed.Unbind(this, &TextBoxLabelSystem::TextBoxChanged, object);
     textBox->Active.Changed.Unbind(this, &TextBoxLabelSystem::TextBoxActiveChanged, object);
     if (cursor && activeTextbox == textBox) {
-        cursor->Remove();
-        cursor = 0;
+        cursor.Remove();
     }
 }
 
@@ -54,8 +53,7 @@ void TextBoxLabelSystem::TextBoxActiveChanged(GameObject object) {
     
     activeTextbox = 0;
     if (cursor) {
-        cursor->Remove();
-        cursor = 0;
+        cursor.Remove();
     }
     
     activeTextureObject = 0;
@@ -63,7 +61,7 @@ void TextBoxLabelSystem::TextBoxActiveChanged(GameObject object) {
     if (textBox->Active) {
         activeTextbox = textBox;
         
-        cursor = object->CreateObject();
+        cursor = scene->CreateObject();
         cursor.AddComponent<Transform>();
         cursor.Hierarchy().Parent = object;
         cursor.AddComponent<Mesh>()->GetMesh<Vertex>().AddQuad(0, {cursorWidth,object.GetComponent<Label>()->FontSize * 1.1f}, Color::Black());

@@ -16,12 +16,12 @@ void VirtualTreeListSystem::Initialize() {
 
 }
 
-void VirtualTreeListSystem::ObjectAdded(Pocket::GameObject object) {
-    object->GetComponent<VirtualTreeList>()->Root.Changed.Bind(this, &VirtualTreeListSystem::UpdateVirtualList, object);
+void VirtualTreeListSystem::ObjectAdded(GameObject object) {
+    object.GetComponent<VirtualTreeList>()->Root.Changed.Bind(this, &VirtualTreeListSystem::UpdateVirtualList, object);
 }
 
-void VirtualTreeListSystem::ObjectRemoved(Pocket::GameObject object) {
-    object->GetComponent<VirtualTreeList>()->Root.Changed.Unbind(this, &VirtualTreeListSystem::UpdateVirtualList, object);
+void VirtualTreeListSystem::ObjectRemoved(GameObject object) {
+    object.GetComponent<VirtualTreeList>()->Root.Changed.Unbind(this, &VirtualTreeListSystem::UpdateVirtualList, object);
 }
 
 void VirtualTreeListSystem::Update(float dt) {
@@ -30,19 +30,19 @@ void VirtualTreeListSystem::Update(float dt) {
     }
 }
 
-void VirtualTreeListSystem::UpdateVirtualList(Pocket::GameObject object) {
-    VirtualTreeList* treeList = object->GetComponent<VirtualTreeList>();
+void VirtualTreeListSystem::UpdateVirtualList(GameObject object) {
+    VirtualTreeList* treeList = object.GetComponent<VirtualTreeList>();
     if (!treeList->Pivot()) return;
     if (!treeList->Root()) {
         treeList->Clear();
         return;
     }
     
-    Transform* pivotTransform = treeList->Pivot()->GetComponent<Transform>();
+    Transform* pivotTransform = treeList->Pivot().GetComponent<Transform>();
     if (!pivotTransform) return;
     
-    Transform* transform = object->GetComponent<Transform>();
-    Sizeable* sizable = treeList->Pivot()->GetComponent<Sizeable>();
+    Transform* transform = object.GetComponent<Transform>();
+    Sizeable* sizable = treeList->Pivot().GetComponent<Sizeable>();
     
     Vector3 startWorldPosition = pivotTransform->World().TransformPosition(0);
     Vector3 startPosition = transform->WorldInverse().TransformPosition(startWorldPosition);

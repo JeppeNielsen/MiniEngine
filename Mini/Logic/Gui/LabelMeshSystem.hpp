@@ -16,7 +16,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class LabelMeshSystem : System<Label, Font, Mesh, Sizeable> {
+    struct LabelMeshSystem : System<Label, Font, Mesh, Sizeable> {
     public:
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);

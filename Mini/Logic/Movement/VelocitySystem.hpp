@@ -14,7 +14,7 @@
 
 namespace Mini {
     using namespace ECS;
-    class VelocitySystem : System<Transform, Velocity> {
+    struct VelocitySystem : System<Transform, Velocity> {
     public:
         void Update(float dt);
     };
