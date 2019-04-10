@@ -37,9 +37,12 @@ void Scene::Update(float dt) {
     });
     
     DoActions(removeComponentActions, [this] (const auto& pair) {
-        for(const auto& system : systems) {
-            if (system->objects.Contains(pair.first)) {
-                system->TryRemoveObject(pair.first);
+        if (pair.second<componentSystemLists.size()) {
+            auto& systemsUsingComponent = componentSystemLists[pair.second];
+            for(const auto& system : systemsUsingComponent) {
+                if (system->objects.Contains(pair.first)) {
+                    system->RemoveObject(pair.first);
+                }
             }
         }
         database.RemoveComponent(pair.first, pair.second);
@@ -78,23 +81,23 @@ void Scene::UpdateSystems(float dt) {
 void Scene::RemoveObjectFromDatabase(const GameObjectId object) {
     for(const auto& system : systems) {
         if (system->objects.Contains(object)) {
-            system->TryRemoveObject(object);
+            system->RemoveObject(object);
         }
     }
     database.RemoveAllComponents(object);
     database.Remove(object);
 }
 
-void Scene::AddComponent(GameObjectId objectId, int componentId) {
+void Scene::AddComponent(GameObjectId objectId, const std::size_t componentId) {
     addComponentActions.insert(objectId);
     database.componentsIndexed[componentId]->CreateDefault(objectId);
 }
 
-void* Scene::GetComponent(GameObjectId objectId, int componentId) {
+void* Scene::GetComponent(GameObjectId objectId, const std::size_t componentId) {
     return database.componentsIndexed[componentId]->GetInstance(objectId);
 }
 
-void Scene::RemoveComponent(GameObjectId objectId, int componentId) {
+void Scene::RemoveComponent(GameObjectId objectId, const std::size_t componentId) {
     removeComponentActions.insert(std::make_pair(objectId, componentId));
 }
 
@@ -104,7 +107,7 @@ void Scene::AddCustomSystem(int systemId, ISystem* system) {
     }
     if (!systemsIndexed[systemId]) {
         systemsIndexed[systemId] = std::unique_ptr<ISystem>(system);
-        systemsIndexed[systemId]->InitializeComponents(this);
+        systemsIndexed[systemId]->InitializeComponents(this, componentSystemLists);
         systems.push_back(systemsIndexed[systemId].get());
     }
 }
