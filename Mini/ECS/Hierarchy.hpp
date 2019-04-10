@@ -24,6 +24,8 @@ namespace ECS {
         
         const ObjectCollection& Children();
         
+        Property<bool> Enabled;
+        
         template<typename Func>
         void IterateChildren(Func&& func) {
             IterateChildrenInternal(owner, func);
