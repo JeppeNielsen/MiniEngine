@@ -1133,8 +1133,6 @@
 		7214CEE221E9264400D1FEFA /* Movement */ = {
 			isa = PBXGroup;
 			children = (
-				72EB9EBF225E6EDB00B21159 /* FirstPersonMoverSystem.cpp */,
-				72EB9EBE225E6EDB00B21159 /* FirstPersonMoverSystem.hpp */,
 				7214CEE321E9264400D1FEFA /* Draggable.hpp */,
 				7214CEE521E9264400D1FEFA /* DraggableMotion.hpp */,
 				7214CEE621E9264400D1FEFA /* DraggableMotionSystem.cpp */,
@@ -1143,6 +1141,8 @@
 				7214CEE921E9264400D1FEFA /* DraggableSystem.hpp */,
 				7214CEEA21E9264400D1FEFA /* FirstPersonMover.cpp */,
 				7214CEEB21E9264400D1FEFA /* FirstPersonMover.hpp */,
+				72EB9EBF225E6EDB00B21159 /* FirstPersonMoverSystem.cpp */,
+				72EB9EBE225E6EDB00B21159 /* FirstPersonMoverSystem.hpp */,
 				7214CEEE21E9264400D1FEFA /* Limitable.cpp */,
 				7214CEEF21E9264400D1FEFA /* Limitable.hpp */,
 				7214CEF021E9264400D1FEFA /* LimitableSystem.cpp */,

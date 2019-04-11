@@ -63,11 +63,8 @@ struct ColorPulsatorSystem : System<ColorPulsator, Mesh> {
         for(auto go : Objects()) {
             auto mesh = go.GetComponent<Mesh>();
             auto pulsator = go.GetComponent<ColorPulsator>();
-            mesh->GetMesh<Vertex>().SetColor(Color::White(pulsator->alpha));
+            mesh->GetMesh<Vertex>().SetColor(Color::White(0.5f + sinf(pulsator->alpha) * 0.5f));
             pulsator->alpha += pulsator->speed * dt;
-            if (pulsator->alpha>1.0f) {
-                pulsator->alpha = 0.0f;
-            }
         }
     }
 };
@@ -118,7 +115,7 @@ struct Game : IState {
         cube.AddComponent<RotationSpeed>(Vector3(1,1,0));
         cube.AddComponent<Renderable>()->BlendMode = BlendModeType::Alpha;
         cube.AddComponent<Touchable>();
-        cube.AddComponent<ColorPulsator>(pos.x, 0.3f);
+        cube.AddComponent<ColorPulsator>(pos.x, 3.0f);
     }
     
     void ButtonDown(ButtonEvent e) {
