@@ -19,9 +19,9 @@ using namespace Mini;
 GameObject Gui::GetAtlas() { return atlas; }
 
 void Gui::Initialize() {
-    renderer = &scene->CreateSystem<RenderSystem>();
+    //renderer = &scene->CreateSystem<RenderSystem>(); // TODO:
     textboxSystem = &scene->CreateSystem<TextBoxSystem>();
-    touchSystem = &scene->CreateSystem<TouchSystem>();
+    //touchSystem = &scene->CreateSystem<TouchSystem>(); //TODO:
     
     scene->CreateSystem<TransformHierarchy>();
     
@@ -74,7 +74,7 @@ void Gui::Setup(GameObject atlas, const Rect &viewport) {
     
     BoundingBox bounds(0, Vector3(viewport.width * 2.0f, viewport.height * 2.0f, 3000.0f));
     renderer->Octree().SetWorldBounds(bounds);
-    touchSystem->Octree().SetWorldBounds(bounds);
+    //touchSystem->Octree().SetWorldBounds(bounds); // TODO:
     hoverSystem->Octree().SetWorldBounds(bounds);
     
     camera = scene->CreateObject();

@@ -15,11 +15,7 @@ using namespace Mini;
 RenderSystem::ObjectRenderers RenderSystem::objectRenderers;
 int RenderSystem::objectRenderersRefCounter = 0;
 
-void RenderSystem::Initialize() {
-    cameras = &scene->CreateSystem<CameraSystem>();
-    meshOctreeSystem = &scene->CreateSystem<OctreeSystem>();
-    scene->CreateSystem<TextureSystem>();
-    
+RenderSystem::RenderSystem(OctreeSystem& octree, CameraSystem& cameras) : octree(octree), cameras(cameras) {
     Shaders.Initialize();
     DefaultShader = &Shaders.Colored;
     DefaultTexturedShader = &Shaders.Textured;
@@ -43,7 +39,7 @@ RenderSystem::~RenderSystem() {
 }
 
 RenderSystem::OctreeSystem& RenderSystem::Octree() {
-    return *meshOctreeSystem;
+    return octree;
 }
 
 void RenderSystem::RenderCamera(GameObject cameraObject) {
@@ -65,7 +61,7 @@ void RenderSystem::RenderCamera(GameObject cameraObject) {
     
     BoundingFrustum frustum;
     frustum.SetFromViewProjection(viewProjection);
-    meshOctreeSystem->GetObjectsInFrustum(frustum, objectsInFrustum);
+    octree.GetObjectsInFrustum(frustum, objectsInFrustum);
 
     if (objectsInFrustum.empty()) return;
     
@@ -178,13 +174,10 @@ void RenderSystem::RenderTransparentVisibleObjects(const VisibleObjects& visible
 }
 
 void RenderSystem::Render() {
-    if (!cameras) {
-        return;
-    }
     renderInfo.drawCalls = 0;
     renderInfo.verticesRendered = 0;
     renderInfo.objectsRendered = 0;
-    for(auto camera : cameras->Objects()) {
+    for(auto camera : cameras.Objects()) {
         RenderCamera(camera);
     }
     
@@ -235,16 +228,4 @@ bool RenderSystem::SortTransparentObjects(const VisibleObject& a, const VisibleO
     }
 
     return a.distanceToCamera>b.distanceToCamera;
-}
-
-void RenderSystem::SetCameras(Mini::RenderSystem::CameraSystem *cameraSystem) {
-    cameras = cameraSystem;
-}
-
-Mini::RenderSystem::CameraSystem * RenderSystem::GetCameras() {
-    return cameras;
-}
-
-Mini::RenderSystem::CameraSystem* RenderSystem::GetOriginalCameras() {
-    return &scene->CreateSystem<CameraSystem>();
 }

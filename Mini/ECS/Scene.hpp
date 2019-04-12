@@ -28,21 +28,20 @@ public:
     Scene(Database& database);
     ~Scene();
 
-    template<typename S>
-    S& CreateSystem() {
-        const auto systemId = SystemIdHelper::GetId<S>();
+    template<typename T, typename...Args>
+    T& CreateSystem(Args&&... args) {
+        const auto systemId = SystemIdHelper::GetId<T>();
         if (systemId>=systemsIndexed.size()) {
             systemsIndexed.resize(systemId + 1);
         }
         if (!systemsIndexed[systemId]) {
-            systemsIndexed[systemId] = std::make_unique<S>();
-            S& system = static_cast<S&>(*systemsIndexed[systemId]);
+            systemsIndexed[systemId] = std::make_unique<T>(args...);
+            T& system = static_cast<T&>(*systemsIndexed[systemId]);
             system.InitializeComponents(*this, componentSystemLists);
-            system.Initialize();
             systems.push_back(&system);
             return system;
         } else {
-            return static_cast<S&>(*systemsIndexed[systemId]);
+            return static_cast<T&>(*systemsIndexed[systemId]);
         }
     }
     

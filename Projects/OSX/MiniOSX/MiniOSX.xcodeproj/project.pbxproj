@@ -135,6 +135,7 @@
 		72EB9EBC22594F8B00B21159 /* VirtualTreeListSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EB022594F8B00B21159 /* VirtualTreeListSystem.cpp */; };
 		72EB9EBD225D483600B21159 /* SlicedQuad.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2921E927EE00D1FEFA /* SlicedQuad.hpp */; };
 		72EB9EC0225E6EDB00B21159 /* FirstPersonMoverSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EBF225E6EDB00B21159 /* FirstPersonMoverSystem.cpp */; };
+		72EB9EC3225FC8E900B21159 /* CameraSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EC1225FC8E900B21159 /* CameraSystem.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -495,6 +496,9 @@
 		72EB9EB122594F8B00B21159 /* VirtualTreeListSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = VirtualTreeListSystem.hpp; sourceTree = "<group>"; };
 		72EB9EBE225E6EDB00B21159 /* FirstPersonMoverSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FirstPersonMoverSystem.hpp; sourceTree = "<group>"; };
 		72EB9EBF225E6EDB00B21159 /* FirstPersonMoverSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FirstPersonMoverSystem.cpp; sourceTree = "<group>"; };
+		72EB9EC1225FC8E900B21159 /* CameraSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CameraSystem.cpp; sourceTree = "<group>"; };
+		72EB9EC2225FC8E900B21159 /* CameraSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraSystem.hpp; sourceTree = "<group>"; };
+		72EB9EC4225FCD6800B21159 /* ECS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ECS.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -715,6 +719,7 @@
 				7214CB1621E28D1100D1FEFA /* Scene.cpp */,
 				7214CB1721E28D1100D1FEFA /* Scene.hpp */,
 				7214CB1821E28D1100D1FEFA /* System.hpp */,
+				72EB9EC4225FCD6800B21159 /* ECS.hpp */,
 			);
 			path = ECS;
 			sourceTree = "<group>";
@@ -1057,6 +1062,8 @@
 				7214CD9A21E29C9200D1FEFA /* Atlas.hpp */,
 				7214CD9B21E29C9200D1FEFA /* Camera.cpp */,
 				7214CD9C21E29C9200D1FEFA /* Camera.hpp */,
+				72EB9EC1225FC8E900B21159 /* CameraSystem.cpp */,
+				72EB9EC2225FC8E900B21159 /* CameraSystem.hpp */,
 				7214CD9D21E29C9200D1FEFA /* Colorable.cpp */,
 				7214CD9E21E29C9200D1FEFA /* Colorable.hpp */,
 				7214CD9F21E29C9200D1FEFA /* ColorSystem.cpp */,
@@ -1410,6 +1417,7 @@
 				7214CE5221E29C9300D1FEFA /* Mesh.cpp in Sources */,
 				7214CF0221E9264400D1FEFA /* VelocitySystem.cpp in Sources */,
 				72EB9E7622554AF900B21159 /* LayoutSystem.cpp in Sources */,
+				72EB9EC3225FC8E900B21159 /* CameraSystem.cpp in Sources */,
 				7214CB5221E28FB600D1FEFA /* Texture.cpp in Sources */,
 				7214CB4D21E28FB500D1FEFA /* ImageHelper.cpp in Sources */,
 				7214CAE721E1FEC100D1FEFA /* Matrix4x4.cpp in Sources */,

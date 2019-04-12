@@ -7,10 +7,9 @@
 //
 
 #pragma once
-#include "Scene.hpp"
-#include "Screen.hpp"
-#include "Camera.hpp"
+#include "ECS.hpp"
 #include "OctreeSystem.hpp"
+#include "CameraSystem.hpp"
 #include "ObjectRenderer.hpp"
 #include "ShaderCollection.hpp"
 
@@ -20,13 +19,10 @@ namespace Mini {
     public:
         using OctreeSystem = OctreeSystem<Renderable>;
         
-        struct CameraSystem : System<Transform, Camera> { };
-        struct TextureSystem : System<TextureComponent, Orderable> {};
-        
         using ObjectRenderers = std::vector<IObjectRenderer*>;
         using VisibleObjects = std::vector<VisibleObject>;
 
-        void Initialize() override;
+        RenderSystem(OctreeSystem& octree, CameraSystem& cameras);
         ~RenderSystem();
         
         OctreeSystem& Octree();
@@ -36,10 +32,6 @@ namespace Mini {
         ShaderCollection Shaders;
         IShader* DefaultShader;
         IShader* DefaultTexturedShader;
-        
-        void SetCameras(CameraSystem* cameraSystem);
-        CameraSystem* GetCameras();
-        CameraSystem* GetOriginalCameras();
         
     private:
         
@@ -52,8 +44,8 @@ namespace Mini {
         RenderInfo renderInfo;
         ObjectCollection objectsInFrustum;
 
-        CameraSystem* cameras;
-        OctreeSystem* meshOctreeSystem;
+        OctreeSystem& octree;
+        CameraSystem& cameras;
         
         void RenderCamera(GameObject cameraObject);
         void RenderVisibleObjects(const VisibleObjects& visibleObjects);

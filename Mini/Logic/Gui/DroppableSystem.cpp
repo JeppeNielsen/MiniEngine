@@ -13,7 +13,7 @@
 using namespace Mini;
 
 void DroppableSystem::Initialize() {
-    touchSystem = &scene->CreateSystem<TouchSystem>();
+    //touchSystem = &scene->CreateSystem<TouchSystem>();
 }
 
 void DroppableSystem::ObjectAdded(GameObject object) {

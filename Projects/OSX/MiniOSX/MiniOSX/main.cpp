@@ -42,11 +42,11 @@ struct RotationSpeedSystem : System<Transform, RotationSpeed> {
 
 struct ClickRotationChanger : System<RotationSpeed, Touchable> {
     void ObjectAdded(GameObject go) {
-        go.GetComponent<Touchable>()->Down.Bind(this, &ClickRotationChanger::TouchDown, go);
+        go.GetComponent<Touchable>()->Click.Bind(this, &ClickRotationChanger::TouchDown, go);
     }
     
     void ObjectRemoved(GameObject go) {
-        go.GetComponent<Touchable>()->Down.Unbind(this, &ClickRotationChanger::TouchDown, go);
+        go.GetComponent<Touchable>()->Click.Unbind(this, &ClickRotationChanger::TouchDown, go);
     }
     
     void TouchDown(TouchData d, GameObject go) {
@@ -84,15 +84,16 @@ struct Game : IState {
         });
         device.Menu.AddChild("Second").AddChild("Sub").AddChild("Sub 2").AddChild("Sub 3");
         
-    
-        renderSystem = &scene.CreateSystem<RenderSystem>();
+        auto& cameras = scene.CreateSystem<CameraSystem>();
+        
+        renderSystem = &scene.CreateSystem<RenderSystem>(scene.CreateSystem<RenderSystem::OctreeSystem>(), cameras);
         renderSystem->DefaultShader = &renderSystem->Shaders.LitColored;
         
-        scene.CreateSystem<RotationSpeedSystem>();
-        scene.CreateSystem<TouchSystem>().Input = &device.Input;
+        scene.CreateSystem<TouchSystem>(scene.CreateSystem<TouchSystem::OctreeSystem>(), cameras, device.Input);
         scene.CreateSystem<ClickRotationChanger>();
-        scene.CreateSystem<FirstPersonMoverSystem>().Input = &device.Input;
+        scene.CreateSystem<FirstPersonMoverSystem>(device.Input);
         scene.CreateSystem<ColorPulsatorSystem>();
+        scene.CreateSystem<RotationSpeedSystem>();
         
         auto camera = scene.CreateObject();
         camera.AddComponent<Camera>();

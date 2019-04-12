@@ -7,34 +7,22 @@
 //
 
 #include "TouchSystem.hpp"
-#include <stack>
 #include "Renderable.hpp"
+#include "Orderable.hpp"
 
 using namespace Mini;
 using namespace ECS;
 
-void TouchSystem::Initialize() {
-    octree = &scene->CreateSystem<OctreeSystem>();
-    cameras = &scene->CreateSystem<TouchSystem::CameraSystem>();
-
-    //scene->Input().TouchDown.Bind(this, &TouchSystem::TouchDown);
-    //scene->Input().TouchUp.Bind(this, &TouchSystem::TouchUp);
-    
-    Input.Changed.Bind([this]() {
-        if (!Input()) return;
-        Input()->TouchDown.Bind(this, &TouchSystem::TouchDown);
-        Input()->TouchUp.Bind(this, &TouchSystem::TouchUp);
-    });
+TouchSystem::TouchSystem(OctreeSystem& octree, CameraSystem& cameras, InputManager& input) :
+    octree(octree), cameras(cameras), input(input) {
+	input.TouchDown.Bind(this, &TouchSystem::TouchDown);
+    input.TouchUp.Bind(this, &TouchSystem::TouchUp);
 }
 
 TouchSystem::~TouchSystem() {
-    if (Input()) {
-        Input()->TouchDown.Unbind(this, &TouchSystem::TouchDown);
-        Input()->TouchUp.Unbind(this, &TouchSystem::TouchUp);
-    }
+    input.TouchDown.Unbind(this, &TouchSystem::TouchDown);
+    input.TouchUp.Unbind(this, &TouchSystem::TouchUp);
 }
-
-TouchSystem::OctreeSystem& TouchSystem::Octree() { return *octree; }
 
 void TouchSystem::ObjectAdded(GameObject object) {
     picker.TryAddClipper(object);
@@ -101,7 +89,7 @@ void TouchSystem::Update(float dt) {
 }
 
 bool TouchSystem::IsTouchValid(const TouchData &touchData) {
-    return !Input()->IsTouchSwallowed(touchData.Index, TouchDepth);
+    return !input.IsTouchSwallowed(touchData.Index, TouchDepth);
 }
 
 void TouchSystem::TouchDown(TouchEvent e) {
@@ -115,7 +103,7 @@ void TouchSystem::TouchDown(TouchEvent e) {
     }
     
     if (!list.empty() && !list[0].Touchable->ClickThrough) {
-        Input()->SwallowTouch(e.Index, TouchDepth);
+        input.SwallowTouch(e.Index, TouchDepth);
     }
 }
 
@@ -152,10 +140,10 @@ void TouchSystem::TouchUp(TouchEvent e) {
 }
 
 void TouchSystem::FindTouchedObjects(Touched& list, const TouchEvent& e, bool forceClickThrough) {
-    for(auto c : cameras->Objects()) {
+    for(auto c : cameras.Objects()) {
         picker.Pick(c, list, e, forceClickThrough, [this] (const Ray& ray, ObjectCollection& list) {
-            octree->GetObjectsAtRay(ray, list);
-        }, Input());
+            octree.GetObjectsAtRay(ray, list);
+        }, &input);
     }
 }
 
@@ -181,16 +169,4 @@ void TouchSystem::EnqueueDown(GameObject touchObject, TouchData touchData) {
     touchData.Touchable = touchObject.GetComponent<Touchable>();
     equeuedDowns.push_back(touchData);
     touches[touchData.Index].push_back(touchData);
-}
-
-void TouchSystem::SetCameras(TouchSystem::CameraSystem *cameraSystem) {
-    cameras = cameraSystem;
-}
-
-TouchSystem::CameraSystem * TouchSystem::GetCameras() {
-    return cameras;
-}
-
-TouchSystem::CameraSystem* TouchSystem::GetOriginalCameras() {
-    return &scene->CreateSystem<CameraSystem>();
 }

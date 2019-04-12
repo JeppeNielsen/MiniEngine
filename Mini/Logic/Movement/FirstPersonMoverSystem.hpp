@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Jeppe Nielsen. All rights reserved.
 //
 
-#include "Scene.hpp"
+#include "ECS.hpp"
 #include "Property.hpp"
 #include "InputManager.hpp"
 #include "Transform.hpp"
@@ -19,16 +19,11 @@ namespace Mini {
     class DraggableSystem;
     struct FirstPersonMoverSystem : System<Transform, FirstPersonMover>  {
     public:
-        FirstPersonMoverSystem();
+        FirstPersonMoverSystem(InputManager& input, DraggableSystem* draggableSystem = nullptr);
+        ~FirstPersonMoverSystem();
         
-        Property<InputManager*> Input;
-        
-        void Initialize();
-        void Destroy();
         void Update(float dt);
-        
 private:
-        
         void TouchDown(TouchEvent e);
         void TouchUp(TouchEvent e);
         
@@ -38,7 +33,7 @@ private:
         typedef std::map<int, Vector2> Touches;
         Touches touches;
 
+        InputManager& input;
         DraggableSystem* draggableSystem;
-        bool isDraggableSystemChecked;
     };
 }

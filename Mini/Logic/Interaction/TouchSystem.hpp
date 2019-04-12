@@ -7,45 +7,41 @@
 //
 
 #pragma once
+#include "ECS.hpp"
 #include "Property.hpp"
 #include "OctreeSystem.hpp"
-#include "Scene.hpp"
+#include "CameraSystem.hpp"
 #include "Transform.hpp"
 #include "Mesh.hpp"
-#include "Camera.hpp"
 #include "Touchable.hpp"
-#include "Orderable.hpp"
-#include <set>
 #include "Picker.hpp"
 #include "InputManager.hpp"
+#include <vector>
 
 namespace Mini {
     using namespace ECS;
+    
     struct TouchSystem : System<Transform, Mesh, Touchable> {
-    private:
-        using OctreeSystem = OctreeSystem<Touchable>;
-        struct CameraSystem : System<Transform, Camera> {};
-        Picker picker;
     public:
-
-        void Initialize() override;
+        using OctreeSystem = OctreeSystem<Touchable>;
+    
+        TouchSystem(OctreeSystem& octree, CameraSystem& cameras, InputManager& input);
         ~TouchSystem();
-        OctreeSystem& Octree();
+        
         void ObjectAdded(GameObject object) override;
         void ObjectRemoved(GameObject object) override;
         void Update(float dt) override;
         void EnqueueDown(GameObject touchObject, TouchData touchData);
         
         int TouchDepth = 0;
-        
-        Property<InputManager*> Input;
     private:
                 
         void TouchDown(TouchEvent e);
         void TouchUp(TouchEvent e);
         
-        CameraSystem* cameras;
-        OctreeSystem* octree;
+        OctreeSystem& octree;
+        CameraSystem& cameras;
+        InputManager& input;
         
         typedef std::vector<TouchData> Touched;
         
@@ -57,10 +53,8 @@ namespace Mini {
         
         Touched equeuedDowns;
         
+        Picker picker;
     public:
-        void SetCameras(CameraSystem* cameraSystem);
-        CameraSystem* GetCameras();
-        CameraSystem* GetOriginalCameras();
         void FindTouchedObjects(Touched& list, const TouchEvent& e, bool forceClickThrough = false);
     private:
         
