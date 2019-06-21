@@ -69,7 +69,9 @@ private:
     template<typename T, typename...Args>
     T* AddComponent(const GameObjectId object, Args&& ... args) {
         const auto componentId = Database::IdHelper::GetId<T>();
-        addComponentActions.insert(std::make_pair(object, componentId));
+        if (disableObjectActions.find(object) == disableObjectActions.end()) {
+            addComponentActions.insert(std::make_pair(object, componentId));
+        }
         return database.AddComponent<T>(object, args...);
     }
     

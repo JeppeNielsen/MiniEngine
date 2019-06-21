@@ -109,7 +109,9 @@ void Scene::RemoveObjectFromDatabase(const GameObjectId object) {
 }
 
 void Scene::AddComponent(GameObjectId objectId, const std::size_t componentId) {
-    addComponentActions.insert(std::make_pair(objectId, componentId));
+    if (disableObjectActions.find(objectId) == disableObjectActions.end()) {
+        addComponentActions.insert(std::make_pair(objectId, componentId));
+    }
     database.componentsIndexed[componentId]->CreateDefault(objectId);
 }
 
