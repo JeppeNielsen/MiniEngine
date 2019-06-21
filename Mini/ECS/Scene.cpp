@@ -28,10 +28,29 @@ GameObject Scene::CreateObject() {
 }
 
 void Scene::Update(float dt) {
-    DoActions(addComponentActions, [this] (const auto object) {
+    DoActions(addComponentActions, [this] (const auto& pair) {
+        if (pair.second<componentSystemLists.size()) {
+            auto& systemsUsingComponent = componentSystemLists[pair.second];
+            for(const auto& system : systemsUsingComponent) {
+                if (!system->objects.Contains(pair.first)) {
+                    system->TryAddObject(pair.first);
+                }
+            }
+        }
+    });
+    
+    DoActions(enableObjectActions, [this](const auto object) {
         for(const auto& system : systems) {
             if (!system->objects.Contains(object)) {
                 system->TryAddObject(object);
+            }
+        }
+    });
+    
+    DoActions(disableObjectActions, [this](const auto object) {
+        for(const auto& system : systems) {
+            if (system->objects.Contains(object)) {
+                system->RemoveObject(object);
             }
         }
     });
@@ -49,6 +68,7 @@ void Scene::Update(float dt) {
     });
     
     DoActions(removeActions, [this] (const auto object) {
+        database.GetComponent<Hierarchy>(object)->Parent = GameObject();
         RemoveObjectFromDatabase(object);
         objects.Remove(object);
     });
@@ -89,7 +109,7 @@ void Scene::RemoveObjectFromDatabase(const GameObjectId object) {
 }
 
 void Scene::AddComponent(GameObjectId objectId, const std::size_t componentId) {
-    addComponentActions.insert(objectId);
+    addComponentActions.insert(std::make_pair(objectId, componentId));
     database.componentsIndexed[componentId]->CreateDefault(objectId);
 }
 
@@ -124,4 +144,28 @@ void Scene::RemoveCustomSystem(int systemId) {
 
 const GameObjectIterator Scene::Objects() {
     return GameObjectIterator(*this, objects.objects, 0);
+}
+
+void Scene::SetEnable(const GameObjectId object, bool enable) {
+    if (enable) {
+        EnableAction(enableObjectActions, disableObjectActions, object);
+    } else {
+        auto it = addComponentActions.begin();
+        while (it != addComponentActions.end()) {
+            if (it->first == object) {
+                it = addComponentActions.erase(it);
+            } else {
+                ++it;
+            }
+        }
+        EnableAction(disableObjectActions, enableObjectActions, object);
+    }
+}
+
+void Scene::EnableAction(Actions &on, Actions &off, const GameObjectId object) {
+    on.insert(object);
+    const auto it = std::find(off.begin(), off.end(), object);
+    if (it != off.end()) {
+        off.erase(it);
+    }
 }

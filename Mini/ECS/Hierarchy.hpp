@@ -7,9 +7,9 @@
 //
 
 #pragma once
-#include <vector>
 #include "GameObject.hpp"
 #include "Property.hpp"
+#include "DirtyProperty.hpp"
 
 namespace Mini {
 namespace ECS {
@@ -30,6 +30,8 @@ namespace ECS {
         void IterateChildren(Func&& func) {
             IterateChildrenInternal(owner, func);
         }
+        
+        DirtyProperty<bool> WorldEnabled;
     
     private:
         template<typename Func>
@@ -42,7 +44,8 @@ namespace ECS {
         }
         
         void Initialize();
-    
+        void MakeEnabledDirty();
+        
         GameObject owner;
         ObjectCollection children;
         

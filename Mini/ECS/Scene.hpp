@@ -15,12 +15,14 @@
 namespace Mini {
 namespace ECS {
 
+class Hierarchy;
+
 class Scene {
     using SystemIdHelper = IdHelper<struct SystemIdHelper>;
     using SystemsIndexed = std::vector<std::unique_ptr<ISystem>>;
     using Systems = std::vector<ISystem*>;
     using Actions = std::set<GameObjectId>;
-    using RemoveComponentActions = std::set<std::pair<GameObjectId, size_t>>;
+    using ChangeComponentActions = std::set<std::pair<GameObjectId, size_t>>;
     
     friend class GameObject;
     
@@ -66,13 +68,15 @@ private:
     
     template<typename T, typename...Args>
     T* AddComponent(const GameObjectId object, Args&& ... args) {
-        addComponentActions.insert(object);
+        const auto componentId = Database::IdHelper::GetId<T>();
+        addComponentActions.insert(std::make_pair(object, componentId));
         return database.AddComponent<T>(object, args...);
     }
     
     template<typename T>
     T* AddReferenceComponent(const GameObjectId object, const GameObjectId referenceId) {
-        addComponentActions.insert(object);
+        const auto componentId = Database::IdHelper::GetId<T>();
+        addComponentActions.insert(std::make_pair(object, componentId));
         return database.AddReferenceComponent<T>(object, referenceId);
     }
     
@@ -97,6 +101,8 @@ private:
     
     void UpdateSystems(float dt);
     void RemoveObjectFromDatabase(const GameObjectId object);
+    void SetEnable(const GameObjectId object, bool enable);
+    void EnableAction(Actions& on, Actions& off, const GameObjectId object);
 
     Database& database;
     SystemsIndexed systemsIndexed;
@@ -104,9 +110,13 @@ private:
     ISystem::ComponentSystemLists componentSystemLists;
     
     ObjectList objects;
-    Actions addComponentActions;
-    RemoveComponentActions removeComponentActions;
+    ChangeComponentActions addComponentActions;
+    ChangeComponentActions removeComponentActions;
+    Actions enableObjectActions;
+    Actions disableObjectActions;
     Actions removeActions;
+    
+    friend class Hierarchy;
 };
   
 template<typename T, typename... Args>
