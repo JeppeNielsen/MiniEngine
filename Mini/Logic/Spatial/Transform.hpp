@@ -10,6 +10,7 @@ namespace Mini {
 	class Transform {
 	public:
 		Transform();
+        Transform(const Transform& other) = default;
 
 		Property<Vector3> Position;  
 		Property<Quaternion> Rotation;
