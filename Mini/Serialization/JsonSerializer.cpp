@@ -51,6 +51,7 @@ void JsonSerializer::Serialize(GameObject go, minijson::object_writer& writer, c
 
 void JsonSerializer::SerializeComponentsInternal(GameObject go, minijson::object_writer &writer, const std::function<bool (int)> &componentFilter) {
     go.IterateComponentsWithIndex([go, &writer, &componentFilter](auto componentType, auto id) {
+        if (Database::IdHelper::GetId<Mini::Hierarchy>() == id) return;
         if (componentFilter && !componentFilter(id)) return;
         componentType->Serialize(go.Id(), writer);
     });
