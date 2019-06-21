@@ -136,6 +136,9 @@
 		72EB9EBD225D483600B21159 /* SlicedQuad.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2921E927EE00D1FEFA /* SlicedQuad.hpp */; };
 		72EB9EC0225E6EDB00B21159 /* FirstPersonMoverSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EBF225E6EDB00B21159 /* FirstPersonMoverSystem.cpp */; };
 		72EB9EC3225FC8E900B21159 /* CameraSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EC1225FC8E900B21159 /* CameraSystem.cpp */; };
+		72EB9EC62263B92B00B21159 /* testGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EC52263B92B00B21159 /* testGUI.cpp */; };
+		72EB9EC92263C11300B21159 /* PanelSplitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EC72263C11300B21159 /* PanelSplitter.cpp */; };
+		72EB9ECC2263C1A800B21159 /* PanelSplitterSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9ECA2263C1A800B21159 /* PanelSplitterSystem.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -499,6 +502,11 @@
 		72EB9EC1225FC8E900B21159 /* CameraSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CameraSystem.cpp; sourceTree = "<group>"; };
 		72EB9EC2225FC8E900B21159 /* CameraSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CameraSystem.hpp; sourceTree = "<group>"; };
 		72EB9EC4225FCD6800B21159 /* ECS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ECS.hpp; sourceTree = "<group>"; };
+		72EB9EC52263B92B00B21159 /* testGUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testGUI.cpp; sourceTree = "<group>"; };
+		72EB9EC72263C11300B21159 /* PanelSplitter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PanelSplitter.cpp; sourceTree = "<group>"; };
+		72EB9EC82263C11300B21159 /* PanelSplitter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PanelSplitter.hpp; sourceTree = "<group>"; };
+		72EB9ECA2263C1A800B21159 /* PanelSplitterSystem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PanelSplitterSystem.cpp; sourceTree = "<group>"; };
+		72EB9ECB2263C1A800B21159 /* PanelSplitterSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PanelSplitterSystem.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -538,6 +546,7 @@
 			children = (
 				7214CE9621E690E600D1FEFA /* NSOpenGLView-Info.plist */,
 				7214CAFB21E1FF8400D1FEFA /* main.cpp */,
+				72EB9EC52263B92B00B21159 /* testGUI.cpp */,
 			);
 			path = MiniOSX;
 			sourceTree = "<group>";
@@ -1044,11 +1053,11 @@
 		7214CCC921E29C9200D1FEFA /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				7214CE7021E2A34200D1FEFA /* Common */,
 				72EB9E9A22594F8B00B21159 /* Editor */,
 				7214CF0321E927EE00D1FEFA /* Gui */,
-				7214CEE221E9264400D1FEFA /* Movement */,
 				7214CE7E21E549B200D1FEFA /* Interaction */,
-				7214CE7021E2A34200D1FEFA /* Common */,
+				7214CEE221E9264400D1FEFA /* Movement */,
 				7214CD9821E29C9200D1FEFA /* Rendering */,
 				7214CDD321E29C9200D1FEFA /* Spatial */,
 			);
@@ -1237,8 +1246,12 @@
 				7214CF2321E927EE00D1FEFA /* PanelDropSystem.hpp */,
 				7214CF2421E927EE00D1FEFA /* PanelLocation.cpp */,
 				7214CF2521E927EE00D1FEFA /* PanelLocation.hpp */,
+				72EB9EC72263C11300B21159 /* PanelSplitter.cpp */,
+				72EB9EC82263C11300B21159 /* PanelSplitter.hpp */,
 				7214CF2621E927EE00D1FEFA /* PanelSystem.cpp */,
 				7214CF2721E927EE00D1FEFA /* PanelSystem.hpp */,
+				72EB9ECA2263C1A800B21159 /* PanelSplitterSystem.cpp */,
+				72EB9ECB2263C1A800B21159 /* PanelSplitterSystem.hpp */,
 			);
 			path = Panels;
 			sourceTree = "<group>";
@@ -1401,6 +1414,7 @@
 				7214CCC621E2929100D1FEFA /* tinyxmlerror.cpp in Sources */,
 				7214CAF121E1FEC100D1FEFA /* Window.mm in Sources */,
 				7214CF3E21E927EE00D1FEFA /* Panel.cpp in Sources */,
+				72EB9EC92263C11300B21159 /* PanelSplitter.cpp in Sources */,
 				7214CC9521E2929100D1FEFA /* cff.c in Sources */,
 				7214CEE121E920EE00D1FEFA /* RectPacker.cpp in Sources */,
 				7214CAEE21E1FEC100D1FEFA /* TransitionHelper.cpp in Sources */,
@@ -1410,6 +1424,7 @@
 				7214CF4621E927EE00D1FEFA /* SpriteMeshSystem.cpp in Sources */,
 				7214CAE321E1FEC100D1FEFA /* BoundingFrustum.cpp in Sources */,
 				7214CB2521E28D1100D1FEFA /* ObjectList.cpp in Sources */,
+				72EB9ECC2263C1A800B21159 /* PanelSplitterSystem.cpp in Sources */,
 				7214CB2021E28D1100D1FEFA /* JsonSerializer.cpp in Sources */,
 				72EB9EC0225E6EDB00B21159 /* FirstPersonMoverSystem.cpp in Sources */,
 				7214CF4221E927EE00D1FEFA /* PanelDropSystem.cpp in Sources */,
@@ -1432,6 +1447,7 @@
 				7214CAEA21E1FEC100D1FEFA /* Point3.cpp in Sources */,
 				7214CCA821E2929100D1FEFA /* raster.c in Sources */,
 				72EB9EB922594F8B00B21159 /* VirtualTreeList.cpp in Sources */,
+				72EB9EC62263B92B00B21159 /* testGUI.cpp in Sources */,
 				7214CC8921E2929100D1FEFA /* ftinit.c in Sources */,
 				7214CEFE21E9264400D1FEFA /* Limitable.cpp in Sources */,
 				7214CB5121E28FB600D1FEFA /* ShaderCollection.cpp in Sources */,

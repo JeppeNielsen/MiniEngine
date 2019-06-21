@@ -137,7 +137,7 @@ struct Game : IState {
     }
 };
 
-int main() {
+int main_rotatingCubes() {
     Engine e;
     e.Start<Game>();
     return 0;
