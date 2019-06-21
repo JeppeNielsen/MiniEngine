@@ -277,5 +277,104 @@ void TestEnabling::Run() {
         scene.Update(0);
         return numAdded == 0 && numRemoved == 0;
     });
+    
+    RunTest("Add to system if gameobject's parent moved out of it's disabled parent", [] () {
+        struct Renderable {
+            int meshId;
+        };
+    
+        int numAdded = 0;
+        int numRemoved = 0;
+    
+        struct RenderSystem : System<Renderable> {
+            int* numAdded;
+            int* numRemoved;
+            
+            void ObjectAdded(GameObject object) override {
+                (*numAdded)++;
+            }
+            
+            void ObjectRemoved(GameObject object) override {
+                (*numRemoved)++;
+            }
+        };
+    
+    
+        Database database;
+        Scene scene(database);
+        auto& r = scene.CreateSystem<RenderSystem>();
+        r.numAdded = &numAdded;
+        r.numRemoved = &numRemoved;
+        
+        auto grandParent = scene.CreateObject();
+        grandParent.Hierarchy().Enabled = false;
+        
+        auto parent = scene.CreateObject();
+        parent.Hierarchy().Parent = grandParent;
+    
+        auto child = scene.CreateObject();
+        child.Hierarchy().Parent = parent;
+        child.AddComponent<Renderable>(10);
+        
+        scene.Update(0);
+        
+        bool wasNotAdded = numAdded == 0;
+        
+        parent.Hierarchy().Parent = nullptr;
+        
+        scene.Update(0);
+        
+        return wasNotAdded && numAdded == 1 && numRemoved == 0;
+    });
+    
+    
+    RunTest("Remove from system if gameobject's parent moved into a disabled parent", [] () {
+        struct Renderable {
+            int meshId;
+        };
+    
+        int numAdded = 0;
+        int numRemoved = 0;
+    
+        struct RenderSystem : System<Renderable> {
+            int* numAdded;
+            int* numRemoved;
+            
+            void ObjectAdded(GameObject object) override {
+                (*numAdded)++;
+            }
+            
+            void ObjectRemoved(GameObject object) override {
+                (*numRemoved)++;
+            }
+        };
+    
+    
+        Database database;
+        Scene scene(database);
+        auto& r = scene.CreateSystem<RenderSystem>();
+        r.numAdded = &numAdded;
+        r.numRemoved = &numRemoved;
+        
+        auto grandParent = scene.CreateObject();
+        grandParent.Hierarchy().Enabled = false;
+        
+        auto parent = scene.CreateObject();
+        parent.Hierarchy().Parent = nullptr;
+    
+        auto child = scene.CreateObject();
+        child.Hierarchy().Parent = parent;
+        child.AddComponent<Renderable>(10);
+        
+        scene.Update(0);
+        
+        bool wasAdded = numAdded == 1;
+        
+        parent.Hierarchy().Parent = grandParent;
+        
+        scene.Update(0);
+        
+        return wasAdded && numRemoved == 1;
+    });
 
 }
