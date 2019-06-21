@@ -170,3 +170,5 @@ void TouchSystem::EnqueueDown(GameObject touchObject, TouchData touchData) {
     equeuedDowns.push_back(touchData);
     touches[touchData.Index].push_back(touchData);
 }
+
+TouchSystem::OctreeSystem& TouchSystem::Octree() { return octree; }

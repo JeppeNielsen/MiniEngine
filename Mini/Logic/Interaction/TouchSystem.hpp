@@ -32,6 +32,7 @@ namespace Mini {
         void ObjectRemoved(GameObject object) override;
         void Update(float dt) override;
         void EnqueueDown(GameObject touchObject, TouchData touchData);
+        OctreeSystem& Octree();
         
         int TouchDepth = 0;
     private:
