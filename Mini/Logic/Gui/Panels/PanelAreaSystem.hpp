@@ -13,34 +13,20 @@
 #include "Draggable.hpp"
 #include "Transform.hpp"
 #include "PanelLocation.hpp"
+#include "PanelSplitterSystem.hpp"
 
 namespace Mini {
     class Gui;
     class PanelSystem;
     using namespace ECS;
-    
-    struct PanelSplitter {
-        GameObject area;
-        PanelLocation location;
-        bool isHorizontal;
-    };
-
     struct PanelAreaSystem : System<PanelArea> {
-        PanelSystem* panels;
-        Gui* gui;
-        void Initialize() override;
+    public:
+        PanelAreaSystem(PanelSystem& panels, PanelSplitterSystem& panelSplitter, Gui& gui);
         void Update(float dt) override;
         void CreateSplitters(GameObject object, PanelArea* area);
-        
-        struct PanelSplitterSystem : System<PanelSplitter, Draggable, Transform> {
-            std::set<GameObject> splittersNeedingAlignment;
-            void ObjectAdded(GameObject object) override;
-            void ObjectRemoved(GameObject object) override;
-            void AreaSizeChanged(GameObject object);
-            void SplitValueChanged(std::string id, GameObject object);
-            void Update(float dt) override;
-            void AlignSplitter(GameObject object);
-            void SetSplitValueFromTransform(GameObject object);
-        };
+    private:
+        PanelSystem& panels;
+        PanelSplitterSystem& panelSplitter;
+        Gui& gui;
     };
 }

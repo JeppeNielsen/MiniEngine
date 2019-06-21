@@ -14,30 +14,29 @@
 #include "Camera.hpp"
 #include "Hoverable.hpp"
 #include "Picker.hpp"
+#include "CameraSystem.hpp"
 #include "InputManager.hpp"
 
 namespace Mini {
     using namespace ECS;
     struct HoverSystem : System<Transform, Mesh, Hoverable> {
-    private:
+    public:
         using OctreeSystem = OctreeSystem<Hoverable>;
-        struct CameraSystem : System<Transform, Camera> {};
-        Property<InputManager*> Input;
+        
+        HoverSystem(OctreeSystem& octree, CameraSystem& cameras, InputManager& input);
+        
         Picker picker;
     public:
-        void Initialize() override;
         OctreeSystem& Octree();
         void ObjectAdded(GameObject object) override;
         void ObjectRemoved(GameObject object) override;
         void Update(float dt) override;
     private:
-        CameraSystem* cameras;
-        OctreeSystem* octree;
+        
+        OctreeSystem& octree;
+        CameraSystem& cameras;
+        InputManager& input;
         using TouchList = std::vector<TouchData>;
         TouchList previousHovers;
-    public:
-        void SetCameras(CameraSystem* cameraSystem);
-        CameraSystem* GetCameras();
-        CameraSystem* GetOriginalCameras();
     };
 }

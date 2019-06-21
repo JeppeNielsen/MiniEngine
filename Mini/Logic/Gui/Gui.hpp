@@ -8,7 +8,7 @@
 
 #pragma once
 #include <vector>
-#include "Scene.hpp"
+#include "ECS.hpp"
 #include "RenderSystem.hpp"
 #include "TransformHierarchy.hpp"
 #include "TouchSystem.hpp"
@@ -36,11 +36,14 @@
 
 namespace Mini {
     using namespace ECS;
-    class Gui : public System<> {
+    class Gui {
     public:
         using Fonts = std::vector<GameObject>;
         
-        void Initialize() override;
+        Gui(Scene& scene, InputManager& input);
+       
+        void CreateSystems();
+        
         void Setup(const std::string &atlasTexture, const std::string &atlasXml, const Rect& viewport);
         void Setup(GameObject atlas, const Rect &viewport);
         GameObject GetCamera();
@@ -65,10 +68,15 @@ namespace Mini {
         void AddLayouter(GameObject object, const Vector2& minSize, const Vector2& desiredSize, const Vector2& maxSize, Layouter::LayoutMode layoutMode = Layouter::LayoutMode::Vertical);
         
         const Fonts& GetFonts() const;
+        
+        void Render();
     private:
-        RenderSystem* renderer;
+        Scene& scene;
+        InputManager& input;
         GameObject camera;
         GameObject atlas;
+        
+        RenderSystem* renderer;
         TouchSystem* touchSystem;
         HoverSystem* hoverSystem;
         TextBoxSystem* textboxSystem;

@@ -10,12 +10,11 @@
 
 using namespace Mini;
 
-void HoverSystem::Initialize() {
-    octree = &scene->CreateSystem<OctreeSystem>();
-    cameras = &scene->CreateSystem<CameraSystem>();
+HoverSystem::HoverSystem(OctreeSystem& octree, CameraSystem& cameras, InputManager& input)
+: octree(octree), cameras(cameras), input(input) {
 }
 
-HoverSystem::OctreeSystem& HoverSystem::Octree() { return *octree; }
+HoverSystem::OctreeSystem& HoverSystem::Octree() { return octree; }
 
 void HoverSystem::ObjectAdded(GameObject object) {
     picker.TryAddClipper(object);
@@ -28,16 +27,15 @@ void HoverSystem::ObjectRemoved(GameObject object) {
 void HoverSystem::Update(float dt) {
     TouchList current;
     
-    Vector2 pos = Input()->GetTouchPosition(0);
+    Vector2 pos = input.GetTouchPosition(0);
     
     TouchEvent e(0, pos);
     
-    for(auto c : cameras->Objects()) {
+    for(auto c : cameras.Objects()) {
         picker.Pick(c, current, e, false, [this] (const Ray& ray, ObjectCollection& list) {
-            octree->GetObjectsAtRay(ray, list);
-        }, Input());
+            octree.GetObjectsAtRay(ray, list);
+        }, &input);
     }
-    
     
     for (auto& c : current) {
         bool isInPrev = false;
@@ -68,16 +66,4 @@ void HoverSystem::Update(float dt) {
     }
     
     previousHovers = current;
-}
-
-void HoverSystem::SetCameras(HoverSystem::CameraSystem *cameraSystem) {
-    cameras = cameraSystem;
-}
-
-HoverSystem::CameraSystem * HoverSystem::GetCameras() {
-    return cameras;
-}
-
-HoverSystem::CameraSystem* HoverSystem::GetOriginalCameras() {
-    return &scene->CreateSystem<CameraSystem>();
 }

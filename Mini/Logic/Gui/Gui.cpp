@@ -18,39 +18,44 @@ using namespace Mini;
 
 GameObject Gui::GetAtlas() { return atlas; }
 
-void Gui::Initialize() {
-    //renderer = &scene->CreateSystem<RenderSystem>(); // TODO:
-    textboxSystem = &scene->CreateSystem<TextBoxSystem>();
-    //touchSystem = &scene->CreateSystem<TouchSystem>(); //TODO:
+Gui::Gui(Scene& scene, InputManager& input) : scene(scene), input(input) {
+}
+
+void Gui::CreateSystems() {
+    auto& cameras = scene.CreateSystem<CameraSystem>();
     
-    scene->CreateSystem<TransformHierarchy>();
+    renderer = &scene.CreateSystem<RenderSystem>(scene.CreateSystem<RenderSystem::OctreeSystem>(), cameras);
+    textboxSystem = &scene.CreateSystem<TextBoxSystem>(input);
+    touchSystem = &scene.CreateSystem<TouchSystem>(scene.CreateSystem<TouchSystem::OctreeSystem>(), cameras, input);
     
-    scene->CreateSystem<SpriteMeshSystem>();
-    scene->CreateSystem<SpriteTextureSystem>();
-    scene->CreateSystem<HierarchyOrder>();//.Order = 1000;
-    scene->CreateSystem<DraggableSystem>();
-    scene->CreateSystem<LayoutSystem>();
-    scene->CreateSystem<ColorSystem>();
-    scene->CreateSystem<DraggableMotionSystem>();
-    scene->CreateSystem<VelocitySystem>();
-    scene->CreateSystem<LimitableSystem>();
-    //scene->CreateSystem<SelectedColorerSystem>();
-    scene->CreateSystem<DroppableSystem>();
-    scene->CreateSystem<DraggableMotionSystem>();
-    scene->CreateSystem<LayoutSystem>();
-    scene->CreateSystem<FontTextureSystem>();//->Order = -1;
-    scene->CreateSystem<LabelMeshSystem>();
-    scene->CreateSystem<TextBoxLabelSystem>();
+    scene.CreateSystem<TransformHierarchy>();
+    scene.CreateSystem<SpriteMeshSystem>();
+    scene.CreateSystem<SpriteTextureSystem>();
+    scene.CreateSystem<HierarchyOrder>();
+    scene.CreateSystem<DraggableSystem>();
+    scene.CreateSystem<LayoutSystem>();
+    scene.CreateSystem<ColorSystem>();
+    scene.CreateSystem<DraggableMotionSystem>();
+    scene.CreateSystem<VelocitySystem>();
+    scene.CreateSystem<LimitableSystem>();
+    //scene.CreateSystem<SelectedColorerSystem>();
+    scene.CreateSystem<DroppableSystem>();
+    scene.CreateSystem<DraggableMotionSystem>();
+    scene.CreateSystem<LayoutSystem>();
+    scene.CreateSystem<FontTextureSystem>();
+    scene.CreateSystem<LabelMeshSystem>();
+    scene.CreateSystem<TextBoxLabelSystem>();
     
-    scene->CreateSystem<PanelDropSystem>();//->Order = -1;
-    scene->CreateSystem<PanelSystem>();//->Order = -1;
-    scene->CreateSystem<PanelAreaSystem>();//->Order = -1;
-    scene->CreateSystem<TouchCancelSystem>();
+    scene.CreateSystem<PanelDropSystem>();
+    auto& panelSystem = scene.CreateSystem<PanelSystem>();
+    auto& splitterSystem = scene.CreateSystem<PanelSplitterSystem>();
+    scene.CreateSystem<PanelAreaSystem>(panelSystem, splitterSystem, *this);
+    scene.CreateSystem<TouchCancelSystem>();
     
-    hoverSystem = &scene->CreateSystem<HoverSystem>();
-    scene->CreateSystem<ScrollWheelMoverSystem>();
-    scene->CreateSystem<VirtualTreeListSystem>();
-    scene->CreateSystem<VirtualTreeListSpawnerSystem>();
+    hoverSystem = &scene.CreateSystem<HoverSystem>(scene.CreateSystem<HoverSystem::OctreeSystem>(), cameras, input);
+    scene.CreateSystem<ScrollWheelMoverSystem>();
+    scene.CreateSystem<VirtualTreeListSystem>();
+    scene.CreateSystem<VirtualTreeListSpawnerSystem>();
 }
 
 void Gui::Setup(const std::string &atlasTexture, const std::string &atlasXml, const Rect& viewport) {
@@ -59,7 +64,7 @@ void Gui::Setup(const std::string &atlasTexture, const std::string &atlasXml, co
     std::ifstream file;
     file.open(atlasFile);
     JsonDeserializer serializer;
-    atlas = scene->CreateObject();
+    atlas = scene.CreateObject();
     serializer.DeserializeObject(atlas, file);
     file.close();
     Texture& texture = atlas.AddComponent<TextureComponent>()->Texture();
@@ -74,10 +79,10 @@ void Gui::Setup(GameObject atlas, const Rect &viewport) {
     
     BoundingBox bounds(0, Vector3(viewport.width * 2.0f, viewport.height * 2.0f, 3000.0f));
     renderer->Octree().SetWorldBounds(bounds);
-    //touchSystem->Octree().SetWorldBounds(bounds); // TODO:
+    touchSystem->Octree().SetWorldBounds(bounds);
     hoverSystem->Octree().SetWorldBounds(bounds);
     
-    camera = scene->CreateObject();
+    camera = scene.CreateObject();
     camera.AddComponent<Transform>()->Position = Vector3(0,0,1);
     Camera* cam = camera.AddComponent<Camera>();
     
@@ -96,7 +101,7 @@ GameObject Gui::CreatePivot(GameObject parent) {
 }
 
 GameObject Gui::CreatePivot(GameObject parent, const Vector2& position) {
-    GameObject pivot = scene->CreateObject();
+    GameObject pivot = scene.CreateObject();
     pivot.Hierarchy().Parent = parent;
     pivot.AddComponent<Transform>()->Position = position;
     pivot.AddComponent<Orderable>();
@@ -111,8 +116,8 @@ GameObject Gui::CreateControl(GameObject parent) {
     control.AddComponent<Colorable>();
     control.AddComponent<Sizeable>();
     control.AddComponent<Sprite>();
-    control.AddReferenceComponent<class Atlas>(atlas);
-    control.AddReferenceComponent<TextureComponent>(atlas);
+    //control.AddReferenceComponent<class Atlas>(atlas);
+    //control.AddReferenceComponent<TextureComponent>(atlas);
     return control;
 }
 
@@ -153,7 +158,7 @@ GameObject Gui::CreateClipper(GameObject parent, bool push) {
 }
 
 GameObject Gui::CreateFont(const std::string& fontFile) {
-    GameObject font = scene->CreateObject();
+    GameObject font = scene.CreateObject();
     font.AddComponent<Font>()->LoadTTF(fontFile);
     font.GetComponent<Font>()->CharacterSetEverySize = 6;
     font.GetComponent<Font>()->maxTextureWidth = 1024;
@@ -279,4 +284,8 @@ void Gui::AddLayouter(GameObject object, const Vector2& minSize, const Vector2& 
     l->Desired = desiredSize;
     l->Max = maxSize;
     l->ChildrenLayoutMode = layoutMode;
+}
+
+void Gui::Render() {
+    renderer->Render();
 }

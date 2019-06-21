@@ -18,10 +18,9 @@ namespace Mini {
     class Gui;
     struct TextBoxSystem : System<TextBox, Touchable> {
     public:
-        
-        Property<InputManager*> Input;
-        
-        void Initialize();
+    
+        TextBoxSystem(InputManager& input);
+
         void ObjectAdded(GameObject object);
         void ObjectRemoved(GameObject object);
         void ActiveTextBoxChanged(GameObject object);
@@ -45,6 +44,7 @@ namespace Mini {
         
         bool touchWasUp;
         bool anyTextboxUp;
+        InputManager& input;
 
     public:
         Property<TextBox*> ActiveTextBox;

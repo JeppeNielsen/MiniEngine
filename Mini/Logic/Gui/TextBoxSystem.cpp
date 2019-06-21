@@ -10,8 +10,8 @@
 
 using namespace Mini;
 
-void TextBoxSystem::Initialize() {
-    ActiveTextBox = 0;
+TextBoxSystem::TextBoxSystem(InputManager& input) : input(input) {
+    ActiveTextBox = nullptr;
 }
 
 void TextBoxSystem::ObjectAdded(GameObject object) {
@@ -48,20 +48,20 @@ void TextBoxSystem::ActiveTextBoxChanged(GameObject object) {
             }
         }
         
-        Input()->KeyboardText = textBox->Text;
-        Input()->KeyboardActive = true;
+        input.KeyboardText = textBox->Text;
+        input.KeyboardActive = true;
         
-        Input()->KeyboardActive.Changed.Bind(this, &TextBoxSystem::KeyboardActiveChanged);
-        Input()->KeyboardText.Changed.Bind(this, &TextBoxSystem::KeyboardTextChanged);
-        Input()->TouchDown.Bind(this, &TextBoxSystem::TouchInputUp);
+        input.KeyboardActive.Changed.Bind(this, &TextBoxSystem::KeyboardActiveChanged);
+        input.KeyboardText.Changed.Bind(this, &TextBoxSystem::KeyboardTextChanged);
+        input.TouchDown.Bind(this, &TextBoxSystem::TouchInputUp);
         
     } else {
         if (textBox == ActiveTextBox()) {
             ActiveTextBox = 0;
-            Input()->KeyboardActive.Changed.Unbind(this, &TextBoxSystem::KeyboardActiveChanged);
-            Input()->KeyboardText.Changed.Unbind(this, &TextBoxSystem::KeyboardTextChanged);
-            Input()->TouchDown.Unbind(this, &TextBoxSystem::TouchInputUp);
-            Input()->KeyboardActive = false;
+            input.KeyboardActive.Changed.Unbind(this, &TextBoxSystem::KeyboardActiveChanged);
+            input.KeyboardText.Changed.Unbind(this, &TextBoxSystem::KeyboardTextChanged);
+            input.TouchDown.Unbind(this, &TextBoxSystem::TouchInputUp);
+            input.KeyboardActive = false;
         }
     }
 }
@@ -112,14 +112,14 @@ void TextBoxSystem::Update(float dt) {
 }
 
 void TextBoxSystem::KeyboardActiveChanged() {
-    if (!Input()->KeyboardActive && ActiveTextBox() && ActiveTextBox()->DeselectOnEnter) {
+    if (!input.KeyboardActive && ActiveTextBox() && ActiveTextBox()->DeselectOnEnter) {
         ActiveTextBox()->Active = false;
     }
 }
 
 void TextBoxSystem::KeyboardTextChanged() {
     if (ActiveTextBox()) {
-        ActiveTextBox()->Text = Input()->KeyboardText;
+        ActiveTextBox()->Text = input.KeyboardText;
     }
 }
         
