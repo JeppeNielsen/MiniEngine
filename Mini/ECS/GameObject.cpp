@@ -45,6 +45,9 @@ GameObject::operator bool() const {
 
 void GameObject::Remove() const {
     assert(operator bool());
+    for(auto child : Hierarchy().Children()) {
+        child.Remove();
+    }
     scene->RemoveObject(id);
 }
 
