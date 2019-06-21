@@ -61,7 +61,7 @@ struct Container : public IContainer {
     
     void CreateDefault(const GameObjectId id) override {
         CreateIndex(id);
-        elements.emplace_back(T{});
+        elements.resize(elements.size() + 1);
     }
     
     template<typename... Args>
@@ -129,11 +129,14 @@ struct Container : public IContainer {
     }
     
     template<typename Type>
-    static void TryDeserializeFields(minijson::istream_context& context, Type& instance) {
-        Mini::Meta::static_if<HasGetTypeMethod<Type>, Type&>(instance, [&context](auto& getType) {
+    static bool TryDeserializeFields(minijson::istream_context& context, Type& instance) {
+        bool ret = false;
+        Mini::Meta::static_if<HasGetTypeMethod<Type>, Type&>(instance, [&context, &ret](auto& getType) {
             auto typeInfo = getType.GetType();
             typeInfo.Deserialize(context);
+            ret = true;
         });
+        return ret;
     }
     
     virtual void Serialize(const GameObjectId id, minijson::object_writer& writer) override {
@@ -143,7 +146,9 @@ struct Container : public IContainer {
     
     virtual void Deserialize(const GameObjectId id, minijson::istream_context& context) override {
         T* instance = Get(id);
-        TryDeserializeFields(context, *instance);
+        if (!TryDeserializeFields(context, *instance)) {
+            minijson::ignore(context);
+        }
     }
     
     
