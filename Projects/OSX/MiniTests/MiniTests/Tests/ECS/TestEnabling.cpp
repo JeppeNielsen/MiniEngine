@@ -137,27 +137,19 @@ void TestEnabling::Run() {
         };
     
         int numAdded = 0;
-        int numRemoved = 0;
-    
+       
         struct RenderSystem : System<Renderable> {
             int* numAdded;
-            int* numRemoved;
             
             void ObjectAdded(GameObject object) override {
                 (*numAdded)++;
             }
-            
-            void ObjectRemoved(GameObject object) override {
-                (*numRemoved)++;
-            }
         };
-    
     
         Database database;
         Scene scene(database);
         auto& r = scene.CreateSystem<RenderSystem>();
         r.numAdded = &numAdded;
-        r.numRemoved = &numRemoved;
     
         auto child = scene.CreateObject();
         child.AddComponent<Renderable>(10);
@@ -206,6 +198,84 @@ void TestEnabling::Run() {
         scene.Update(0);
         return numAdded == 1 && numRemoved == 0;
     });
-
+    
+    
+    RunTest("Dont add to system if added to disabled parent, AddComponent is post enable", [] () {
+        struct Renderable {
+            int meshId;
+        };
+    
+        int numAdded = 0;
+        int numRemoved = 0;
+    
+        struct RenderSystem : System<Renderable> {
+            int* numAdded;
+            int* numRemoved;
+            
+            void ObjectAdded(GameObject object) override {
+                (*numAdded)++;
+            }
+            
+            void ObjectRemoved(GameObject object) override {
+                (*numRemoved)++;
+            }
+        };
+    
+    
+        Database database;
+        Scene scene(database);
+        auto& r = scene.CreateSystem<RenderSystem>();
+        r.numAdded = &numAdded;
+        r.numRemoved = &numRemoved;
+        
+        auto parent = scene.CreateObject();
+        parent.Hierarchy().Enabled = false;
+    
+        auto child = scene.CreateObject();
+        child.Hierarchy().Parent = parent;
+        
+        child.AddComponent<Renderable>(10);
+        scene.Update(0);
+        return numAdded == 0 && numRemoved == 0;
+    });
+    
+    RunTest("Dont add to system if added to disabled parent, AddComponent is pre enable", [] () {
+        struct Renderable {
+            int meshId;
+        };
+    
+        int numAdded = 0;
+        int numRemoved = 0;
+    
+        struct RenderSystem : System<Renderable> {
+            int* numAdded;
+            int* numRemoved;
+            
+            void ObjectAdded(GameObject object) override {
+                (*numAdded)++;
+            }
+            
+            void ObjectRemoved(GameObject object) override {
+                (*numRemoved)++;
+            }
+        };
+    
+    
+        Database database;
+        Scene scene(database);
+        auto& r = scene.CreateSystem<RenderSystem>();
+        r.numAdded = &numAdded;
+        r.numRemoved = &numRemoved;
+        
+        auto parent = scene.CreateObject();
+        parent.Hierarchy().Enabled = false;
+    
+        auto child = scene.CreateObject();
+        child.AddComponent<Renderable>(10);
+        child.Hierarchy().Parent = parent;
+        
+        scene.Update(0);
+        return numAdded == 0 && numRemoved == 0;
+    });
 
 }
