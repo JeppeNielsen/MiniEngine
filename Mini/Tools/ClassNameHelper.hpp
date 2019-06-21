@@ -9,6 +9,7 @@
 #pragma once
 #include <string>
 
+namespace Mini {
 class ClassNameHelper {
 
     template<typename Class>
@@ -30,3 +31,4 @@ public:
         return name;
     }
 };
+}
