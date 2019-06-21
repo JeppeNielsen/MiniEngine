@@ -108,10 +108,10 @@ public:
         if (!vertexType) {
             GetMesh<Vertex>(); //TODO: needs to support other vertex types
         }
-        info.AddField("VertexMesh", vertexMesh);
+        info.AddField("VertexMesh", *vertexMesh);
         return info;
     }
-    *///TODO : re-enable this
+    */
     
     void LoadAsset(const std::string& path);
     
