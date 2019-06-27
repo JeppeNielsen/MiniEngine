@@ -161,7 +161,7 @@ void TestEnabling::Run() {
     });
     
     
-    RunTest("Multiple enable/disable results in one ObjectAdded", [] () {
+    RunTest("Multiple disable results in one ObjectRemoved", [] () {
         struct Renderable {
             int meshId;
         };
@@ -182,6 +182,42 @@ void TestEnabling::Run() {
             }
         };
     
+        Database database;
+        Scene scene(database);
+        auto& r = scene.CreateSystem<RenderSystem>();
+        r.numAdded = &numAdded;
+        r.numRemoved = &numRemoved;
+    
+        auto child = scene.CreateObject();
+        child.AddComponent<Renderable>(10);
+        
+        scene.Update(0);
+        child.Hierarchy().Enabled = false;
+        child.Hierarchy().Enabled = false;
+        scene.Update(0);
+        return numAdded == 1 && numRemoved == 1;
+    });
+    
+    RunTest("Multiple enable/disable results in one ObjectAdded", [] () {
+        struct Renderable {
+            int meshId;
+        };
+    
+        int numAdded = 0;
+        int numRemoved = 0;
+    
+        struct RenderSystem : System<Renderable> {
+            int* numAdded;
+            int* numRemoved;
+            
+            void ObjectAdded(GameObject object) override {
+                (*numAdded)++;
+            }
+            
+            void ObjectRemoved(GameObject object) override {
+                (*numRemoved)++;
+            }
+        };
     
         Database database;
         Scene scene(database);
@@ -375,6 +411,98 @@ void TestEnabling::Run() {
         scene.Update(0);
         
         return wasAdded && numRemoved == 1;
+    });
+    
+    RunTest("All children and grandchildren removed from system on top disable", [] () {
+        struct Renderable {
+            int meshId;
+        };
+    
+        int numAdded = 0;
+        int numRemoved = 0;
+    
+        struct RenderSystem : System<Renderable> {
+            int* numAdded;
+            int* numRemoved;
+            
+            void ObjectAdded(GameObject object) override {
+                (*numAdded)++;
+            }
+            
+            void ObjectRemoved(GameObject object) override {
+                (*numRemoved)++;
+            }
+        };
+    
+    
+        Database database;
+        Scene scene(database);
+        auto& r = scene.CreateSystem<RenderSystem>();
+        r.numAdded = &numAdded;
+        r.numRemoved = &numRemoved;
+        
+        auto parent = scene.CreateObject();
+        parent.Hierarchy().Parent = nullptr;
+        parent.AddComponent<Renderable>(12);
+    
+        auto child = scene.CreateObject();
+        child.Hierarchy().Parent = parent;
+        child.AddComponent<Renderable>(34);
+        
+        auto grandChild = scene.CreateObject();
+        grandChild.Hierarchy().Parent = child;
+        grandChild.AddComponent<Renderable>(56);
+        
+        scene.Update(0);
+        
+        bool wasAdded = numAdded == 3;
+        
+        parent.Hierarchy().Enabled = false;
+        
+        scene.Update(0);
+        
+        return wasAdded && numRemoved == 3;
+    });
+    
+    RunTest("Remove component from disabled object", [] () {
+        struct Renderable {
+            int meshId;
+        };
+    
+        int numAdded = 0;
+        int numRemoved = 0;
+    
+        struct RenderSystem : System<Renderable> {
+            int* numAdded;
+            int* numRemoved;
+            
+            void ObjectAdded(GameObject object) override {
+                (*numAdded)++;
+            }
+            
+            void ObjectRemoved(GameObject object) override {
+                (*numRemoved)++;
+            }
+        };
+    
+    
+        Database database;
+        Scene scene(database);
+        auto& r = scene.CreateSystem<RenderSystem>();
+        r.numAdded = &numAdded;
+        r.numRemoved = &numRemoved;
+        
+        auto object = scene.CreateObject();
+        object.AddComponent<Renderable>(12);
+    
+        scene.Update(0);
+        
+        object.Hierarchy().Enabled = false;
+        object.RemoveComponent<Renderable>();
+        
+        scene.Update(0);
+        
+        return numAdded == 1 && numRemoved == 1;
     });
 
 }
