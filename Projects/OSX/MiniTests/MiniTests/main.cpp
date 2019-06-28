@@ -11,6 +11,7 @@
 #include "TestHierarchy.hpp"
 #include "TestEnabling.hpp"
 #include "TestReflection.hpp"
+#include "TestSerialization.hpp"
 
 using namespace Tests;
 
@@ -28,6 +29,10 @@ int main() {
     std::cout << std::endl;
     ECS::TestReflection testReflection;
     testReflection.Run();
+    
+    std::cout << std::endl;
+    ECS::TestSerialization testSerialization;
+    testSerialization.Run();
     
     return 0;
 }
