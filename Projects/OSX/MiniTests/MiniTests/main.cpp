@@ -10,6 +10,7 @@
 #include "TestCore.hpp"
 #include "TestHierarchy.hpp"
 #include "TestEnabling.hpp"
+#include "TestReflection.hpp"
 
 using namespace Tests;
 
@@ -24,6 +25,9 @@ int main() {
     ECS::TestEnabling testEnabling;
     testEnabling.Run();
     
+    std::cout << std::endl;
+    ECS::TestReflection testReflection;
+    testReflection.Run();
     
     return 0;
 }
