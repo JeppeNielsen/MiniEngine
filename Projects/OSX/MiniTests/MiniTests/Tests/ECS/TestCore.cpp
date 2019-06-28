@@ -309,4 +309,22 @@ void TestCore::Run() {
         
         return bothAdded && onlyOneRemoved;
     });
+    
+    
+    RunTest("IterateComponents", [] () -> bool {
+        struct Transform { int position; };
+        struct Renderable { int image; };
+        
+        Database database;
+        Scene scene(database);
+        
+        GameObject gameObject = scene.CreateObject();
+        gameObject.AddComponent<Transform>(123);
+        gameObject.AddComponent<Renderable>(456);
+        int counter = 0;
+        gameObject.IterateComponents([&counter](auto component){
+            counter++;
+        });
+        return counter == 3;
+    });
 }
