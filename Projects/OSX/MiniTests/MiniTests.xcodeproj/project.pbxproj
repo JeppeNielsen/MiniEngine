@@ -43,6 +43,7 @@
 		7242CF8322B4368700439849 /* TestCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8022B4368700439849 /* TestCore.cpp */; };
 		7242CF8922B815BA00439849 /* TestHierarchy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8722B815BA00439849 /* TestHierarchy.cpp */; };
 		7242CF8C22B96DC700439849 /* TestEnabling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8A22B96DC700439849 /* TestEnabling.cpp */; };
+		7242CF8F22C6A60400439849 /* TestReflection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8D22C6A60400439849 /* TestReflection.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -143,6 +144,8 @@
 		7242CF8822B815BA00439849 /* TestHierarchy.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestHierarchy.hpp; sourceTree = "<group>"; };
 		7242CF8A22B96DC700439849 /* TestEnabling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestEnabling.cpp; sourceTree = "<group>"; };
 		7242CF8B22B96DC700439849 /* TestEnabling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestEnabling.hpp; sourceTree = "<group>"; };
+		7242CF8D22C6A60400439849 /* TestReflection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestReflection.cpp; sourceTree = "<group>"; };
+		7242CF8E22C6A60400439849 /* TestReflection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestReflection.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +343,8 @@
 				7242CF8822B815BA00439849 /* TestHierarchy.hpp */,
 				7242CF8A22B96DC700439849 /* TestEnabling.cpp */,
 				7242CF8B22B96DC700439849 /* TestEnabling.hpp */,
+				7242CF8D22C6A60400439849 /* TestReflection.cpp */,
+				7242CF8E22C6A60400439849 /* TestReflection.hpp */,
 			);
 			path = ECS;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 				7242CF6822B1888500439849 /* FieldInfo.cpp in Sources */,
 				7242CF6122B1888500439849 /* Vector2.cpp in Sources */,
 				7242CF5C22B1888500439849 /* Point3.cpp in Sources */,
+				7242CF8F22C6A60400439849 /* TestReflection.cpp in Sources */,
 				7242CF5422B1888500439849 /* BoundingBox.cpp in Sources */,
 				7242CF5622B1888500439849 /* Box.cpp in Sources */,
 				7242CE7922B1888500439849 /* ObjectList.cpp in Sources */,
