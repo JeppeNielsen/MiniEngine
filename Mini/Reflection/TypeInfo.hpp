@@ -18,20 +18,24 @@
 namespace Mini {
     class TypeInfo {
     public:
+        using FieldCollection = std::vector<FieldInfo>;
+    
         TypeInfo(const std::string& name);
         void Serialize(minijson::object_writer& writer);
         void Deserialize(minijson::istream_context& context);
-        const std::string& Name();
+        const std::string& Name() const;
         bool TryFindField(const std::string& name, FieldInfo& info);
         
         template<typename T>
         void AddField(const std::string& name, T& field) {
             fields.emplace_back(FieldInfo(name, field));
         }
+        
+        const FieldCollection& Fields() const;
     private:
         std::string name;
-        using Fields = std::vector<FieldInfo>;
-        Fields fields;
+        
+        FieldCollection fields;
     };
     
 #define TYPE_FIELDS_BEGIN \

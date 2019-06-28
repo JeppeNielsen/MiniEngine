@@ -27,7 +27,7 @@ void TypeInfo::Deserialize(minijson::istream_context& context) {
     });
 }
 
-const std::string& TypeInfo::Name() {
+const std::string& TypeInfo::Name() const {
     return name;
 }
 
@@ -39,4 +39,8 @@ bool TypeInfo::TryFindField(const std::string& name, FieldInfo& info) {
         }
     }
     return false;
+}
+
+const TypeInfo::FieldCollection& TypeInfo::Fields() const {
+    return fields;
 }
