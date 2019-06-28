@@ -28,7 +28,7 @@ namespace Mini {
             field->Deserialize(context, jsonValue);
         }
         
-        const std::string& Name() {
+        const std::string& Name() const {
             return field->name;
         }
         
