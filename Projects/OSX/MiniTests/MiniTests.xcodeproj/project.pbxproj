@@ -44,6 +44,7 @@
 		7242CF8922B815BA00439849 /* TestHierarchy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8722B815BA00439849 /* TestHierarchy.cpp */; };
 		7242CF8C22B96DC700439849 /* TestEnabling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8A22B96DC700439849 /* TestEnabling.cpp */; };
 		7242CF8F22C6A60400439849 /* TestReflection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8D22C6A60400439849 /* TestReflection.cpp */; };
+		7242CF9222C6ADF900439849 /* TestSerialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF9022C6ADF900439849 /* TestSerialization.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -146,6 +147,8 @@
 		7242CF8B22B96DC700439849 /* TestEnabling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestEnabling.hpp; sourceTree = "<group>"; };
 		7242CF8D22C6A60400439849 /* TestReflection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestReflection.cpp; sourceTree = "<group>"; };
 		7242CF8E22C6A60400439849 /* TestReflection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestReflection.hpp; sourceTree = "<group>"; };
+		7242CF9022C6ADF900439849 /* TestSerialization.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestSerialization.cpp; sourceTree = "<group>"; };
+		7242CF9122C6ADF900439849 /* TestSerialization.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestSerialization.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +348,8 @@
 				7242CF8B22B96DC700439849 /* TestEnabling.hpp */,
 				7242CF8D22C6A60400439849 /* TestReflection.cpp */,
 				7242CF8E22C6A60400439849 /* TestReflection.hpp */,
+				7242CF9022C6ADF900439849 /* TestSerialization.cpp */,
+				7242CF9122C6ADF900439849 /* TestSerialization.hpp */,
 			);
 			path = ECS;
 			sourceTree = "<group>";
@@ -418,6 +423,7 @@
 				7242CF5622B1888500439849 /* Box.cpp in Sources */,
 				7242CE7922B1888500439849 /* ObjectList.cpp in Sources */,
 				7242CF5F22B1888500439849 /* Rect.cpp in Sources */,
+				7242CF9222C6ADF900439849 /* TestSerialization.cpp in Sources */,
 				7242CF7D22B1888500439849 /* Timer.cpp in Sources */,
 				7242CF7B22B1888500439849 /* RectPacker.cpp in Sources */,
 				7242CF8322B4368700439849 /* TestCore.cpp in Sources */,
