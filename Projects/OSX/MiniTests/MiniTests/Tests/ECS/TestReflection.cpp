@@ -87,6 +87,54 @@ void TestReflection::Run() {
         typeInfo.Fields()[0].Name()=="first" &&
         typeInfo.Fields()[1].Name()=="second";
     });
+    
+     RunTest("Serialize 2 fields",[]() -> bool {
+    
+        struct Pair {
+            std::string first;
+            std::string second;
+            
+            TYPE_FIELDS_BEGIN
+            TYPE_FIELD(first)
+            TYPE_FIELD(second)
+            TYPE_FIELDS_END
+        };
+    
+        Pair pair {"one", "two"};
+        
+        auto typeInfo = pair.GetType();
+        
+        std::stringstream ss;
+        minijson::writer_configuration config;
+        minijson::object_writer writer(ss, config);
+        typeInfo.Serialize(writer);
+        writer.close();
+        return ss.str() == "{\"first\":\"one\",\"second\":\"two\"}";
+    });
+    
+    
+    RunTest("Deserialize 2 fields",[]() -> bool {
+    
+        struct Pair {
+            std::string first;
+            std::string second;
+            
+            TYPE_FIELDS_BEGIN
+            TYPE_FIELD(first)
+            TYPE_FIELD(second)
+            TYPE_FIELDS_END
+        };
+        
+        Pair pair;
+        auto typeInfo = pair.GetType();
+        
+        std::stringstream ss;
+        ss<<"{\"first\":\"one\",\"second\":\"two\"}";
+        minijson::istream_context context(ss);
+        typeInfo.Deserialize(context);
+        
+        return pair.first == "one" && pair.second == "two";
+    });
 
 
 }
