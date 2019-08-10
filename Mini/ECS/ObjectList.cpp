@@ -23,10 +23,15 @@ void ObjectList::Remove(const GameObjectId object) {
     const auto objectIndex = object & GameObjectIdIndexMask;
     const auto last = objects.back();
     const auto lastIndex = last & GameObjectIdIndexMask;
-    indicies[lastIndex] = objectIndex;
-    objects[objectIndex] = objects[lastIndex];
-    objects.pop_back();
+    
+    const auto indexInObjects = indicies[objectIndex];
+    const auto lastIndexInObjects = indicies[lastIndex];
+    
+    indicies[lastIndex] = indicies[objectIndex];
     indicies[objectIndex] = GameObjectIdNull;
+    
+    objects[indexInObjects] = objects[lastIndexInObjects];
+    objects.pop_back();
 }
 
 bool ObjectList::Contains(const GameObjectId object) const {
