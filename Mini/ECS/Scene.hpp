@@ -29,7 +29,11 @@ class Scene {
 public:
     Scene(Database& database);
     ~Scene();
-
+    Scene(Scene&& other) = default;
+    
+    Scene(const Scene& other) = delete;
+    Scene& operator=( const Scene& ) = delete;
+    
     template<typename T, typename...Args>
     T& CreateSystem(Args&&... args) {
         const auto systemId = SystemIdHelper::GetId<T>();
