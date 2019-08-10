@@ -45,6 +45,13 @@
 		7242CF8C22B96DC700439849 /* TestEnabling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8A22B96DC700439849 /* TestEnabling.cpp */; };
 		7242CF8F22C6A60400439849 /* TestReflection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF8D22C6A60400439849 /* TestReflection.cpp */; };
 		7242CF9222C6ADF900439849 /* TestSerialization.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF9022C6ADF900439849 /* TestSerialization.cpp */; };
+		7242CF9622CE7C6000439849 /* AssetDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF9422CE7C6000439849 /* AssetDatabase.cpp */; };
+		7242CF9922CE7DC400439849 /* TestAssetDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CF9722CE7DC400439849 /* TestAssetDatabase.cpp */; };
+		7242CFA122DBD24B00439849 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7242CFA022DBD23E00439849 /* CoreFoundation.framework */; };
+		7242CFB222DBD67F00439849 /* FileSystemWatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CFAB22DBD67F00439849 /* FileSystemWatcher.cpp */; };
+		7242CFB522DBD6E300439849 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7242CFB422DBD6DD00439849 /* CoreServices.framework */; };
+		7242CFB822E24CBF00439849 /* LoadedAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CFB622E24CBF00439849 /* LoadedAsset.cpp */; };
+		72EF80FC22FF3AFB00497133 /* TestObjectList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -149,6 +156,19 @@
 		7242CF8E22C6A60400439849 /* TestReflection.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestReflection.hpp; sourceTree = "<group>"; };
 		7242CF9022C6ADF900439849 /* TestSerialization.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestSerialization.cpp; sourceTree = "<group>"; };
 		7242CF9122C6ADF900439849 /* TestSerialization.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestSerialization.hpp; sourceTree = "<group>"; };
+		7242CF9422CE7C6000439849 /* AssetDatabase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AssetDatabase.cpp; sourceTree = "<group>"; };
+		7242CF9522CE7C6000439849 /* AssetDatabase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AssetDatabase.hpp; sourceTree = "<group>"; };
+		7242CF9722CE7DC400439849 /* TestAssetDatabase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TestAssetDatabase.cpp; sourceTree = "<group>"; };
+		7242CF9822CE7DC400439849 /* TestAssetDatabase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TestAssetDatabase.hpp; sourceTree = "<group>"; };
+		7242CF9C22DBBDE700439849 /* Button.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Button.json; sourceTree = "<group>"; };
+		7242CFA022DBD23E00439849 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7242CFA622DBD67F00439849 /* FileSystemWatcher.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileSystemWatcher.hpp; sourceTree = "<group>"; };
+		7242CFAB22DBD67F00439849 /* FileSystemWatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileSystemWatcher.cpp; sourceTree = "<group>"; };
+		7242CFB422DBD6DD00439849 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		7242CFB622E24CBF00439849 /* LoadedAsset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LoadedAsset.cpp; sourceTree = "<group>"; };
+		7242CFB722E24CBF00439849 /* LoadedAsset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoadedAsset.hpp; sourceTree = "<group>"; };
+		72EF80FA22FF3AFB00497133 /* TestObjectList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestObjectList.hpp; sourceTree = "<group>"; };
+		72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestObjectList.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +176,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7242CFB522DBD6E300439849 /* CoreServices.framework in Frameworks */,
+				7242CFA122DBD24B00439849 /* CoreFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +190,7 @@
 				7242CBB122B1888400439849 /* Mini */,
 				7242CBA922B1886E00439849 /* MiniTests */,
 				7242CBA822B1886E00439849 /* Products */,
+				7242CF9D22DBD00800439849 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -192,9 +215,11 @@
 		7242CBB122B1888400439849 /* Mini */ = {
 			isa = PBXGroup;
 			children = (
+				7242CF9322CE780C00439849 /* Assets */,
 				7242CBBE22B1888400439849 /* ECS */,
 				7242CBD022B1888400439849 /* Json */,
 				7242CE0A22B1888500439849 /* Math */,
+				7242CFA222DBD67F00439849 /* Platform */,
 				7242CE3622B1888500439849 /* Reflection */,
 				7242CE5622B1888500439849 /* Serialization */,
 				7242CE5D22B1888500439849 /* Tools */,
@@ -323,6 +348,7 @@
 		7242CF8422B80D7A00439849 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				7242CF9A22CE7F4E00439849 /* Assets */,
 				7242CF8622B80DDA00439849 /* ECS */,
 			);
 			path = Tests;
@@ -340,6 +366,8 @@
 		7242CF8622B80DDA00439849 /* ECS */ = {
 			isa = PBXGroup;
 			children = (
+				72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */,
+				72EF80FA22FF3AFB00497133 /* TestObjectList.hpp */,
 				7242CF8022B4368700439849 /* TestCore.cpp */,
 				7242CF8122B4368700439849 /* TestCore.hpp */,
 				7242CF8722B815BA00439849 /* TestHierarchy.cpp */,
@@ -350,8 +378,55 @@
 				7242CF8E22C6A60400439849 /* TestReflection.hpp */,
 				7242CF9022C6ADF900439849 /* TestSerialization.cpp */,
 				7242CF9122C6ADF900439849 /* TestSerialization.hpp */,
+				7242CF9722CE7DC400439849 /* TestAssetDatabase.cpp */,
+				7242CF9822CE7DC400439849 /* TestAssetDatabase.hpp */,
 			);
 			path = ECS;
+			sourceTree = "<group>";
+		};
+		7242CF9322CE780C00439849 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7242CF9422CE7C6000439849 /* AssetDatabase.cpp */,
+				7242CF9522CE7C6000439849 /* AssetDatabase.hpp */,
+				7242CFB622E24CBF00439849 /* LoadedAsset.cpp */,
+				7242CFB722E24CBF00439849 /* LoadedAsset.hpp */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		7242CF9A22CE7F4E00439849 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7242CF9C22DBBDE700439849 /* Button.json */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		7242CF9D22DBD00800439849 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7242CFB422DBD6DD00439849 /* CoreServices.framework */,
+				7242CFA022DBD23E00439849 /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7242CFA222DBD67F00439849 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				7242CFA622DBD67F00439849 /* FileSystemWatcher.hpp */,
+				7242CFA722DBD67F00439849 /* OSX */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		7242CFA722DBD67F00439849 /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				7242CFAB22DBD67F00439849 /* FileSystemWatcher.cpp */,
+			);
+			path = OSX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,9 +505,11 @@
 				7242CE7522B1888500439849 /* Database.cpp in Sources */,
 				7242CF6222B1888500439849 /* Vector3.cpp in Sources */,
 				7242CF5E22B1888500439849 /* Ray.cpp in Sources */,
+				7242CF9922CE7DC400439849 /* TestAssetDatabase.cpp in Sources */,
 				7242CF8C22B96DC700439849 /* TestEnabling.cpp in Sources */,
 				7242CBAB22B1886E00439849 /* main.cpp in Sources */,
 				7242CF6022B1888500439849 /* TransitionHelper.cpp in Sources */,
+				7242CFB222DBD67F00439849 /* FileSystemWatcher.cpp in Sources */,
 				7242CF8922B815BA00439849 /* TestHierarchy.cpp in Sources */,
 				7242CF8222B4368700439849 /* TestBase.cpp in Sources */,
 				7242CE7822B1888500439849 /* Hierarchy.cpp in Sources */,
@@ -440,6 +517,7 @@
 				7242CF5D22B1888500439849 /* Quaternion.cpp in Sources */,
 				7242CF7722B1888500439849 /* JsonSerializer.cpp in Sources */,
 				7242CF6922B1888500439849 /* TypeInfo.cpp in Sources */,
+				72EF80FC22FF3AFB00497133 /* TestObjectList.cpp in Sources */,
 				7242CF5922B1888500439849 /* Matrix4x4.cpp in Sources */,
 				7242CF5722B1888500439849 /* MathHelper.cpp in Sources */,
 				7242CF5522B1888500439849 /* BoundingFrustum.cpp in Sources */,
@@ -447,8 +525,10 @@
 				7242CF7822B1888500439849 /* CommandRunner.cpp in Sources */,
 				7242CF7622B1888500439849 /* JsonDeserializer.cpp in Sources */,
 				7242CE7722B1888500439849 /* GameObjectIterator.cpp in Sources */,
+				7242CF9622CE7C6000439849 /* AssetDatabase.cpp in Sources */,
 				7242CF5A22B1888500439849 /* Plane.cpp in Sources */,
 				7242CF7C22B1888500439849 /* StringHelper.cpp in Sources */,
+				7242CFB822E24CBF00439849 /* LoadedAsset.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +642,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					OSX,
+				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../Mini/Libs/Zip\"",
 					"\"$(SRCROOT)/../../../Mini/Libs/FreeType/include\"",

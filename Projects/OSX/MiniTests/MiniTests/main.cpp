@@ -12,6 +12,8 @@
 #include "TestEnabling.hpp"
 #include "TestReflection.hpp"
 #include "TestSerialization.hpp"
+#include "TestAssetDatabase.hpp"
+#include "TestObjectList.hpp"
 
 using namespace Tests;
 
@@ -33,6 +35,15 @@ int main() {
     std::cout << std::endl;
     ECS::TestSerialization testSerialization;
     testSerialization.Run();
+    
+    
+    std::cout << std::endl;
+    ECS::TestAssetDatabase testAssetDatabase;
+    testAssetDatabase.Run();
+    
+    std::cout << std::endl;
+    ECS::TestObjectList testObjectList;
+    testObjectList.Run();
     
     return 0;
 }
