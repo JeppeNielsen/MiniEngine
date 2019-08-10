@@ -8,7 +8,6 @@
 
 #include "JsonSerializer.hpp"
 #include "Scene.hpp"
-#include "minijson_writer.hpp"
 
 using namespace Mini;
 
@@ -16,10 +15,23 @@ JsonSerializer::JsonSerializer() {
     
 }
 
+JsonSerializer::JsonSerializer(const CustomHeaderFunction& customHeaderFunction)
+: customHeaderFunction(customHeaderFunction) {
+    
+}
+
 void JsonSerializer::SerializeObject(GameObject go, std::ostream& stream, const std::function<bool(int)>& componentFilter) {
     minijson::writer_configuration config;
     config = config.pretty_printing(true);
     minijson::object_writer writer(stream, config);
+    
+    if (customHeaderFunction) {
+        //auto info = writer.nested_object("Info");
+        customHeaderFunction(writer);
+        //info.close();
+    }
+    
+    
     Serialize(go, writer, componentFilter);
     writer.close();
 }
