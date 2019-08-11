@@ -16,6 +16,7 @@ namespace Mini {
         static void ParseFile(const std::string& filename, const std::function<void(const std::string& line)>& lineRead);
         static bool FileExists(const std::string& path);
         static bool DeleteFile(const std::string& path);
+        static bool RenameFile(const std::string& oldPath, const std::string& newPath);
         static std::string GetFileNameFromPath(const std::string& path);
         static std::string GetFolderPath(const std::string& path);
         static bool CreateFolder(const std::string& path);

@@ -59,6 +59,10 @@ bool FileHelper::DeleteFile(const std::string &path) {
     return remove( path.c_str() ) == 0;
 }
 
+bool FileHelper::RenameFile(const std::string &oldPath, const std::string &newPath) {
+    return rename(oldPath.c_str(), newPath.c_str()) == 0;
+}
+
 bool FileHelper::CreateFolder(const std::string &path) {
     return mkdir(path.c_str(), 0755) == 0;
 }
