@@ -17,6 +17,7 @@ namespace Mini {
         static bool FileExists(const std::string& path);
         static bool DeleteFile(const std::string& path);
         static bool RenameFile(const std::string& oldPath, const std::string& newPath);
+        static void CreateTextFile(const std::string& path, const std::string& text);
         static std::string GetFileNameFromPath(const std::string& path);
         static std::string GetFolderPath(const std::string& path);
         static bool CreateFolder(const std::string& path);
