@@ -1,10 +1,10 @@
 {
-    "id": "Mj0OtpKUTrC65nMgYPriHg==",
+    "id": "e+t+RDCJSsqVUeYEukxhCw==",
     "GameObject": {
         "Components": {
-            "Position" : {
-                "x" : 123,
-                "y" : 456
+            "Position": {
+                "x": 123,
+                "y": 456
             }
         }
     }

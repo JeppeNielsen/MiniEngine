@@ -52,17 +52,27 @@
 		7242CFB522DBD6E300439849 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7242CFB422DBD6DD00439849 /* CoreServices.framework */; };
 		7242CFB822E24CBF00439849 /* LoadedAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CFB622E24CBF00439849 /* LoadedAsset.cpp */; };
 		72EF80FC22FF3AFB00497133 /* TestObjectList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */; };
+		72EF82FF2309964E00497133 /* ScriptWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF82F92309964E00497133 /* ScriptWorld.cpp */; };
+		72EF83002309964E00497133 /* SerializedScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF82FB2309964E00497133 /* SerializedScene.cpp */; };
+		72EF83012309964E00497133 /* SystemComponentExtractor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF82FD2309964E00497133 /* SystemComponentExtractor.cpp */; };
+		72EF83032309982900497133 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72EF83022309982900497133 /* libclang.dylib */; };
+		72EF83052309983800497133 /* libcling.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 72EF83042309983700497133 /* libcling.dylib */; };
+		72EF830923099B3C00497133 /* libcling.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 72EF83042309983700497133 /* libcling.dylib */; };
+		72EF830A23099B3F00497133 /* libclang.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 72EF83022309982900497133 /* libclang.dylib */; };
+		72EF830E23099BF500497133 /* TestScripting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF830C23099BF500497133 /* TestScripting.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7242CBA522B1886E00439849 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				72EF830A23099B3F00497133 /* libclang.dylib in CopyFiles */,
+				72EF830923099B3C00497133 /* libcling.dylib in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -169,6 +179,16 @@
 		7242CFB722E24CBF00439849 /* LoadedAsset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoadedAsset.hpp; sourceTree = "<group>"; };
 		72EF80FA22FF3AFB00497133 /* TestObjectList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestObjectList.hpp; sourceTree = "<group>"; };
 		72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestObjectList.cpp; sourceTree = "<group>"; };
+		72EF82F92309964E00497133 /* ScriptWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptWorld.cpp; sourceTree = "<group>"; };
+		72EF82FA2309964E00497133 /* ScriptWorld.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScriptWorld.hpp; sourceTree = "<group>"; };
+		72EF82FB2309964E00497133 /* SerializedScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerializedScene.cpp; sourceTree = "<group>"; };
+		72EF82FC2309964E00497133 /* SerializedScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SerializedScene.hpp; sourceTree = "<group>"; };
+		72EF82FD2309964E00497133 /* SystemComponentExtractor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SystemComponentExtractor.cpp; sourceTree = "<group>"; };
+		72EF82FE2309964E00497133 /* SystemComponentExtractor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SystemComponentExtractor.hpp; sourceTree = "<group>"; };
+		72EF83022309982900497133 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = ../../../Mini/Scripting/libclang.dylib; sourceTree = "<group>"; };
+		72EF83042309983700497133 /* libcling.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcling.dylib; path = ../../../Mini/Scripting/libcling.dylib; sourceTree = "<group>"; };
+		72EF830C23099BF500497133 /* TestScripting.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestScripting.cpp; sourceTree = "<group>"; };
+		72EF830D23099BF500497133 /* TestScripting.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestScripting.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +196,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72EF83052309983800497133 /* libcling.dylib in Frameworks */,
+				72EF83032309982900497133 /* libclang.dylib in Frameworks */,
 				7242CFB522DBD6E300439849 /* CoreServices.framework in Frameworks */,
 				7242CFA122DBD24B00439849 /* CoreFoundation.framework in Frameworks */,
 			);
@@ -221,6 +243,7 @@
 				7242CE0A22B1888500439849 /* Math */,
 				7242CFA222DBD67F00439849 /* Platform */,
 				7242CE3622B1888500439849 /* Reflection */,
+				72EF82F82309964E00497133 /* Scripting */,
 				7242CE5622B1888500439849 /* Serialization */,
 				7242CE5D22B1888500439849 /* Tools */,
 			);
@@ -348,6 +371,7 @@
 		7242CF8422B80D7A00439849 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				72EF830B23099BB900497133 /* Scripting */,
 				7242CF9A22CE7F4E00439849 /* Assets */,
 				7242CF8622B80DDA00439849 /* ECS */,
 			);
@@ -406,6 +430,8 @@
 		7242CF9D22DBD00800439849 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72EF83042309983700497133 /* libcling.dylib */,
+				72EF83022309982900497133 /* libclang.dylib */,
 				7242CFB422DBD6DD00439849 /* CoreServices.framework */,
 				7242CFA022DBD23E00439849 /* CoreFoundation.framework */,
 			);
@@ -429,6 +455,28 @@
 			path = OSX;
 			sourceTree = "<group>";
 		};
+		72EF82F82309964E00497133 /* Scripting */ = {
+			isa = PBXGroup;
+			children = (
+				72EF82F92309964E00497133 /* ScriptWorld.cpp */,
+				72EF82FA2309964E00497133 /* ScriptWorld.hpp */,
+				72EF82FB2309964E00497133 /* SerializedScene.cpp */,
+				72EF82FC2309964E00497133 /* SerializedScene.hpp */,
+				72EF82FD2309964E00497133 /* SystemComponentExtractor.cpp */,
+				72EF82FE2309964E00497133 /* SystemComponentExtractor.hpp */,
+			);
+			path = Scripting;
+			sourceTree = "<group>";
+		};
+		72EF830B23099BB900497133 /* Scripting */ = {
+			isa = PBXGroup;
+			children = (
+				72EF830C23099BF500497133 /* TestScripting.cpp */,
+				72EF830D23099BF500497133 /* TestScripting.hpp */,
+			);
+			path = Scripting;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -439,6 +487,7 @@
 				7242CBA322B1886E00439849 /* Sources */,
 				7242CBA422B1886E00439849 /* Frameworks */,
 				7242CBA522B1886E00439849 /* CopyFiles */,
+				72EF830623099A4700497133 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -481,6 +530,16 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		72EF830623099A4700497133 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7242CBA322B1886E00439849 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -489,12 +548,14 @@
 				7242CE7A22B1888500439849 /* Scene.cpp in Sources */,
 				7242CE7622B1888500439849 /* GameObject.cpp in Sources */,
 				7242CF7522B1888500439849 /* FieldSerializer.cpp in Sources */,
+				72EF83012309964E00497133 /* SystemComponentExtractor.cpp in Sources */,
 				7242CF5822B1888500439849 /* Matrix3x3.cpp in Sources */,
 				7242CF6822B1888500439849 /* FieldInfo.cpp in Sources */,
 				7242CF6122B1888500439849 /* Vector2.cpp in Sources */,
 				7242CF5C22B1888500439849 /* Point3.cpp in Sources */,
 				7242CF8F22C6A60400439849 /* TestReflection.cpp in Sources */,
 				7242CF5422B1888500439849 /* BoundingBox.cpp in Sources */,
+				72EF82FF2309964E00497133 /* ScriptWorld.cpp in Sources */,
 				7242CF5622B1888500439849 /* Box.cpp in Sources */,
 				7242CE7922B1888500439849 /* ObjectList.cpp in Sources */,
 				7242CF5F22B1888500439849 /* Rect.cpp in Sources */,
@@ -523,7 +584,9 @@
 				7242CF5522B1888500439849 /* BoundingFrustum.cpp in Sources */,
 				7242CF5B22B1888500439849 /* Point.cpp in Sources */,
 				7242CF7822B1888500439849 /* CommandRunner.cpp in Sources */,
+				72EF83002309964E00497133 /* SerializedScene.cpp in Sources */,
 				7242CF7622B1888500439849 /* JsonDeserializer.cpp in Sources */,
+				72EF830E23099BF500497133 /* TestScripting.cpp in Sources */,
 				7242CE7722B1888500439849 /* GameObjectIterator.cpp in Sources */,
 				7242CF9622CE7C6000439849 /* AssetDatabase.cpp in Sources */,
 				7242CF5A22B1888500439849 /* Plane.cpp in Sources */,
@@ -650,6 +713,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../Mini/Libs/Zip\"",
 					"\"$(SRCROOT)/../../../Mini/Libs/FreeType/include\"",
+					"\"$(SRCROOT)/../../../Mini/Scripting/include\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -662,6 +726,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../Mini/Libs/Zip\"",
 					"\"$(SRCROOT)/../../../Mini/Libs/FreeType/include\"",
+					"\"$(SRCROOT)/../../../Mini/Scripting/include\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
