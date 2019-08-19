@@ -11,6 +11,9 @@
 #include <vector>
 
 namespace Mini {
+
+class TypeInfo;
+
 namespace ECS {
 
 class Scene;
@@ -62,6 +65,7 @@ public:
     void* AddComponent(int componentId) const;
     void* GetComponent(int componentId) const;
     void RemoveComponent(int componentId) const;
+    TypeInfo GetTypeInfo(int componentId) const;
 private:
     class Scene* scene;
     GameObjectId id;

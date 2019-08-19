@@ -11,6 +11,7 @@
 #include "Hierarchy.hpp"
 
 using namespace Mini::ECS;
+using namespace Mini;
 
 GameObject::GameObject() : scene(nullptr), id(GameObjectIdNull) {
 
@@ -72,4 +73,10 @@ void* GameObject::GetComponent(int componentId) const {
 void GameObject::RemoveComponent(int componentId) const {
     assert(GetComponent(componentId) != nullptr);
     return scene->RemoveComponent(id, componentId);
+}
+
+
+TypeInfo GameObject::GetTypeInfo(int index) const {
+    assert(operator bool());
+    return scene->database.GetTypeInfo(id, index);
 }

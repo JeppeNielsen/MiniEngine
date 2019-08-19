@@ -34,6 +34,8 @@ struct IContainer {
     virtual void Serialize(const GameObjectId id, minijson::object_writer& writer) = 0;
     virtual void Deserialize(const GameObjectId id, minijson::istream_context& context) = 0;
     
+    virtual TypeInfo GetType(const GameObjectId id) = 0;
+    
     std::vector<std::uint32_t> indicies;
 };
 
@@ -119,13 +121,12 @@ struct Container : public IContainer {
     
     template<typename Type>
     static void TrySerializeFields(minijson::object_writer& writer, Type& instance) {
-        
-        auto name = writer.nested_object(ClassNameHelper::GetName<Type>().c_str());
-        Mini::Meta::static_if<HasGetTypeMethod<Type>, Type&>(instance, [&writer, &name](auto& getType) {
+        Mini::Meta::static_if<HasGetTypeMethod<Type>, Type&>(instance, [&writer](auto& getType) {
             auto typeInfo = getType.GetType();
+            auto name = writer.nested_object(typeInfo.Name().c_str());
             typeInfo.Serialize(name);
+            name.close();
         });
-        name.close();
     }
     
     template<typename Type>
@@ -137,6 +138,16 @@ struct Container : public IContainer {
             ret = true;
         });
         return ret;
+    }
+    
+    template<typename Type>
+    static TypeInfo GetTypeInfo(Type& instance) {
+        TypeInfo typeRet("");
+        Mini::Meta::static_if<HasGetTypeMethod<Type>, Type&>(instance, [&typeRet](auto& getType) {
+            auto typeInfo = getType.GetType();
+            typeRet = typeInfo;
+        });
+        return typeRet;
     }
     
     virtual void Serialize(const GameObjectId id, minijson::object_writer& writer) override {
@@ -151,6 +162,10 @@ struct Container : public IContainer {
         }
     }
     
+    virtual TypeInfo GetType(const GameObjectId id) override {
+        T* instance = Get(id);
+        return GetTypeInfo(*instance);
+    }
     
     std::deque<T> elements;
     std::vector<std::uint16_t> references;

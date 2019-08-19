@@ -9,6 +9,7 @@
 #include "Database.hpp"
 
 using namespace Mini::ECS;
+using namespace Mini;
 
 void Database::RemoveComponent(const GameObjectId objectId, const std::size_t componentId) {
     if (componentId<componentsIndexed.size() && componentsIndexed[componentId]) {
@@ -105,4 +106,10 @@ void Database::RemoveCustomComponent(int id) {
         }
     }
     componentsIndexed[id] = nullptr;
+}
+
+TypeInfo Database::GetTypeInfo(const GameObjectId objectId, const std::size_t componentId) {
+    assert(componentId>=0 && componentId<componentsIndexed.size());
+    assert(componentsIndexed[componentId]);
+    return componentsIndexed[componentId]->GetType(objectId);
 }

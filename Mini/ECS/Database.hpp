@@ -96,6 +96,8 @@ private:
         }
     }
     
+    TypeInfo GetTypeInfo(const GameObjectId objectId, const std::size_t componentId);
+    
     void RemoveComponent(const GameObjectId objectId, const std::size_t componentId);
     
     void RemoveAllComponents(const GameObjectId objectId);
