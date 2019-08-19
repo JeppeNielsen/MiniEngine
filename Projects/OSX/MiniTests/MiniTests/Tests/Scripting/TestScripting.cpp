@@ -9,6 +9,7 @@
 #include "TestScripting.hpp"
 #include "ScriptWorld.hpp"
 #include "FileHelper.hpp"
+#include "JsonSerializer.hpp"
 
 using namespace Mini;
 using namespace ECS;
@@ -41,7 +42,7 @@ void TestScripting::SetupScriptWorld(ScriptWorld& scriptWorld) {
 
 void TestScripting::Run() {
 
-    RunTest("ScriptWorld ctor", [this] () -> bool {
+    RunTest("ScriptWorld script", [this] () -> bool {
         ScriptWorld scriptWorld;
         SetupScriptWorld(scriptWorld);
         
@@ -56,15 +57,64 @@ void TestScripting::Run() {
                 float y;
             };
             
-            struct MovementSystem : System<Position> {
-                void Update(float dt) override {
+            struct Velocity {
+                float vx;
+                float vy;
+            };
+            
+            struct MovementSystem : System<Position, Velocity> {
+            
+                void ObjectAdded(GameObject go) override {
+                    std::cout << "Object added" << std::endl;
+                }
                 
+                void ObjectRemoved(GameObject go) override {
+                    std::cout << "Object removed" << std::endl;
+                }
+            
+                void Update(float dt) override {
+                    for(auto o : Objects()) {
+                        auto pos = o.GetComponent<Position>();
+                        auto vel = o.GetComponent<Velocity>();
+                        
+                        pos->x += vel->vx;
+                        pos->y += vel->vy;
+                    }
                 }
             };
         );
         
         Database database;
-        scriptWorld.Compile(database, { WriteScript(script) });
+        database.AssureComponent<Hierarchy>();
+        if (!scriptWorld.Compile(database, { WriteScript(script) })) {
+            return false;
+        }
+        
+        Scene scene(database);
+        scriptWorld.AddScene(scene, {});
+        
+        auto go = scene.CreateObject();
+        go.AddComponent(1);
+        go.AddComponent(2);
+        
+        auto positionType = go.GetTypeInfo(2);
+        FieldInfo info;
+        positionType.TryFindField("vx", info);
+        auto xpos = info.GetField<float>();
+        *xpos = 1;
+        
+        JsonSerializer serializer;
+        serializer.SerializeObject(go, std::cout);
+        
+        scene.Update(0.0f);
+        
+        serializer.SerializeObject(go, std::cout);
+        
+        go.RemoveComponent(2);
+        
+        scene.Update(0.0f);
+        
+        serializer.SerializeObject(go, std::cout);
         
         return true;
     });
