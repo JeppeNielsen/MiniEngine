@@ -141,7 +141,7 @@ bool ScriptWorld::Compile(Database& database, const std::vector<std::string> &cp
     }
     
     
-
+    /*
     for(auto s : extractor.components) {
         std::cout << s.name << std::endl;
         for(auto f : s.fields) {
@@ -155,13 +155,14 @@ bool ScriptWorld::Compile(Database& database, const std::vector<std::string> &cp
             std::cout << "   "<< f << std::endl;
         }
     }
+    */
     
     auto databaseComponents = database.GetComponentNameIndices();
     ComponentNameIndicies scriptComponents;
     
     int scriptComponentIndexCounter = -1;
     for(auto index : databaseComponents) {
-        std::cout << index.first << "  " << index.second << std::endl;
+        //std::cout << index.first << "  " << index.second << std::endl;
         if (index.second > scriptComponentIndexCounter) {
             scriptComponentIndexCounter = index.second;
         }
@@ -204,7 +205,7 @@ bool ScriptWorld::Compile(Database& database, const std::vector<std::string> &cp
         code_CreateSystem +
         code_RemoveSystem;
     
-    std::cout << allCode << std::endl;
+    //std::cout << allCode << std::endl;
     
     auto res = interpreter->declare(allCode);
     
