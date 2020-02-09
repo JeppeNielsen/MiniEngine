@@ -11,15 +11,6 @@
 
 using namespace Mini::ECS;
 
-bool ObjectHasAncestor(GameObject go, GameObject ancestor) {
-    while (true) {
-        if (!go) break;
-        if (go == ancestor) return true;
-        go = go.Hierarchy().Parent;
-    }
-    return false;
-}
-
 Hierarchy::Hierarchy() {
     Initialize();
 }
@@ -40,8 +31,8 @@ Hierarchy& Hierarchy::operator=(const Hierarchy & other) {
 }
 
 void Hierarchy::Initialize() {
-    bool isFromHere = false;
-    Parent.Changed.Bind([this, &isFromHere] {
+    static bool isFromHere = false;
+    Parent.Changed.Bind([this] {
         if (isFromHere) {
             return;
         }
@@ -50,6 +41,7 @@ void Hierarchy::Initialize() {
             GameObject prevValue = Parent.PreviousValue();
             isFromHere = true;
             Parent = prevValue;
+            isFromHere = false;
             return;
         }
         GameObject prev = Parent.PreviousValue();
@@ -92,4 +84,13 @@ void Hierarchy::MakeEnabledDirty() {
     bool isWorldEnabled = WorldEnabled();
     if (wasWorldEnabled == isWorldEnabled) return;
     owner.Scene().SetEnable(owner.Id(), isWorldEnabled);
+}
+
+bool Hierarchy::ObjectHasAncestor(GameObject go, GameObject ancestor) {
+    while (true) {
+        if (!go) break;
+        if (go == ancestor) return true;
+        go = go.Hierarchy().Parent;
+    }
+    return false;
 }

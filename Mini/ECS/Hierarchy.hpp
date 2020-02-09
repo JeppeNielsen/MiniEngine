@@ -45,6 +45,7 @@ namespace ECS {
         
         void Initialize();
         void MakeEnabledDirty();
+        bool ObjectHasAncestor(GameObject go, GameObject ancestor);
         
         GameObject owner;
         ObjectCollection children;
