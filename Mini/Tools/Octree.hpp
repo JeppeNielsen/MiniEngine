@@ -65,7 +65,7 @@ namespace Mini {
                 }
                 if (!children) return;
                 for (int i=0; i<8; i++) {
-                    children[i].template Get(ray, list);
+                    children[i].Get(ray, list);
                 }
             }
         }
