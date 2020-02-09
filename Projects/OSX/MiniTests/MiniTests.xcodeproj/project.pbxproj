@@ -484,10 +484,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7242CBAE22B1886E00439849 /* Build configuration list for PBXNativeTarget "MiniTests" */;
 			buildPhases = (
-				7242CBA322B1886E00439849 /* Sources */,
-				7242CBA422B1886E00439849 /* Frameworks */,
 				7242CBA522B1886E00439849 /* CopyFiles */,
 				72EF830623099A4700497133 /* Resources */,
+				7242CBA322B1886E00439849 /* Sources */,
+				7242CBA422B1886E00439849 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -715,6 +715,7 @@
 					"\"$(SRCROOT)/../../../Mini/Libs/FreeType/include\"",
 					"\"$(SRCROOT)/../../../Mini/Scripting/include\"",
 				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../Mini/Scripting/\"";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -728,6 +729,7 @@
 					"\"$(SRCROOT)/../../../Mini/Libs/FreeType/include\"",
 					"\"$(SRCROOT)/../../../Mini/Scripting/include\"",
 				);
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../../Mini/Scripting/\"";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
