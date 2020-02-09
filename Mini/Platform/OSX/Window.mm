@@ -46,10 +46,6 @@ static OSXView* staticView;
                                                       target:self
                                                     selector:@selector( updateGLView: )
                                                     userInfo:nil repeats:YES ];// retain ];
-    [ [ NSRunLoop currentRunLoop ] addTimer:renderTimer
-                                    forMode:NSEventTrackingRunLoopMode ];
-    [ [ NSRunLoop currentRunLoop ] addTimer:renderTimer
-                                    forMode:NSModalPanelRunLoopMode ];
     GLint defaultFBO;
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
     
@@ -80,7 +76,7 @@ static OSXView* staticView;
 
 - (void) updateGLView:(NSTimer *)timer
 {
-    [self drawRect: [self frame]];
+    [self setNeedsDisplay: YES ] ;
 }
 
 - (void) mouseDown:(NSEvent*)theEvent {
