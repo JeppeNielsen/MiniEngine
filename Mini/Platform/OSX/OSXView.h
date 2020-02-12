@@ -8,10 +8,11 @@
 
 #pragma once
 #include <Cocoa/Cocoa.h>
-
+#include <CoreVideo/CVDisplayLink.h>
 
 @interface OSXView : NSOpenGLView <NSWindowDelegate>
 {
+    CVDisplayLinkRef displayLink;
     NSTimer *renderTimer;
     NSWindow* window;
 }
@@ -24,6 +25,7 @@
 -(void) menuItemClicked:(id)sender;
 -(void)viewDidChangeBackingProperties;
 -(NSPoint) convertViewLocationToWorldPoint: (NSPoint) point;
+-(CVReturn)getFrameForTime:(const CVTimeStamp*)outputTime;
 @end
 
 
