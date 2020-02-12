@@ -22,6 +22,7 @@ void Engine::MainLoop() {
     
     data.Update =
     [&, this]() {
+        elapsed = timer.Stop();
         timer.Start();
         window.inputDevice.StartFrame();
         window.inputDevice.UpdateInputManager(state->device.Input);
@@ -30,7 +31,6 @@ void Engine::MainLoop() {
         window.PreRender();
         state->Render();
         window.PostRender();
-        elapsed = timer.Stop();
         return state->device.exited;
     };
     
