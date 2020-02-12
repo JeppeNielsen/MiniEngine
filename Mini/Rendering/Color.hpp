@@ -6,7 +6,7 @@
 namespace Mini {
 	class Color {
 	public:
-		typedef unsigned char Component;
+		using Component = unsigned char;
 
 		Component r;
 		Component g;
