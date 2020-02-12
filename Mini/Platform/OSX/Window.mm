@@ -36,16 +36,24 @@ static OSXView* staticView;
     window = _window;
 }
 
+static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeStamp* now, const CVTimeStamp* outputTime, CVOptionFlags flagsIn, CVOptionFlags* flagsOut, void* displayLinkContext)
+{
+    return [(__bridge OSXView*)displayLinkContext getFrameForTime:outputTime];
+}
+
 - (void)prepareOpenGL {
     [super prepareOpenGL];
     
+    GLint swapInt = 1;
+    [[self openGLContext] setValues:&swapInt forParameter:NSOpenGLCPSwapInterval];
     
-    NSTimeInterval timeInterval = 0.005;
+    CVDisplayLinkCreateWithActiveCGDisplays(&displayLink);
+    CVDisplayLinkSetOutputCallback(displayLink, &MyDisplayLinkCallback, (__bridge void*)self);
     
-    renderTimer =  [ NSTimer scheduledTimerWithTimeInterval:timeInterval
-                                                      target:self
-                                                    selector:@selector( updateGLView: )
-                                                    userInfo:nil repeats:YES ];// retain ];
+    CGLContextObj cglContext = [[self openGLContext] CGLContextObj];
+    CGLPixelFormatObj cglPixelFormat = [[self pixelFormat] CGLPixelFormatObj];
+    CVDisplayLinkSetCurrentCGDisplayFromOpenGLContext(displayLink, cglContext, cglPixelFormat);
+                                              
     GLint defaultFBO;
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
     
@@ -59,9 +67,22 @@ static OSXView* staticView;
     }
 
     [app setMainMenu:menu];
+    
+    [self setWantsLayer:YES];
 
     staticView = self;
     engineWindow->mainLoopData.Initialize();
+    
+    CVDisplayLinkStart(displayLink);
+}
+
+- (CVReturn)getFrameForTime:(const CVTimeStamp*)outputTime
+{
+    // Need to dispatch to main thread as CVDisplayLink uses it's own thread.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay:YES];
+    });
+    return kCVReturnSuccess;
 }
 
 -(NSPoint) convertViewLocationToWorldPoint: (NSPoint) point {
@@ -72,11 +93,6 @@ static OSXView* staticView;
     
     rect = [window convertRectToScreen:rect];
     return rect.origin;
-}
-
-- (void) updateGLView:(NSTimer *)timer
-{
-    [self setNeedsDisplay: YES ] ;
 }
 
 - (void) mouseDown:(NSEvent*)theEvent {
