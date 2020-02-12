@@ -128,6 +128,7 @@
 		7214CF4721E927EE00D1FEFA /* SpriteTextureSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF2F21E927EE00D1FEFA /* SpriteTextureSystem.cpp */; };
 		7214CF4821E927EE00D1FEFA /* TextBoxLabelSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF3221E927EE00D1FEFA /* TextBoxLabelSystem.cpp */; };
 		7214CF4921E927EE00D1FEFA /* TextBoxSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7214CF3421E927EE00D1FEFA /* TextBoxSystem.cpp */; };
+		72E7963C23F20B7500820B01 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E7963B23F20B7500820B01 /* CoreVideo.framework */; };
 		72EB9E7622554AF900B21159 /* LayoutSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9E7422554AF900B21159 /* LayoutSystem.cpp */; };
 		72EB9EB922594F8B00B21159 /* VirtualTreeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EAA22594F8B00B21159 /* VirtualTreeList.cpp */; };
 		72EB9EBA22594F8B00B21159 /* VirtualTreeListSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EB9EAC22594F8B00B21159 /* VirtualTreeListSpawner.cpp */; };
@@ -487,6 +488,7 @@
 		7214CF3321E927EE00D1FEFA /* TextBoxLabelSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextBoxLabelSystem.hpp; sourceTree = "<group>"; };
 		7214CF3421E927EE00D1FEFA /* TextBoxSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextBoxSystem.cpp; sourceTree = "<group>"; };
 		7214CF3521E927EE00D1FEFA /* TextBoxSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TextBoxSystem.hpp; sourceTree = "<group>"; };
+		72E7963B23F20B7500820B01 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		72EB9E7422554AF900B21159 /* LayoutSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutSystem.cpp; sourceTree = "<group>"; };
 		72EB9E7522554AF900B21159 /* LayoutSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LayoutSystem.hpp; sourceTree = "<group>"; };
 		72EB9EAA22594F8B00B21159 /* VirtualTreeList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VirtualTreeList.cpp; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72E7963C23F20B7500820B01 /* CoreVideo.framework in Frameworks */,
 				7214CAF821E1FF3F00D1FEFA /* OpenGL.framework in Frameworks */,
 				7214CAF921E1FF3F00D1FEFA /* IOKit.framework in Frameworks */,
 				7214CAFA21E1FF3F00D1FEFA /* Cocoa.framework in Frameworks */,
@@ -679,6 +682,7 @@
 		7214CAF421E1FF0500D1FEFA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				72E7963B23F20B7500820B01 /* CoreVideo.framework */,
 				7214CE7521E2AD8500D1FEFA /* Foundation.framework */,
 				7214CAF721E1FF1C00D1FEFA /* OpenGL.framework */,
 				7214CAF621E1FF0B00D1FEFA /* IOKit.framework */,
