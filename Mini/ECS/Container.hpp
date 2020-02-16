@@ -58,6 +58,7 @@ struct Container : public IContainer {
             indicies.resize(index + 1, GameObjectIdNull);
         }
         indicies[index] = (std::uint32_t)elements.size();
+        objects.emplace_back(id);
         references.emplace_back(1);
     }
     
@@ -89,21 +90,31 @@ struct Container : public IContainer {
             indicies.resize(index + 1, GameObjectIdNull);
         }
         
-        indicies[index] = referenceIndex;
-        ++references[referenceIndex];
+        const auto referenceElementIndex = indicies[referenceIndex];
+        
+        indicies[index] = referenceElementIndex;
+        ++references[referenceElementIndex];
     }
     
     void Destroy(const GameObjectId id) override {
         assert(Contains(id));
         const auto index = id & GameObjectIdIndexMask;
+        const auto elementIndex = indicies[index];
         
-        if ((references[index]--)==0) {
-            auto tmp = std::move(elements.back());
-            elements[index] = std::move(tmp);
+        if ((--references[elementIndex])==0) {
+            if (elementIndex < (elements.size() - 1)) {
+                auto tmp = std::move(elements.back());
+                elements[elementIndex] = std::move(tmp);
+            }
             elements.pop_back();
-            references[index] = references.back();
+            references[elementIndex] = references.back();
             references.pop_back();
-            indicies[indicies.size() - 1] = index;
+            
+            const auto last = objects.back();
+            objects[elementIndex] = last;
+            objects.pop_back();
+            
+            indicies[last & GameObjectIdIndexMask] = indicies[index];
         }
         
         indicies[index] = GameObjectIdNull;
@@ -168,6 +179,7 @@ struct Container : public IContainer {
     }
     
     std::deque<T> elements;
+    std::vector<GameObjectId> objects;
     std::vector<std::uint16_t> references;
 };
 
