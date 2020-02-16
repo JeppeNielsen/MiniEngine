@@ -14,6 +14,7 @@
 #include "TestSerialization.hpp"
 #include "TestAssetDatabase.hpp"
 #include "TestObjectList.hpp"
+#include "TestContainer.hpp"
 #include "TestScripting.hpp"
 
 using namespace Tests;
@@ -48,6 +49,10 @@ int main() {
     ECS::TestObjectList testObjectList;
     testObjectList.Run();
     
+    std::cout << std::endl << "Container" << std::endl << std::endl;
+    ECS::TestContainer testContainer;
+    testContainer.Run();
+
     std::cout << std::endl << "Scripting" << std::endl << std::endl;
     ECS::TestScripting testScripting;
     testScripting.Run();
