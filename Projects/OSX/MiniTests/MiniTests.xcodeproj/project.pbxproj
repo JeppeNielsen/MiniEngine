@@ -51,6 +51,7 @@
 		7242CFB222DBD67F00439849 /* FileSystemWatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CFAB22DBD67F00439849 /* FileSystemWatcher.cpp */; };
 		7242CFB522DBD6E300439849 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7242CFB422DBD6DD00439849 /* CoreServices.framework */; };
 		7242CFB822E24CBF00439849 /* LoadedAsset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7242CFB622E24CBF00439849 /* LoadedAsset.cpp */; };
+		726FDC5A23F9CA3300B12C5E /* TestContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 726FDC5923F9CA3300B12C5E /* TestContainer.cpp */; };
 		72EF80FC22FF3AFB00497133 /* TestObjectList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */; };
 		72EF82FF2309964E00497133 /* ScriptWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF82F92309964E00497133 /* ScriptWorld.cpp */; };
 		72EF83002309964E00497133 /* SerializedScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72EF82FB2309964E00497133 /* SerializedScene.cpp */; };
@@ -177,6 +178,8 @@
 		7242CFB422DBD6DD00439849 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		7242CFB622E24CBF00439849 /* LoadedAsset.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LoadedAsset.cpp; sourceTree = "<group>"; };
 		7242CFB722E24CBF00439849 /* LoadedAsset.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = LoadedAsset.hpp; sourceTree = "<group>"; };
+		726FDC5823F9CA3300B12C5E /* TestContainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestContainer.hpp; sourceTree = "<group>"; };
+		726FDC5923F9CA3300B12C5E /* TestContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestContainer.cpp; sourceTree = "<group>"; };
 		72EF80FA22FF3AFB00497133 /* TestObjectList.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestObjectList.hpp; sourceTree = "<group>"; };
 		72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestObjectList.cpp; sourceTree = "<group>"; };
 		72EF82F92309964E00497133 /* ScriptWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptWorld.cpp; sourceTree = "<group>"; };
@@ -390,20 +393,22 @@
 		7242CF8622B80DDA00439849 /* ECS */ = {
 			isa = PBXGroup;
 			children = (
-				72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */,
-				72EF80FA22FF3AFB00497133 /* TestObjectList.hpp */,
+				7242CF9722CE7DC400439849 /* TestAssetDatabase.cpp */,
+				7242CF9822CE7DC400439849 /* TestAssetDatabase.hpp */,
+				726FDC5923F9CA3300B12C5E /* TestContainer.cpp */,
+				726FDC5823F9CA3300B12C5E /* TestContainer.hpp */,
 				7242CF8022B4368700439849 /* TestCore.cpp */,
 				7242CF8122B4368700439849 /* TestCore.hpp */,
-				7242CF8722B815BA00439849 /* TestHierarchy.cpp */,
-				7242CF8822B815BA00439849 /* TestHierarchy.hpp */,
 				7242CF8A22B96DC700439849 /* TestEnabling.cpp */,
 				7242CF8B22B96DC700439849 /* TestEnabling.hpp */,
+				7242CF8722B815BA00439849 /* TestHierarchy.cpp */,
+				7242CF8822B815BA00439849 /* TestHierarchy.hpp */,
+				72EF80FB22FF3AFB00497133 /* TestObjectList.cpp */,
+				72EF80FA22FF3AFB00497133 /* TestObjectList.hpp */,
 				7242CF8D22C6A60400439849 /* TestReflection.cpp */,
 				7242CF8E22C6A60400439849 /* TestReflection.hpp */,
 				7242CF9022C6ADF900439849 /* TestSerialization.cpp */,
 				7242CF9122C6ADF900439849 /* TestSerialization.hpp */,
-				7242CF9722CE7DC400439849 /* TestAssetDatabase.cpp */,
-				7242CF9822CE7DC400439849 /* TestAssetDatabase.hpp */,
 			);
 			path = ECS;
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 				7242CF5922B1888500439849 /* Matrix4x4.cpp in Sources */,
 				7242CF5722B1888500439849 /* MathHelper.cpp in Sources */,
 				7242CF5522B1888500439849 /* BoundingFrustum.cpp in Sources */,
+				726FDC5A23F9CA3300B12C5E /* TestContainer.cpp in Sources */,
 				7242CF5B22B1888500439849 /* Point.cpp in Sources */,
 				7242CF7822B1888500439849 /* CommandRunner.cpp in Sources */,
 				72EF83002309964E00497133 /* SerializedScene.cpp in Sources */,
