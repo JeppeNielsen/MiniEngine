@@ -17,7 +17,7 @@ Camera::Camera() {
 	
 	Projection.Method = [this] (Matrix4x4& mat) {
         float fieldOfView = FieldOfView;
-        if (!Orthographic) {
+        if (!Orthographic()) {
             float aspect;
             if (MathHelper::FloatEqual(Aspect, 0, 0.001f)) {
                 const Rect& viewport = Viewport;
