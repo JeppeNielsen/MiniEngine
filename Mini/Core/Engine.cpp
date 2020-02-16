@@ -18,6 +18,7 @@ void Engine::MainLoop() {
     [&, this]() {
         state->device.Menu.InitializeMainMenu();
         state->Initialize();
+        timer.Start();
     };
     
     data.Update =
